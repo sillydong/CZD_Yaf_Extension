@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	{if isset($meta_title) AND $meta_title}
+	<title>{$meta_title|escape:'htmlall':'UTF-8'}</title>
+	{/if}
+	{if isset($meta_description) AND $meta_description}
+	<meta name="description" content="{$meta_description|escape:html:'UTF-8'}" />
+	{/if}
+	{if isset($meta_keywords) AND $meta_keywords}
+	<meta name="keywords" content="{$meta_keywords|escape:html:'UTF-8'}" />
+	{/if}
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	{if isset($css_files)}
+	{foreach from=$css_files item=css_uri}
+	<link href="{$css_uri}" rel="stylesheet" type="text/css" media="all" />
+	{/foreach}
+	{/if}
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	{if isset($js_files)}
+	{foreach from=$js_files item=js_uri}
+	<script type="text/javascript" src="{$js_uri}"></script>
+	{/foreach}
+	{/if}
+</head>
+<body>
