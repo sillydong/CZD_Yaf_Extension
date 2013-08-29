@@ -18,7 +18,7 @@ class PSCWS{
 		$this->scws=scws_new();
 		$this->scws->set_charset('utf8');
 		$this->scws->set_rule(ini_get('scws.default.fpath').'/rules.utf8.ini');
-		$this->scws->set_dict(ini_get('scws.default.fpath').'/books.dict.utf8.xdb');
+		$this->scws->set_dict(ini_get('scws.default.fpath').'/dict.utf8.xdb');
 		$this->scws->set_duality(true);
 		$this->scws->set_ignore(true);
 	}
@@ -35,6 +35,13 @@ class PSCWS{
 		}
 	}
 
+	/**
+	 * 获取分词结果
+	 * @param $string
+	 * @param bool $doclean
+	 * @param int $multi
+	 * @return array
+	 */
 	public function getWords($string,$doclean=true,$multi=self::MULTI_DOUBLE){
 		$this->scws->set_multi($multi);
 		$this->scws->send_text($string);
@@ -50,6 +57,11 @@ class PSCWS{
 		return $doclean?self::cleanWords($words):$words;
 	}
 
+	/**
+	 * 保留'n','v','vn','a','nz','nr'词性的词
+	 * @param $words
+	 * @return array
+	 */
 	public static function cleanWords($words){
 		if(!empty($words) && is_array($words)){
 			foreach ($words as $key=>$word){

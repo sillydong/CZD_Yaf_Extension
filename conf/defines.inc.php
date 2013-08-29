@@ -26,9 +26,3 @@ function bqSQL($string){
 	return str_replace('`', '\`', pSQL($string));
 }
 
-function truncate($string,$length){
-	if(mb_strlen($string,'utf-8')>$length){
-		$string=mb_substr($string, 0,$length,'utf-8').'...';
-	}
-	return $string;
-}

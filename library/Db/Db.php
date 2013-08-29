@@ -51,6 +51,11 @@ abstract class Db{
 
 	abstract public function set_db($db_name);
 
+	/**
+	 * 获取Db实例，可选择主从
+	 * @param bool $master
+	 * @return mixed
+	 */
 	public static function getInstance($master = true){
 		static $id = 0;
 
@@ -107,6 +112,15 @@ abstract class Db{
 		return $this->result;
 	}
 
+	/**
+	 * 插入
+	 * @param $table
+	 * @param $data
+	 * @param bool $null_values
+	 * @param bool $use_cache
+	 * @param int $type
+	 * @return bool
+	 */
 	public function insert($table, $data, $null_values = false, $use_cache = true, $type = Db::INSERT){
 		if (!$data && !$null_values)
 			return true;
@@ -159,6 +173,16 @@ abstract class Db{
 		}
 	}
 
+	/**
+	 * update
+	 * @param $table
+	 * @param $data
+	 * @param string $where
+	 * @param int $limit
+	 * @param bool $null_values
+	 * @param bool $use_cache
+	 * @return bool
+	 */
 	public function update($table, $data, $where = '', $limit = 0, $null_values = false, $use_cache = true){
 		if (!$data)
 			return true;
@@ -187,6 +211,14 @@ abstract class Db{
 		}
 	}
 
+	/**
+	 * delete
+	 * @param $table
+	 * @param string $where
+	 * @param int $limit
+	 * @param bool $use_cache
+	 * @return bool
+	 */
 	public function delete($table, $where = '', $limit = 0, $use_cache = true){
 
 		$this->result = false;
@@ -197,6 +229,12 @@ abstract class Db{
 		return (bool)$res;
 	}
 
+	/**
+	 * insert/delete/update
+	 * @param $sql
+	 * @param bool $use_cache
+	 * @return bool
+	 */
 	public function execute($sql, $use_cache = true){
 		if ($sql instanceof DbQuery)
 			$sql = $sql->build();
@@ -207,6 +245,13 @@ abstract class Db{
 		return (bool)$this->result;
 	}
 
+	/**
+	 * 执行select操作
+	 * @param $sql
+	 * @param bool $array
+	 * @param bool $use_cache
+	 * @return array|bool|mixed
+	 */
 	public function executeS($sql, $array = true, $use_cache = true){
 		if ($sql instanceof DbQuery)
 			$sql = $sql->build();
@@ -241,6 +286,12 @@ abstract class Db{
 		return $result_array;
 	}
 
+	/**
+	 * 限制select一行数据
+	 * @param $sql
+	 * @param bool $use_cache
+	 * @return bool|mixed
+	 */
 	public function getRow($sql, $use_cache = true){
 		if ($sql instanceof DbQuery)
 			$sql = $sql->build();
@@ -266,6 +317,12 @@ abstract class Db{
 		return $result;
 	}
 
+	/**
+	 * 获取值
+	 * @param $sql
+	 * @param bool $use_cache
+	 * @return bool|mixed
+	 */
 	public function getValue($sql, $use_cache = true){
 		if ($sql instanceof DbQuery)
 			$sql = $sql->build();
@@ -275,6 +332,10 @@ abstract class Db{
 		return array_shift($result);
 	}
 
+	/**
+	 * 查询结果行数
+	 * @return bool|mixed
+	 */
 	public function numRows(){
 		if (!$this->last_cached && $this->result){
 			$nrows = $this->_numRows($this->result);

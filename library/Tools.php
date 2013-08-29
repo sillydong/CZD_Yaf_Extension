@@ -5,8 +5,7 @@ class Tools {
 	const FLAG_NO_NUMERIC=2;
 	const FLAG_ALPHANUMERIC=3;
 	/**
-	 * Random password generator
-	 *
+	 * 生成随机密码
 	 * @param integer $length Desired length (optional)
 	 * @param string $flag Output type (NUMERIC, ALPHANUMERIC, NO_NUMERIC)
 	 * @return string Password
@@ -29,10 +28,23 @@ class Tools {
 		return $passwd;
 	}
 
+	/**
+	 * 替换第一次出现的字符串
+	 * @param $search
+	 * @param $replace
+	 * @param $subject
+	 * @param int $cur
+	 * @return mixed
+	 */
 	public static function strReplaceFirst($search, $replace, $subject, $cur = 0){
 		return (strpos($subject, $search, $cur))?substr_replace($subject, $replace, (int)strpos($subject, $search, $cur), strlen($search)):$subject;
 	}
 
+	/**
+	 * 跳转
+	 * @param $url
+	 * @param null $headers
+	 */
 	public static function redirect($url, $headers = null){
 		if(!empty($url)){
 			if ($headers){
@@ -48,6 +60,12 @@ class Tools {
 		}
 	}
 
+	/**
+	 * 清理URL中的http头
+	 * @param $url
+	 * @param bool $cleanall
+	 * @return mixed|string
+	 */
 	public static function cleanUrl($url,$cleanall=true){
 		if(strpos($url, 'http://')!==false){
 			if($cleanall){
@@ -60,6 +78,12 @@ class Tools {
 		return $url;
 	}
 
+	/**
+	 * 获取当前域名
+	 * @param bool $http
+	 * @param bool $entities
+	 * @return string
+	 */
 	public static function getHttpHost($http = false, $entities = false) {
 		$host = (isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : $_SERVER['HTTP_HOST']);
 		if ($entities)
@@ -70,12 +94,20 @@ class Tools {
 		return $host;
 	}
 
+	/**
+	 * 获取当前服务器名
+	 * @return mixed
+	 */
 	public static function getServerName() {
 		if (isset($_SERVER['HTTP_X_FORWARDED_SERVER']) && $_SERVER['HTTP_X_FORWARDED_SERVER'])
 			return $_SERVER['HTTP_X_FORWARDED_SERVER'];
 		return $_SERVER['SERVER_NAME'];
 	}
 
+	/**
+	 * 获取用户IP地址
+	 * @return mixed
+	 */
 	public static function getRemoteAddr() {
 		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] && (!isset($_SERVER['REMOTE_ADDR']) || preg_match('/^127\..*/i', trim($_SERVER['REMOTE_ADDR'])) || preg_match('/^172\.16.*/i', trim($_SERVER['REMOTE_ADDR'])) || preg_match('/^192\.168\.*/i', trim($_SERVER['REMOTE_ADDR'])) || preg_match('/^10\..*/i', trim($_SERVER['REMOTE_ADDR'])))){
 			if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',')){
@@ -88,6 +120,10 @@ class Tools {
 		return $_SERVER['REMOTE_ADDR'];
 	}
 
+	/**
+	 * 获取用户来源地址
+	 * @return null
+	 */
 	public static function getReferer(){
 		if(isset($_SERVER['HTTP_REFERER'])){
 			return $_SERVER['HTTP_REFERER'];
@@ -97,6 +133,10 @@ class Tools {
 		}
 	}
 
+	/**
+	 * 判断是否使用了HTTPS
+	 * @return bool
+	 */
 	public static function usingSecureMode(){
 		if (isset($_SERVER['HTTPS']))
 			return ($_SERVER['HTTPS'] == 1 || strtolower($_SERVER['HTTPS']) == 'on');
@@ -105,6 +145,10 @@ class Tools {
 		return false;
 	}
 
+	/**
+	 * 获取当前URL协议
+	 * @return string
+	 */
 	public static function getCurrentUrlProtocolPrefix(){
 		if (Tools::usingSecureMode())
 			return 'https://';
@@ -112,12 +156,23 @@ class Tools {
 			return 'http://';
 	}
 
+	/**
+	 * 判断是否本站链接
+	 * @param $referrer
+	 * @return string
+	 */
 	public static function secureReferrer($referrer){
 		if (preg_match('/^http[s]?:\/\/'.Tools::getServerName().'(:443)?\/.*$/Ui', $referrer))
 			return $referrer;
 		return '/';
 	}
 
+	/**
+	 * 获取POST或GET的指定字段内容
+	 * @param $key
+	 * @param bool $default_value
+	 * @return bool|string
+	 */
 	public static function getValue($key, $default_value = false){
 		if (!isset($key) || empty($key) || !is_string($key))
 			return false;
@@ -128,12 +183,22 @@ class Tools {
 		return !is_string($ret)? $ret : stripslashes($ret);
 	}
 
+	/**
+	 * 判断POST或GET中是否包含指定字段
+	 * @param $key
+	 * @return bool
+	 */
 	public static function getIsset($key){
 		if (!isset($key) || empty($key) || !is_string($key))
 			return false;
 		return isset($_POST[$key]) ? true : (isset($_GET[$key]) ? true : false);
 	}
 
+	/**
+	 * 判断是否为提交操作
+	 * @param $submit
+	 * @return bool
+	 */
 	public static function isSubmit($submit){
 		return (
 				isset($_POST[$submit]) || isset($_POST[$submit.'_x']) || isset($_POST[$submit.'_y'])
@@ -141,6 +206,12 @@ class Tools {
 		);
 	}
 
+	/**
+	 * 过滤HTML内容后返回
+	 * @param $string
+	 * @param bool $html
+	 * @return array|string
+	 */
 	public static function safeOutput($string, $html = false){
 		if (!$html)
 			$string = strip_tags($string);
@@ -159,12 +230,21 @@ class Tools {
 		return html_entity_decode((string)$string, ENT_QUOTES, 'utf-8');
 	}
 
+	/**
+	 * 对POST内容进行处理
+	 * @return array
+	 */
 	public static function safePostVars() {
 		if (!is_array($_POST))
 			return array();
 		$_POST = array_map(array('Tools', 'htmlentitiesUTF8'), $_POST);
 	}
 
+	/**
+	 * 删除文件夹
+	 * @param $dirname
+	 * @param bool $delete_self
+	 */
 	public static function deleteDirectory($dirname, $delete_self = true){
 		$dirname = rtrim($dirname, '/').'/';
 		if (is_dir($dirname)){
@@ -181,6 +261,13 @@ class Tools {
 		}
 	}
 
+	/**
+	 * 显示错误信息
+	 * @param string $string
+	 * @param array $error
+	 * @param bool $htmlentities
+	 * @return mixed|string
+	 */
 	public static function displayError($string = 'Fatal error',$error=array(), $htmlentities = true) {
 		if(DEBUGMODE){
 			if (!is_array($error) || empty($error))
@@ -194,6 +281,12 @@ class Tools {
 		}
 	}
 
+	/**
+	 * 打印出对象的内容
+	 * @param $object
+	 * @param bool $kill
+	 * @return mixed
+	 */
 	public static function dieObject($object, $kill = true) {
 		echo '<pre style="text-align: left;">';
 		print_r($object);
@@ -211,6 +304,13 @@ class Tools {
 		return !empty($string) ? Tools::encrypt($string) : false;
 	}
 
+	/**
+	 * 截取字符串，支持中文
+	 * @param $str
+	 * @param $max_length
+	 * @param string $suffix
+	 * @return string
+	 */
 	public static function truncate($str, $max_length, $suffix = '...'){
 		if (Tools::strlen($str) <= $max_length)
 			return $str;
@@ -269,6 +369,10 @@ class Tools {
 		return preg_replace('/\\\[px]\{[a-z]\}{1,2}|(\/[a-z]*)u([a-z]*)$/i', "$1$2", $pattern);
 	}
 
+	/**
+	 * 生成年份
+	 * @return array
+	 */
 	public static function dateYears() {
 		$tab = array();
 
@@ -277,6 +381,10 @@ class Tools {
 		return $tab;
 	}
 
+	/**
+	 * 生成日
+	 * @return array
+	 */
 	public static function dateDays() {
 		$tab = array();
 
@@ -285,6 +393,10 @@ class Tools {
 		return $tab;
 	}
 
+	/**
+	 * 生成月
+	 * @return array
+	 */
 	public static function dateMonths() {
 		$tab = array();
 
@@ -293,10 +405,22 @@ class Tools {
 		return $tab;
 	}
 
+	/**
+	 * 根据时分秒生成时间字符串
+	 * @param $hours
+	 * @param $minutes
+	 * @param $seconds
+	 * @return string
+	 */
 	public static function hourGenerate($hours, $minutes, $seconds) {
 		return implode(':', array($hours, $minutes, $seconds));
 	}
 
+	/**
+	 * 一日之初
+	 * @param $date
+	 * @return string
+	 */
 	public static function dateFrom($date) {
 		$tab = explode(' ', $date);
 		if (!isset($tab[1]))
@@ -304,6 +428,11 @@ class Tools {
 		return $date;
 	}
 
+	/**
+	 * 一日之终
+	 * @param $date
+	 * @return string
+	 */
 	public static function dateTo($date) {
 		$tab = explode(' ', $date);
 		if (!isset($tab[1]))
@@ -311,10 +440,19 @@ class Tools {
 		return $date;
 	}
 
+	/**
+	 * 获取精准的时间
+	 * @return int
+	 */
 	public static function getExactTime() {
 		return time() + microtime();
 	}
 
+	/**
+	 * 转换成小写字符，支持中文
+	 * @param $str
+	 * @return bool|string
+	 */
 	public static function strtolower($str) {
 		if (is_array($str))
 			return false;
@@ -323,6 +461,12 @@ class Tools {
 		return strtolower($str);
 	}
 
+	/**
+	 * 计算字符串长度
+	 * @param $str
+	 * @param string $encoding
+	 * @return bool|int
+	 */
 	public static function strlen($str,$encoding = 'UTF-8') {
 		if (is_array($str))
 			return false;
@@ -338,6 +482,11 @@ class Tools {
 		return $string;
 	}
 
+	/**
+	 * 转换成大写字符串
+	 * @param $str
+	 * @return bool|string
+	 */
 	public static function strtoupper($str) {
 		if (is_array($str))
 			return false;
@@ -346,6 +495,14 @@ class Tools {
 		return strtoupper($str);
 	}
 
+	/**
+	 * 截取字符串
+	 * @param $str
+	 * @param $start
+	 * @param bool $length
+	 * @param string $encoding
+	 * @return bool|string
+	 */
 	public static function substr($str, $start, $length = false, $encoding = 'utf-8') {
 		if (is_array($str))
 			return false;
@@ -354,6 +511,10 @@ class Tools {
 		return substr($str, $start, ($length === false ? Tools::strlen($str) : intval($length)));
 	}
 
+	/**首字母大写
+	 * @param $str
+	 * @return string
+	 */
 	public static function ucfirst($str) {
 		return self::strtoupper(self::substr($str, 0, 1)) . self::substr($str, 1);
 	}
@@ -366,6 +527,11 @@ class Tools {
 		return str_replace("<br />","\n",$str);
 	}
 
+	/**
+	 * 判断是否真为空
+	 * @param $field
+	 * @return bool
+	 */
 	public static function isEmpty($field){
 		return ($field === '' || $field === null);
 	}
@@ -398,6 +564,11 @@ class Tools {
 		return urlencode(strtolower(preg_replace('/[ ]+/', '-', trim($url, ' -/,.?'))));
 	}
 
+	/**
+	 * 获取日期
+	 * @param null $timestamp
+	 * @return bool|string
+	 */
 	public static function getSimpleDate($timestamp=null) {
 		if($timestamp==null){
 			return date('Y-m-d');
@@ -407,6 +578,11 @@ class Tools {
 		}
 	}
 
+	/**
+	 * 获取完整时间
+	 * @param null $timestamp
+	 * @return bool|string
+	 */
 	public static function getFullDate($timestamp=null) {
 		if($timestamp==null){
 			return date('Y-m-d H:i:s');
@@ -416,10 +592,19 @@ class Tools {
 		}
 	}
 
+	/**
+	 * 判断是否64位架构
+	 * @return bool
+	 */
 	public static function isX86_64arch(){
 		return (PHP_INT_MAX == '9223372036854775807');
 	}
 
+	/**
+	 * 获取服务器配置允许最大上传文件大小
+	 * @param int $max_size
+	 * @return mixed
+	 */
 	public static function getMaxUploadSize($max_size = 0){
 		$post_max_size = Tools::convertBytes(ini_get('post_max_size'));
 		$upload_max_filesize = Tools::convertBytes(ini_get('upload_max_filesize'));
@@ -452,6 +637,10 @@ class Tools {
 		}
 	}
 
+	/**
+	 * 获取内存限制
+	 * @return int
+	 */
 	public static function getMemoryLimit(){
 		$memory_limit = @ini_get('memory_limit');
 		return Tools::getOctets($memory_limit);
@@ -470,11 +659,17 @@ class Tools {
 		return $option;
 	}
 
+	/**
+	 * 从array中取出指定字段
+	 * @param $array
+	 * @param $key
+	 * @return array|null
+	 */
 	public static function simpleArray($array, $key) {
 		if (!empty($array) && is_array($array)) {
 			$result = array();
-			foreach ($array as $item) {
-				$result[] = $item[$key];
+			foreach ($array as $k=>$item) {
+				$result[$k] = $item[$key];
 			}
 			return $result;
 		}
@@ -490,6 +685,11 @@ class Tools {
 		return floor($sec + $usec * 1000000);
 	}
 
+	/**
+	 * 根据时间生成图片名
+	 * @param string $image_type
+	 * @return float|string
+	 */
 	public static function getTimeImageName($image_type="image/jpeg") {
 		if ($image_type == "image/jpeg" || $image_type == "image/pjpeg") {
 			return self::getmicrotime() . ".jpg";
@@ -502,6 +702,13 @@ class Tools {
 		}
 	}
 
+	/**
+	 * 日期计算
+	 * @param $interval
+	 * @param $step
+	 * @param $date
+	 * @return bool|string
+	 */
 	public static function dateadd($interval, $step, $date) {
 		list($year, $month, $day) = explode('-', $date);
 		if (strtolower($interval) == 'y') {
@@ -549,6 +756,12 @@ class Tools {
 		}
 	}
 
+	/**
+	 * HackNews热度计算公式
+	 * @param $time
+	 * @param $viewcount
+	 * @return float|int
+	 */
 	public static function getGravity($time,$viewcount){
 		$timegap=($_SERVER['REQUEST_TIME']-strtotime($time))/3600;
 		if($timegap<=24){
@@ -565,6 +778,14 @@ class Tools {
 		return round((pow($viewcount,0.8)/pow(($timegap+24),1.2)),3)*1000;
 	}
 
+	/**
+	 * 优化的file_get_contents操作，超时关闭
+	 * @param $url
+	 * @param bool $use_include_path
+	 * @param null $stream_context
+	 * @param int $curl_timeout
+	 * @return bool|mixed|string
+	 */
 	public static function file_get_contents($url, $use_include_path = false, $stream_context = null, $curl_timeout = 8){
 		if ($stream_context == null && preg_match('/^https?:\/\//', $url))
 			$stream_context = @stream_context_create(array('http' => array('timeout' => $curl_timeout)));
@@ -594,6 +815,11 @@ class Tools {
 			return false;
 	}
 
+	/**
+	 * 获取文件扩展名
+	 * @param $file
+	 * @return mixed|string
+	 */
 	public static function getFileExtension($file){
 		if(is_uploaded_file($file)){
 			return "unknown";
@@ -606,6 +832,14 @@ class Tools {
 		exit;
 	}
 
+	/**
+	 * 遍历路径
+	 * @param $path
+	 * @param string $ext
+	 * @param string $dir
+	 * @param bool $recursive
+	 * @return array
+	 */
 	public static function scandir($path, $ext = 'php', $dir = '', $recursive = false){
 		$path = rtrim(rtrim($path, '\\'), '/').'/';
 		$real_path = rtrim(rtrim($path.$dir, '\\'), '/').'/';
@@ -669,6 +903,11 @@ class Tools {
 		return $output;
 	}
 
+	/**
+	 * XSS
+	 * @param $str
+	 * @return mixed
+	 */
 	public static function removeXSS($str){
 		$str = str_replace('<!--  -->', '', $str);
 		$str = preg_replace('~/\*[ ]+\*/~i', '', $str);
@@ -730,6 +969,14 @@ class Tools {
 		Return $str;
 	}
 
+	/**
+	 * curl操作
+	 * @param $url
+	 * @param null $postFields
+	 * @param null $header
+	 * @return mixed
+	 * @throws Exception
+	 */
 	public static function curl($url, $postFields = null,$header=null){
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -775,6 +1022,12 @@ class Tools {
 		return $reponse;
 	}
 
+	/**
+	 * 下载文件保存到指定位置
+	 * @param $url
+	 * @param $filepath
+	 * @return bool
+	 */
 	public static function saveFile($url,$filepath){
 		if(Validate::isAbsoluteUrl($url) && !empty($filepath)){
 			if(file_exists($filepath) && is_file($filepath)){
@@ -792,13 +1045,23 @@ class Tools {
 		return false;
 	}
 
+	/**
+	 * 文件复制
+	 * @param $source
+	 * @param $dest
+	 * @return bool
+	 */
 	public static function copyFile($source,$dest){
 		if(file_exists($dest) || is_dir($dest)){
 			return false;
 		}
 		return copy($source, $dest);
 	}
-	
+
+	/**
+	 * 判断是否爬虫，范围略大
+	 * @return bool
+	 */
 	public static function isSpider(){
 		$ua=strtolower($_SERVER['HTTP_USER_AGENT']);
 		$spiders=array('spider','bot');

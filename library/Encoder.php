@@ -20,6 +20,12 @@ class Encoder{
 		return $tmp;
 	}
 
+	/**
+	 * 加密
+	 * @param $string
+	 * @param $key
+	 * @return string
+	 */
 	public static function encode($string,$key){
 		$encrypt_key = md5(microtime());
 
@@ -35,6 +41,12 @@ class Encoder{
 		return base64_encode(self::passKey($tmp, $key));
 	}
 
+	/**
+	 * 解密
+	 * @param $string
+	 * @param $key
+	 * @return string
+	 */
 	public static function decode($string,$key){
 		$string = self::passKey(base64_decode($string), $key);
 
@@ -47,7 +59,15 @@ class Encoder{
 		return $tmp;
 	}
 
-	public static function discus($string,$operation,$key,$expire=3600){
+	/**
+	 * 源自Discuz的加密算法，可设置加密内容的有效期
+	 * @param $string
+	 * @param $operation
+	 * @param $key
+	 * @param int $expire
+	 * @return string
+	 */
+	public static function discuz($string,$operation,$key,$expire=3600){
 		$ckey_length = 4;
 
 		$key = md5 ( $key ? $key : 'key' );

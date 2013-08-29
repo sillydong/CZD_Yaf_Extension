@@ -2,6 +2,14 @@
 class Log{
 	private static $logpath=LOG_DIR;
 
+	/**
+	 * 写入日志
+	 * @param string $strFileName
+	 * @param string $strType
+	 * @param string $strMSG
+	 * @param string $strExtra
+	 * @param string $line
+	 */
 	public static function out($strFileName="",$strType="I",$strMSG="",$strExtra="",$line=""){
 		if($strType=="")
 			$strType = "I";
@@ -43,7 +51,12 @@ class Log{
 			}
 		}
 	}
-	
+
+	/**
+	 * 将$strMSG写入$strFileName文件，覆盖原来内容
+	 * @param $strFileName
+	 * @param $strMSG
+	 */
 	public static function simplewrite($strFileName,$strMSG){
 		if(!file_exists(self::$logpath)){
 			if(!mkdir(self::$logpath,'0777')){
@@ -83,6 +96,11 @@ class Log{
 		}
 	}
 
+	/**
+	 * 写入文件，追加方式
+	 * @param $strFileName
+	 * @param $strMSG
+	 */
 	public static function simpleappend($strFileName,$strMSG){
 		if(!file_exists(self::$logpath)){
 			if(!mkdir(self::$logpath,'0777')){
@@ -121,7 +139,12 @@ class Log{
 			}
 		}
 	}
-	
+
+	/**
+	 * 读文件内容
+	 * @param $strFileName
+	 * @return bool|string
+	 */
 	public static function simpleread($strFileName){
 		$logfile=trim(self::$logpath,'/').'/'.$strFileName.'.log';
 		if(file_exists($logfile) && is_readable($logfile)){

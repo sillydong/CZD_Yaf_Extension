@@ -8,7 +8,18 @@ class Pagination {
 	const TYPE_PARAM=1; /** /1 */
 	const TYPE_ENTITY=2; /** &page=1 */
 	const TYPE_DETAIL=3; /** /page/1 */
-	
+
+	/**
+	 * 生成分页
+	 * @param $type
+	 * @param $view
+	 * @param $prefix
+	 * @param $total
+	 * @param $current
+	 * @param $count
+	 * @param int $gap
+	 * @return mixed
+	 */
 	public static function splite($type,$view,$prefix,$total,$current,$count,$gap=3){
 		$current=($current>0?$current:1);
 		$pagination_info['page_type']=$type;

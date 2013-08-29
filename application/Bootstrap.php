@@ -106,7 +106,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 	
 	public function _initView(Yaf_Dispatcher $dispatcher){
 		$smarty=new Smarty_Adapter(null,$this->config->smarty);
-		$smarty->registerFunction('function','truncate', 'truncate');
+		$smarty->registerFunction('function','truncate', array('Tools','truncate'));
 		$dispatcher->setView($smarty);
 	}
 

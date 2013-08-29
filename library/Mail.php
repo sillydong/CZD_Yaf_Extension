@@ -4,6 +4,17 @@
  * 2013-6-9
  */
 class Mail{
+	/**
+	 * 发送文本邮件
+	 * @param $subject
+	 * @param $tos
+	 * @param $from
+	 * @param $from_name
+	 * @param $content
+	 * @param null $attachs
+	 * @return bool
+	 * @throws Exception
+	 */
 	public static function sendTextMail($subject,$tos,$from,$from_name,$content,$attachs=null){
 		$mailer=Mail::getTransport();
 		$mailer->Subject=$subject;
@@ -33,6 +44,18 @@ class Mail{
 		return true;
 	}
 
+	/**
+	 * 按照指定模板生成html邮件内容并发送，模板引擎为Vemplator
+	 * @param $subject
+	 * @param $tos
+	 * @param $from
+	 * @param $from_name
+	 * @param $template
+	 * @param $argv
+	 * @param null $attachs
+	 * @return bool
+	 * @throws Exception
+	 */
 	public static function sendHtmlMailFromTemplate($subject,$tos,$from,$from_name,$template,$argv,$attachs=null){
 		$mailer=Mail::getTransport();
 		$mailer->Subject=$subject;
@@ -66,6 +89,17 @@ class Mail{
 		return true;
 	}
 
+	/**
+	 * 发送HTML邮件
+	 * @param $subject
+	 * @param $tos
+	 * @param $from
+	 * @param $from_name
+	 * @param $content
+	 * @param null $attachs
+	 * @return bool
+	 * @throws Exception
+	 */
 	public static function sendHtmlMail($subject,$tos,$from,$from_name,$content,$attachs=null){
 		$mailer=Mail::getTransport();
 		$mailer->Subject=$subject;

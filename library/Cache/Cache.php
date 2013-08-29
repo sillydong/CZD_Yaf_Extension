@@ -30,7 +30,7 @@ abstract class Cache{
 				self::$instance = new $caching_system();
 				self::$instance->blacklist=Yaf_Registry::get('cache_exclude_table');
 				if(!defined('CACHE_KEY_PREFIX')){
-					define('CACHE_KEY_PREFIX', '');
+					define('CACHE_KEY_PREFIX', 'cye_');
 				}
 			}
 		}

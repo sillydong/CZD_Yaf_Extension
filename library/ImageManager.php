@@ -5,6 +5,14 @@
  */
 
 class ImageManager{
+	/**
+	 * 生成缩略图
+	 * @param $image
+	 * @param $cache_image
+	 * @param $size
+	 * @param string $image_type
+	 * @return bool|string
+	 */
 	public static function thumbnail($image,$cache_image,$size,$image_type='jpg'){
 		if(!file_exists($image)){
 			return '';
@@ -35,6 +43,11 @@ class ImageManager{
 		return IMAGE_CACHE_DIR.$cache_image;
 	}
 
+	/**
+	 * 检查内存占用
+	 * @param $image
+	 * @return bool
+	 */
 	public static function checkImageMemoryLimit($image){
 		$infos=@getimagesize($image);
 
@@ -49,8 +62,13 @@ class ImageManager{
 		return true;
 	}
 
+	/**
+	 * 检查文件名是否合法的图片文件名
+	 * @param $filename
+	 * @return bool
+	 */
 	public static function isCorrectImageFileExt($filename){
-		$authorized_extensions = array('gif', 'jpg', 'jpeg', 'jpe', 'png');
+		$authorized_extensions = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
 		if(strpos($filename,'.')!==false){
 			$name_explode = explode('.', $filename);
 			if (count($name_explode) >= 2){
@@ -70,6 +88,13 @@ class ImageManager{
 		return true;
 	}
 
+	/**
+	 * 将resource以指定图片类型写入文件
+	 * @param $type
+	 * @param $resource
+	 * @param $filename
+	 * @return bool
+	 */
 	public static function write($type, $resource, $filename){
 		switch ($type){
 			case 'gif':
@@ -91,6 +116,17 @@ class ImageManager{
 		return $success;
 	}
 
+	/**
+	 * 剪切图片
+	 * @param $src_file
+	 * @param $dst_file
+	 * @param null $dst_width
+	 * @param null $dst_height
+	 * @param string $file_type
+	 * @param int $dst_x
+	 * @param int $dst_y
+	 * @return bool
+	 */
 	public static function cut($src_file, $dst_file, $dst_width = null, $dst_height = null, $file_type = 'jpg', $dst_x = 0, $dst_y = 0)
 	{
 		if (!file_exists($src_file))
@@ -119,6 +155,16 @@ class ImageManager{
 		return	$return;
 	}
 
+	/**
+	 * 缩放图片
+	 * @param $src_file
+	 * @param $dst_file
+	 * @param null $dst_width
+	 * @param null $dst_height
+	 * @param string $file_type
+	 * @param bool $force_type
+	 * @return bool
+	 */
 	public static function resize($src_file, $dst_file, $dst_width = null, $dst_height = null, $file_type = 'jpg', $force_type = false)
 	{
 		if (PHP_VERSION_ID < 50300)
@@ -130,9 +176,6 @@ class ImageManager{
 			return false;
 		list($src_width, $src_height, $type) = getimagesize($src_file);
 
-		// If PS_IMAGE_QUALITY is activated, the generated image will be a PNG with .jpg as a file extension.
-		// This allow for higher quality and for transparency. JPG source files will also benefit from a higher quality
-		// because JPG reencoding by GD, even with max quality setting, degrades the image.
 		if ($type == IMAGETYPE_PNG && !$force_type)
 			$file_type = 'png';
 
@@ -195,6 +238,13 @@ class ImageManager{
 		return (ImageManager::write($file_type, $dest_image, $dst_file));
 	}
 
+	/**
+	 * 检查文件是否真的是图片文件
+	 * @param $filename
+	 * @param null $file_mime_type
+	 * @param null $mime_type_list
+	 * @return bool
+	 */
 	public static function isRealImage($filename, $file_mime_type = null, $mime_type_list = null)
 	{
 		// Detect mime content type
@@ -232,6 +282,12 @@ class ImageManager{
 		return false;
 	}
 
+	/**
+	 * 验证上传文件的类型是否为图片及大小是否越界
+	 * @param $file
+	 * @param int $max_file_size
+	 * @return bool|string
+	 */
 	public static function validateUpload($file, $max_file_size = 0){
 		if ((int)$max_file_size > 0 && $file['size'] > (int)$max_file_size)
 			return sprintf(Tools::displayError('Image is too large (%1$d kB). Maximum allowed: %2$d kB'), $file['size'] / 1024, $max_file_size / 1024);
@@ -242,25 +298,32 @@ class ImageManager{
 		return true;
 	}
 
+	/**
+	 * 生成图片resource
+	 * @param $type
+	 * @param $filename
+	 * @return resource
+	 */
 	public static function create($type, $filename)
 	{
 		switch ($type)
 		{
 			case IMAGETYPE_GIF :
 				return imagecreatefromgif($filename);
-				break;
-
 			case IMAGETYPE_PNG :
 				return imagecreatefrompng($filename);
-				break;
-
 			case IMAGETYPE_JPEG :
 			default:
 				return imagecreatefromjpeg($filename);
-				break;
 		}
 	}
 
+	/**
+	 * 生成图片，填充白色
+	 * @param $width
+	 * @param $height
+	 * @return resource
+	 */
 	public static function createWhiteImage($width, $height)
 	{
 		$image = imagecreatetruecolor($width, $height);
@@ -269,6 +332,11 @@ class ImageManager{
 		return $image;
 	}
 
+	/**
+	 * 通过后缀生成MimeType
+	 * @param $file_name
+	 * @return int|null|string
+	 */
 	public static function getMimeTypeByExtension($file_name)
 	{
 		$types = array(
@@ -292,6 +360,11 @@ class ImageManager{
 			return $mime_type;
 	}
 
+	/**
+	 * 获取文件扩展名
+	 * @param $filename
+	 * @return bool|string
+	 */
 	public static function getImageExt($filename){
 		$name_explode = explode('.', $filename);
 		if (count($name_explode) >= 2){

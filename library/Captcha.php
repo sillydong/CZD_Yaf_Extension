@@ -6,6 +6,13 @@
 
 class Captcha {
 
+	/**
+	 * 生成验证码字符串，写入SESSION，将字符串图片返回给浏览器
+	 * @param $len
+	 * @param int $width
+	 * @param int $height
+	 * @param int $font_size
+	 */
 	public static function generate($len,$width=108,$height=30,$font_size=18){
 		$charecters="123456789abcdefghijklmnpqrstuvwxyz";
 		$sizes=array('18'=>array('width'=>25,'height'=>25));
@@ -76,8 +83,14 @@ class Captcha {
 		}
 		exit;
 	}
-	
+
+	/**
+	 * 验证是否是合法的验证码
+	 * @param $captcha
+	 * @param int $size
+	 * @return int
+	 */
 	public static function isCaptcha($captcha,$size=4){
-		return preg_match('/^[123456789abcdefghijklmnpqrstuvwxyz]{'.$size.'}$/ui', $captcha);
+		return (bool)preg_match('/^[123456789abcdefghijklmnpqrstuvwxyz]{'.$size.'}$/ui', $captcha);
 	}
 }
