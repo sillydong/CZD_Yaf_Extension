@@ -4,8 +4,8 @@ CZD_Yaf_Extension
 建立在[Yaf](https://github.com/laruence/php-yaf) 的基础上，集成了Smarty引擎，加入了封装出来的各种功能类，位于APPLICATION_DIR/library下
 
 包含如下功能：
-- 缓存：APC/文件/Memcache/Xcache
-- 数据库：MYSQLi/PDO/MYSQL
+- 缓存：APC/文件/Memcache/Xcache 源自 [prestashop](https://github.com/PrestaShop/PrestaShop)
+- 数据库：MYSQLi/PDO/MYSQL 源自 [prestashop](https://github.com/PrestaShop/PrestaShop)
 - 邮件支持：PHPMailer+Vemplator，可以通过建立模板文件，用Vemplator渲染后发送邮件
 - Smarty：流行好用的视图引擎
 - Blowfish/Rijndael：加解密算法
