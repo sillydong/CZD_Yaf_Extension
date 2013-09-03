@@ -738,9 +738,10 @@ class Tools {
 
 	public static function returnAjaxJson($array){
 		if(!headers_sent()){
-			header('Content-Type: text/json; charset=utf-8');
+			header("Content-Type: application/json; charset=utf-8");
 		}
-		print(json_encode($array));
+		echo(json_encode($array));
+		ob_end_flush();
 		exit;
 	}
 
@@ -827,9 +828,53 @@ class Tools {
 		return pathinfo($file,PATHINFO_EXTENSION);
 	}
 
-	public static function returnMobileJson($code,$data){
-		print(json_encode(array('code'=>$code,'data'=>$data)));
+	/**
+	 * 以固定格式将数据及状态码返回手机端
+	 * @param $code
+	 * @param $data
+	 * @param bool $native
+	 */
+	public static function returnMobileJson($code,$data,$native=false){
+		if(!headers_sent()){
+			header("Content-Type: application/json; charset=utf-8");
+		}
+		if(is_array($data) && $native){
+			self::walkArray($data,'urlencode',true);
+			echo(urldecode(json_encode(array('code'=>$code,'data'=>$data))));
+		}
+		elseif(is_string($data) && $native){
+			echo(urldecode(json_encode(array('code'=>$code,'data'=>urlencode($data)))));
+		}
+		else{
+			echo(json_encode(array('code'=>$code,'data'=>$data)));
+		}
+		ob_end_flush();
 		exit;
+	}
+
+	/**
+	 * 遍历数组
+	 * @param $array
+	 * @param $function
+	 * @param bool $keys
+	 */
+	public static function walkArray(&$array,$function,$keys=false){
+		foreach($array as $key=>$value){
+			if(is_array($value)){
+				self::recursive($array[$key],$function,$keys);
+			}
+			else{
+				$array[$key]=$function($value);
+			}
+
+			if($keys && is_string($key)){
+				$newkey=$function($key);
+				if($newkey!=$key){
+					$array[$newkey]=$array[$key];
+					unset($array[$key]);
+				}
+			}
+		}
 	}
 
 	/**
