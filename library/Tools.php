@@ -1118,6 +1118,17 @@ class Tools {
 		return false;
 	}
 
+	/**
+	 * 判断是否命令行执行
+	 * @return bool
+	 */
+	public static function isCli(){
+		if(isset($_SERVER['SHELL']) && !isset($_SER['HTTP_HOST'])){
+			return true;
+		}
+		return false;
+	}
+
 }
 
 ?>
