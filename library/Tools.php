@@ -863,7 +863,7 @@ class Tools {
 			if(is_array($value)){
 				self::recursive($array[$key],$function,$keys);
 			}
-			else{
+			elseif(is_string($value)){
 				$array[$key]=$function($value);
 			}
 

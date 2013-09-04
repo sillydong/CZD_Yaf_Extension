@@ -16,6 +16,7 @@ CZD_Yaf_Extension
 - ImageManager：图片处理类
 - JSMin：JS压缩
 - Log：写日志
+- Mail：封装好的发送邮件的静态函数
 - MinifyHTML：HTML压缩
 - Object：所有与数据库交互的Model都可以继承这个类，完成了add/update/delete/active操作
 - Pagination：分页
