@@ -468,7 +468,7 @@ class Tools {
 	 * @return bool|int
 	 */
 	public static function strlen($str,$encoding = 'UTF-8') {
-		if (is_array($str))
+		if (is_array($str) || is_object($str))
 			return false;
 		$str = html_entity_decode($str, ENT_COMPAT, 'UTF-8');
 		if (function_exists('mb_strlen'))
@@ -504,7 +504,7 @@ class Tools {
 	 * @return bool|string
 	 */
 	public static function substr($str, $start, $length = false, $encoding = 'utf-8') {
-		if (is_array($str))
+		if (is_array($str) || is_object($str))
 			return false;
 		if (function_exists('mb_substr'))
 			return mb_substr($str, intval($start), ($length === false ? self::strlen($str) : intval($length)), $encoding);
