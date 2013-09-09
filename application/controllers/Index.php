@@ -19,6 +19,9 @@ class IndexController extends Yaf_Controller_Abstract {
 		//2. fetch model
 		$model = new SampleModel();
 
+		//setDatas
+		$model->setDatas(array('email'=>'sample@sample.com','nick'=>'nick','passwd'=>'123456','ip_address'=>Tools::getRemoteAddr()));
+
 		//3. assign
 		$this->getView()->assign("content", $model->selectSample());
 		$this->getView()->assign("name", $name);

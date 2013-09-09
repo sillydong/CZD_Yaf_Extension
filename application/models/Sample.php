@@ -15,7 +15,7 @@ class SampleModel extends Object{
 	public $date_update;
 	public $active=1;
 
-	protected $definition = array(
+	protected $def = array(
 			'table'=>'user',
 			'primary'=>'id_user',
 			'fields'=>array(

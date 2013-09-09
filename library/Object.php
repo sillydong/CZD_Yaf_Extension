@@ -14,7 +14,7 @@ abstract class Object{
 	const CACHE_PREFIX_SEARCH='_search_';
 
 	public $id;
-	protected $definition=array();
+	protected $def=array();
 	protected $class_name;
 
 	protected static $is_cache_enabled=OBJECT_CACHE_ENABLE;
@@ -30,10 +30,11 @@ abstract class Object{
 			$cache_id=$this->class_name.self::CACHE_PREFIX_MODEL.(int)$id;
 			if(!Cache::isStored($cache_id)){
 				$sql=new DbQuery();
-				$sql->from($this->definition['table'],'a');
-				$sql->where('a.'.$this->definition['primary'].'='.(int)$id);
-				$object_datas=Object::$db->getRow($sql);
-				Cache::store($cache_id,$object_datas);
+				$sql->from($this->def['table'],'a');
+				$sql->where('a.'.$this->def['primary'].'='.(int)$id);
+				if($object_datas=Object::$db->getRow($sql)){
+					Cache::store($cache_id,$object_datas);
+				}
 			}
 			else{
 				$object_datas=Cache::retrieve($cache_id);
@@ -46,116 +47,83 @@ abstract class Object{
 						$this->{$key}=$value;
 					}
 				}
-				if($enable_hook && method_exists($this, 'extraConstruct')){
-					call_user_method('extraConstruct', $this);
-				}
+			}
+			if($enable_hook && method_exists($this, 'extraConstruct')){
+				$this->extraConstruct();
 			}
 		}
 	}
 
-	public function add($skip_validation=false,$enable_hook=true,$autodate=true,$null_values=false){
-		if (!Object::$db)
-			Object::$db = Db::getInstance();
+	public function validateFields($die = false, $error_return = true){
+		foreach ($this->def['fields'] as $field => $data){
 
-		if($enable_hook && method_exists($this, 'beforeAdd')){
-			call_user_method('beforeAdd', $this);
-		}
-		if (isset($this->id) && !Tools::getValue('forceIDs'))
-			unset($this->id);
-		if (array_key_exists('date_add', $this) && empty($this->date_add))
-			$this->date_add = date('Y-m-d H:i:s');
-		$fields=$this->getFields($skip_validation);
-		if(!is_array($fields)){
-			Log::out('fieldserror','E',$fields);
-			return 'Fields error';
-		}
-		if (!$result = Object::$db->insert($this->definition['table'], $fields, $null_values)){
-			return 'Add object db error';
+			$message = $this->validateField($field, $this->$field);
+			if ($message !== true){
+				if ($die)
+					throw new Exception($message);
+				return $error_return ? $message : false;
+			}
 		}
 
-		$this->id = Object::$db->Insert_ID();
-		if($enable_hook && method_exists($this, 'afterAdd')){
-			call_user_method('afterAdd', $this);
-		}
-		$this->cleanCache(false, true);
 		return true;
 	}
 
-	public function update($skip_validation=false,$enable_hook=true,$null_values=false){
-		if (!Object::$db)
-			Object::$db = Db::getInstance();
+	protected function validateField($field, $value){
+		$data = $this->def['fields'][$field];
 
-		if($enable_hook && method_exists($this, 'beforeUpdate')){
-			call_user_method('beforeUpdate', $this);
-		}
-		if (array_key_exists('date_update', $this))
-			$this->date_update = date('Y-m-d H:i:s');
-
-		$fields=$this->getFields($skip_validation,true);
-		if(!is_array($fields)){
-			Log::out('fieldserror','E',$fields);
-			return 'Fields error';
+		if (!isset($value) && !empty($data['default'])){
+			$value = $data['default'];
+			$this->$field = $value;
 		}
 
-		if (!$result = Object::$db->update($this->definition['table'], $fields, '`'.pSQL($this->definition['primary']).'` = '.(int)$this->id, 0, $null_values))
-			return 'Add object db error';
-
-		if($enable_hook && method_exists($this, 'afterUpdate')){
-			call_user_method('afterUpdate', $this);
+		if(!isset($value) && isset($data['required']) && $data['required']==true){
+			return 'Property '.$this->class_name.'->'.$field.' is required';
 		}
-		$this->cleanCache(true, true);
+
+		if(isset($value)){
+			if (!empty($data['values']) && is_array($data['values']) && !in_array($value, $data['values']))
+				return 'Property '.$this->class_name.'->'.$field.':'.$value.' is bad value (allowed values are: '.implode(', ', $data['values']).')';
+
+			if (!empty($data['size'])){
+				$size = $data['size'];
+				if (!is_array($data['size']))
+					$size = array('min' => 0, 'max' => $data['size']);
+
+				$length = Tools::strlen($value);
+				if ($length < $size['min'] || $length > $size['max']){
+					if(isset($data['cut']) && $data['cut']==true){
+						$value=Tools::substr($value, 0,$size['max']);
+					}
+					else{
+						return 'Property '.$this->class_name.'->'.$field.' length ('.$length.') must be between '.$size['min'].' and '.$size['max'];
+					}
+				}
+			}
+
+			if (!empty($data['validate'])){
+				if (!method_exists('Validate', $data['validate']))
+					throw new Exception('Validation function not found. '.$data['validate']);
+
+				if (!empty($value) && !call_user_func(array('Validate', $data['validate']), $value))
+					return 'Property '.$this->class_name.'->'.$field.':'.$value.' is not valid';
+			}
+		}
+
 		return true;
-	}
-
-	public function delete($enable_hook=true){
-		if (!Object::$db)
-			Object::$db = Db::getInstance();
-		if($enable_hook && method_exists($this, 'beforeDelete')){
-			call_user_method('beforeDelete', $this);
-		}
-		if(!$result=Object::$db->delete($this->definition['table'], '`'.$this->definition['primary'].'`='.(int)$this->id)){
-			return false;
-		}
-		if($enable_hook && method_exists($this, 'afterDelete')){
-			call_user_method('afterDelete', $this);
-		}
-		$this->cleanCache(true, true);
-		return true;
-	}
-
-	protected function extraConstruct(){}
-	protected function afterAdd(){}
-	protected function afterDelete(){}
-	protected function afterUpdate(){}
-
-	public function getFields($skip_validation=false,$skip_update=false){
-		$info=true;
-		if(!$skip_validation)
-			$info=$this->validateFields();
-		if($info===true){
-			$fields = $this->formatFields($skip_update);
-
-			if (!$fields && isset($this->id) && Validate::isUnsignedId($this->id))
-				$fields[$this->definition['primary']] = $this->id;
-			return $fields;
-		}
-		else{
-			return $info;
-		}
 	}
 
 	protected function formatFields($skip_update=false){
 		$fields = array();
 
-		if($skip_update && !isset($this->definition['skip_update'])){
+		if($skip_update && !isset($this->def['skip_update'])){
 			$skip_update=false;
 		}
 
-		if (isset($this->id))
-			$fields[$this->definition['primary']] = $this->id;
+		if (isset($this->id) && Validate::isUnsignedId($this->id))
+			$fields[$this->def['primary']] = $this->id;
 
-		foreach ($this->definition['fields'] as $field => $data){
-			if(!$skip_update || !in_array($field, $this->definition['skip_update'])){
+		foreach ($this->def['fields'] as $field => $data){
+			if(!$skip_update || !in_array($field, $this->def['skip_update'])){
 				$fields[$field] = $this->formatValue($this->$field, $data['type']);
 			}
 		}
@@ -198,10 +166,114 @@ abstract class Object{
 		}
 	}
 
+	public function getFields($skip_validation=false,$skip_update=false){
+		$info=true;
+		if(!$skip_validation)
+			$info=$this->validateFields();
+		if($info===true){
+			$fields = $this->formatFields($skip_update);
+
+			return $fields;
+		}
+		else{
+			return $info;
+		}
+	}
+
+	public function setDatas(array $data){
+		if(isset($data[$this->def['primary']]))
+			$this->id=$data[$this->def['primary']];
+		foreach($data as $key=>$value){
+			if(property_exists($this,$key))
+				$this->$key=$value;
+		}
+	}
+
+	public function add($skip_validation=false,$enable_hook=true,$autodate=true,$null_values=false){
+		if (!Object::$db)
+			Object::$db = Db::getInstance();
+
+		if($enable_hook && method_exists($this, 'beforeAdd')){
+			$this->beforeAdd();
+		}
+		if($autodate && property_exists($this,'date_add') && empty($this->date_add)){
+			$this->date_add=date('Y-m-d H:i:s');
+		}
+		if($autodate && property_exists($this,'date_update') && empty($this->date_update)){
+			$this->date_update=date('Y-m-d H:i:s');
+		}
+		if (isset($this->id) && !Tools::getValue('forceIDs'))
+			unset($this->id);
+		$fields=$this->getFields($skip_validation);
+		if(!is_array($fields)){
+			Log::out('fieldserror','E',$fields);
+			return 'Fields error';
+		}
+		if (!$result = Object::$db->insert($this->def['table'], $fields, $null_values)){
+			return 'Add object db error';
+		}
+
+		$this->id = Object::$db->Insert_ID();
+		if($enable_hook && method_exists($this, 'afterAdd')){
+			$this->afterAdd();
+		}
+		$this->cleanCache(false, true);
+		return true;
+	}
+
+	public function update($skip_validation=false,$enable_hook=true,$null_values=false){
+		if (!Object::$db)
+			Object::$db = Db::getInstance();
+
+		if($enable_hook && method_exists($this, 'beforeUpdate')){
+			$this->beforeUpdate();
+		}
+		if(property_exists($this,'date_update'))
+			$this->date_update = date('Y-m-d H:i:s');
+
+		$fields=$this->getFields($skip_validation,true);
+		if(!is_array($fields)){
+			Log::out('fieldserror','E',$fields);
+			return 'Fields error';
+		}
+
+		if (!$result = Object::$db->update($this->def['table'], $fields, '`'.pSQL($this->def['primary']).'` = '.(int)$this->id, 0, $null_values))
+			return 'Add object db error';
+
+		if($enable_hook && method_exists($this, 'afterUpdate')){
+			$this->afterUpdate();
+		}
+		$this->cleanCache(true, true);
+		return true;
+	}
+
+	public function delete($enable_hook=true){
+		if (!Object::$db)
+			Object::$db = Db::getInstance();
+		if($enable_hook && method_exists($this, 'beforeDelete')){
+			$this->beforeDelete();
+		}
+		if(!$result=Object::$db->delete($this->def['table'], '`'.$this->def['primary'].'`='.(int)$this->id)){
+			return false;
+		}
+		if($enable_hook && method_exists($this, 'afterDelete')){
+			$this->afterDelete();
+		}
+		$this->cleanCache(true, true);
+		return true;
+	}
+
+	protected function extraConstruct(){}
+	protected function beforeAdd(){}
+	protected function afterAdd(){}
+	protected function beforeDelete(){}
+	protected function afterDelete(){}
+	protected function beforeUpdate(){}
+	protected function afterUpdate(){}
+
 	public function deleteSelection($selection){
 		$result = true;
-		foreach ($selection as $id)
-		{
+		foreach ($selection as $id){
 			$this->id = (int)$id;
 			$result = $result && $this->delete();
 		}
@@ -209,10 +281,11 @@ abstract class Object{
 	}
 
 	public function toggleActive(){
-		if (!array_key_exists('active', $this))
+		if (!property_exists($this,'active'))
 			throw new Exception('property "active" is missing in object '.$this->class_name);
+
 		$this->active = !(int)$this->active;
-		$sql="update ".$this->definition['table']." set active=".(int)$this->active." where ".$this->definition['primary']."=".(int)$this->id;
+		$sql="update ".$this->def['table']." set active=".(int)$this->active." where ".$this->def['primary']."=".(int)$this->id;
 		if(Object::$db->execute($sql)){
 			$this->cleanCache(true, true);
 			return true;
@@ -221,74 +294,16 @@ abstract class Object{
 	}
 
 	public function toggleStatus(){
-		if (!array_key_exists('status', $this))
+		if (!property_exists($this,'status'))
 			throw new Exception('property "status" is missing in object '.$this->class_name);
 
 		$this->status = !(int)$this->status;
-		$sql="update ".$this->definition['table']." set status=".(int)$this->status." where ".$this->definition['primary']."=".(int)$this->id;
+		$sql="update ".$this->def['table']." set status=".(int)$this->status." where ".$this->def['primary']."=".(int)$this->id;
 		if(Object::$db->execute($sql)){
 			$this->cleanCache(true, true);
 			return true;
 		}
 		return false;
-	}
-
-	public function validateFields($die = false, $error_return = true){
-		foreach ($this->definition['fields'] as $field => $data){
-
-			$message = $this->validateField($field, $this->$field);
-			if ($message !== true){
-				if ($die)
-					throw new Exception($message);
-				return $error_return ? $message : false;
-			}
-		}
-
-		return true;
-	}
-
-	protected function validateField($field, $value){
-		$data = $this->definition['fields'][$field];
-
-		if (!isset($value) && !empty($data['default'])){
-			$value = $data['default'];
-			$this->$field = $value;
-		}
-
-		if(!isset($value) && isset($data['required']) && $data['required']==true){
-			return 'Property '.$this->class_name.'->'.$field.' is required';
-		}
-
-		if(isset($value)){
-			if (!empty($data['values']) && is_array($data['values']) && !in_array($value, $data['values']))
-				return 'Property '.$this->class_name.'->'.$field.':'.$value.' is bad value (allowed values are: '.implode(', ', $data['values']).')';
-
-			if (!empty($data['size'])){
-				$size = $data['size'];
-				if (!is_array($data['size']))
-					$size = array('min' => 0, 'max' => $data['size']);
-					
-				$length = Tools::strlen($value);
-				if ($length < $size['min'] || $length > $size['max']){
-					if(isset($data['cut']) && $data['cut']==true){
-						$value=Tools::substr($value, 0,$size['max']);
-					}
-					else{
-						return 'Property '.$this->class_name.'->'.$field.' length ('.$length.') must be between '.$size['min'].' and '.$size['max'];
-					}
-				}
-			}
-
-			if (!empty($data['validate'])){
-				if (!method_exists('Validate', $data['validate']))
-					throw new Exception('Validation function not found. '.$data['validate']);
-					
-				if (!empty($value) && !call_user_func(array('Validate', $data['validate']), $value))
-					return 'Property '.$this->class_name.'->'.$field.':'.$value.' is not valid';
-			}
-		}
-
-		return true;
 	}
 
 	public function cleanCache($module,$search){
@@ -314,7 +329,7 @@ abstract class Object{
 
 	public static function isCurrentlyUsed($table = null, $has_active_column = false){
 		if ($table === null)
-			$table = self::$definition['table'];
+			$table = self::$def['table'];
 
 		$query = new DbQuery();
 		$query->select('`id_'.pSQL($table).'`');
