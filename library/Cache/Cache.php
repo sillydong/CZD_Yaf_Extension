@@ -155,9 +155,11 @@ abstract class Cache{
 	}
 
 	protected function isBlacklist($query){
-		foreach ($this->blacklist as $find){
-			if (strpos($query, $find)!==false){
-				return true;
+		if($this->blacklist && is_array($this->blacklist)){
+			foreach ($this->blacklist as $find){
+				if (stripos($query, $find)!==false){
+					return true;
+				}
 			}
 		}
 		return false;
