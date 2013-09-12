@@ -96,7 +96,7 @@ class Validate {
 
 	public static function isTimestamp($time){
 		//return ctype_digit($time) && $time <= 2147483647;
-		return (int)$time>0 && strtotime(date('m-d-Y H:i:s',$time)) === (int)$time;
+		return (int)$time>0 && strtotime(date('Y-m-d H:i:s',$time)) === (int)$time;
 	}
 
 	public static function isBirthDate($date){

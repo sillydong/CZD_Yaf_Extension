@@ -18,6 +18,8 @@ class Cookie{
 
 	protected $_modified = false;
 
+	protected $_allow_writing;
+
 	public function __construct($name, $path = '', $expire = null, $shared_urls = null){
 		$this->_content = array();
 		$this->_expire = is_null($expire) ? $_SERVER['REQUEST_TIME'] + 1728000 : (int)$expire;
@@ -30,11 +32,16 @@ class Cookie{
 		$this->_key = _COOKIE_KEY_;
 		$this->_iv = _COOKIE_IV_;
 		$this->_domain = $this->getDomain($shared_urls);
+		$this->_allow_writing = true;
 		if(extension_loaded('mcrypt'))
 			$this->_cipherTool = new Rijndael(_RIJNDAEL_KEY_, _RIJNDAEL_IV_);
 		else
 			$this->_cipherTool = new Blowfish($this->_key, $this->_iv);
 		$this->update();
+	}
+
+	public function disallowWriting(){
+		$this->_allow_writing = false;
 	}
 
 	protected function getDomain($shared_urls = null){
@@ -80,7 +87,7 @@ class Cookie{
 	}
 
 	public function __set($key, $value){
-		if (is_array($value))
+		if (is_array($value) || is_object($value))
 			die(Tools::displayError('Forbidden value type in cookie'));
 		if (preg_match('/¤|\|/', $key.$value))
 			die(Tools::displayError('Forbidden chars in cookie'));
@@ -185,7 +192,7 @@ class Cookie{
 	}
 
 	public function write(){
-		if (!$this->_modified || headers_sent()){
+		if (!$this->_modified || headers_sent() || !$this->_allow_writing){
 			return;
 		}
 
