@@ -5,7 +5,7 @@
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_Taobao_Request_AlipayMicropayOrderFreezeRequest
+class Taobao_Request_AlipayMicropayOrderFreezeRequest
 {
 	/** 
 	 * 需要冻结金额，[0.01,2000]，必须是正数，最多只能保留小数点两位,单位是元

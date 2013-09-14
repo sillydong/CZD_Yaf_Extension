@@ -5,7 +5,7 @@
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_Taobao_Request_AlipayEbppBillAddRequest
+class Taobao_Request_AlipayEbppBillAddRequest
 {
 	/** 
 	 * 如果传入调用api有淘宝授权的session可以不传这个字段

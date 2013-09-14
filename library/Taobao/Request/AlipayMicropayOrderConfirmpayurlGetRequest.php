@@ -5,7 +5,7 @@
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_Taobao_Request_AlipayMicropayOrderConfirmpayurlGetRequest
+class Taobao_Request_AlipayMicropayOrderConfirmpayurlGetRequest
 {
 	/** 
 	 * 支付宝订单号，冻结流水号.这个是创建冻结订单支付宝返回的

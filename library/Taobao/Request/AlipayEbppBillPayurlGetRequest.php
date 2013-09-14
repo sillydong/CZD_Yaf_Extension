@@ -5,7 +5,7 @@
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_Taobao_Request_AlipayEbppBillPayurlGetRequest
+class Taobao_Request_AlipayEbppBillPayurlGetRequest
 {
 	/** 
 	 * 支付宝的业务订单号，具有唯一性。
