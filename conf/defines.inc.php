@@ -14,6 +14,9 @@ define('_RIJNDAEL_IV_', '');
 
 define('LOG_DIR',APPLICATION_PATH.'/log/');
 
+define('APP_KEY','');
+define('APP_SECRET','');
+
 function pSQL($string, $htmlOK = false){
 	static $db = false;
 	if (!$db)
