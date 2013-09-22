@@ -10,7 +10,7 @@ class Tools {
 	 * @param string $flag Output type (NUMERIC, ALPHANUMERIC, NO_NUMERIC)
 	 * @return string Password
 	 */
-	public static function passwdGen($length = 8, $flag){
+	public static function passwdGen($length = 8, $flag=self::FLAG_NO_NUMERIC){
 		switch ($flag){
 			case self::FLAG_NUMERIC:
 				$str = '0123456789';
@@ -18,6 +18,7 @@ class Tools {
 			case self::FLAG_NO_NUMERIC:
 				$str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 				break;
+			case self::FLAG_ALPHANUMERIC:
 			default:
 				$str = 'abcdefghijkmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 				break;
@@ -1022,9 +1023,9 @@ class Tools {
 	 * @return mixed
 	 * @throws Exception
 	 */
-	public static function curl($url, $postFields = null,$header=null){
+	public static function curl($url, $method='GET', $postFields = null,$header=null){
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 		curl_setopt($ch, CURLOPT_FAILONERROR, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -1035,26 +1036,35 @@ class Tools {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		}
 
-		if (!empty($postFields) && is_array($postFields)){
-			$postBodyString = "";
-			$postMultipart = false;
-			foreach ($postFields as $k => $v){
-				if("@" != substr($v, 0, 1)){//判断是不是文件上传
-					$postBodyString .= "$k=" . urlencode($v) . "&";
+		switch($method){
+			case 'POST':
+				curl_setopt($ch, CURLOPT_POST, true);
+				if (!empty($postFields) && is_array($postFields)){
+					$postBodyString = "";
+					$postMultipart = false;
+					foreach ($postFields as $k => $v){
+						if("@" != substr($v, 0, 1)){//判断是不是文件上传
+							$postBodyString .= "$k=" . urlencode($v) . "&";
+						}
+						else{//文件上传用multipart/form-data，否则用www-form-urlencoded
+							$postMultipart = true;
+						}
+					}
+					unset($k, $v);
+					if ($postMultipart){
+						curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+					}
+					else{
+						curl_setopt($ch, CURLOPT_POSTFIELDS, substr($postBodyString,0,-1));
+					}
 				}
-				else{//文件上传用multipart/form-data，否则用www-form-urlencoded
-					$postMultipart = true;
-				}
-			}
-			unset($k, $v);
-			curl_setopt($ch, CURLOPT_POST, true);
-			if ($postMultipart){
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-			}
-			else{
-				curl_setopt($ch, CURLOPT_POSTFIELDS, substr($postBodyString,0,-1));
-			}
+				break;
+			default:
+				if (!empty($postFields) && is_array($postFields))
+					$url.=(strpos($url,'?')===false?'?':'&').http_build_query($postFields);
+				break;
 		}
+		curl_setopt($ch, CURLOPT_URL, $url);
 
 		if(!empty($header) && is_array($header)){
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
