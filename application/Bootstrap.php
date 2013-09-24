@@ -79,6 +79,9 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 		if(isset($database->mysql_cache_enable) && $database->mysql_cache_enable && !defined('MYSQL_CACHE_ENABLE')){
 			define('MYSQL_CACHE_ENABLE',true);
 		}
+		if(isset($database->mysql_log_error) && $database->mysql_log_error && !defined('MYSQL_LOG_ERROR')){
+			define('MYSQL_LOG_ERROR',true);
+		}
 		Yaf_Loader::import(APPLICATION_PATH.'/library/Db/Db.php');
 		Yaf_Loader::import(APPLICATION_PATH.'/library/Db/DbQuery.php');
 	}

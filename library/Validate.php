@@ -22,10 +22,6 @@ class Validate {
 	}
 	
 	public static function isToken($token){
-		return preg_match('/^[a-fA-F0-9]+$/', $token);
-	}
-
-	public static function isExpendToken($token){
 		return preg_match('/^[a-zA-Z0-9=]+$/', $token);
 	}
 

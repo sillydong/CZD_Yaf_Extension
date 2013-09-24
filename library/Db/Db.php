@@ -15,6 +15,8 @@ abstract class Db{
 
 	protected $is_cache_enabled;
 
+	protected $log_error;
+
 	protected $link;
 
 	protected $result;
@@ -94,6 +96,7 @@ abstract class Db{
 		$this->password = $password;
 		$this->database = $database;
 		$this->is_cache_enabled = (defined('MYSQL_CACHE_ENABLE')) ? MYSQL_CACHE_ENABLE : false;
+		$this->log_error=(defined('MYSQL_LOG_ERROR')?MYSQL_LOG_ERROR:false);
 
 		if ($connect)
 			$this->connect();
@@ -109,6 +112,7 @@ abstract class Db{
 			$sql = $sql->build();
 
 		$this->result = $this->_query($sql);
+		$this->logError($sql);
 		return $this->result;
 	}
 
@@ -164,13 +168,7 @@ abstract class Db{
 		}
 
 		$sql = $insert_keyword.' INTO `'.$table.'` ('.$keys_stringified.') VALUES '.implode(', ', $values_stringified);
-		if((bool)$this->q($sql,$use_cache)){
-			return true;
-		}
-		else{
-			Log::out('sqlerror','E',$sql);
-			return false;
-		}
+		return (bool)$this->q($sql,$use_cache);
 	}
 
 	/**
@@ -202,13 +200,7 @@ abstract class Db{
 			$sql .= ' WHERE '.$where;
 		if ($limit)
 			$sql .= ' LIMIT '.(int)$limit;
-		if((bool)$this->q($sql,$use_cache)){
-			return true;
-		}
-		else{
-			Log::out('sqlerror','E',$sql);
-			return false;
-		}
+		return (bool)$this->q($sql,$use_cache);
 	}
 
 	/**
@@ -348,9 +340,6 @@ abstract class Db{
 	}
 
 	protected function q($sql, $use_cache = true){
-		if ($sql instanceof DbQuery)
-			$sql = $sql->build();
-
 		$this->result = false;
 		$result = $this->query($sql);
 		if ($use_cache && $this->is_cache_enabled)
@@ -372,6 +361,13 @@ abstract class Db{
 
 	public function nextId($table_name){
 		return $this->getValue("select AUTO_INCREMENT from information_schema.TABLES where TABLE_SCHEMA='".$this->database."' and TABLE_NAME='".pSQL($table_name)."'");
+	}
+
+	protected function logError($sql=false){
+		$errno=$this->getNumberError();
+		if($this->log_error && $errno){
+			Log::out('sql_error','E',$this->getMsgError().':'.$sql);
+		}
 	}
 
 	public static function checkConnection($server, $user, $pwd, $db, $new_db_link = true, $engine = null, $timeout = 5){
