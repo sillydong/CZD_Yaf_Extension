@@ -10,11 +10,11 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 
 	public function _initError(Yaf_Dispatcher $dispatcher){
 		if($this->config->application->debug){
-			define('DEBUGMODE',false);
+			define('DEBUG_MODE',false);
 			ini_set('display_errors', 'On');
 		}
 		else{
-			define('DEBUGMODE',false);
+			define('DEBUG_MODE',false);
 			ini_set('display_errors', 'Off');
 		}
 	}

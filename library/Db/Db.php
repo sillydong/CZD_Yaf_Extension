@@ -112,7 +112,9 @@ abstract class Db{
 			$sql = $sql->build();
 
 		$this->result = $this->_query($sql);
-		$this->logError($sql);
+		if($this->log_error){
+			$this->logError($sql);
+		}
 		return $this->result;
 	}
 
@@ -364,8 +366,7 @@ abstract class Db{
 	}
 
 	protected function logError($sql=false){
-		$errno=$this->getNumberError();
-		if($this->log_error && $errno){
+		if($this->getNumberError()){
 			Log::out('sql_error','E',$this->getMsgError().':'.$sql);
 		}
 	}

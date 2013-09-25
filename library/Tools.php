@@ -270,7 +270,7 @@ class Tools {
 	 * @return mixed|string
 	 */
 	public static function displayError($string = 'Fatal error',$error=array(), $htmlentities = true) {
-		if(DEBUGMODE){
+		if(DEBUG_MODE){
 			if (!is_array($error) || empty($error))
 				return str_replace('"', '&quot;', $string).('<pre>'.print_r(debug_backtrace(), true).'</pre>');
 			$key = md5(str_replace('\'', '\\\'', $string));
