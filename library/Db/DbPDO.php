@@ -23,7 +23,7 @@ class DbPDO extends Db{
 
 		// UTF-8 support
 		if ($this->link->exec('SET NAMES \'utf8\'') === false)
-			die(Tools::displayError('PrestaShop Fatal error: no utf-8 support. Please check your server configuration.'));
+			die(Tools::displayError('Fatal error: no utf-8 support. Please check your server configuration.'));
 
 		return $this->link;
 	}

@@ -342,6 +342,9 @@ abstract class Db{
 	}
 
 	protected function q($sql, $use_cache = true){
+		if ($sql instanceof DbQuery)
+			$sql = $sql->build();
+
 		$this->result = false;
 		$result = $this->query($sql);
 		if ($use_cache && $this->is_cache_enabled)
