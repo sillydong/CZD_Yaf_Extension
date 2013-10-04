@@ -3,7 +3,10 @@ CZD_Yaf_Extension
 
 建立在[Yaf](https://github.com/laruence/php-yaf) 的基础上，集成了Smarty引擎，加入了封装出来的各种功能类，位于APPLICATION_DIR/library下
 
-包含如下功能：
+【更新记录】
+2013.10.04 加入了[yaf_phpport](https://github.com/mzsolti/yaf-phpport)，方便使用虚拟空间的用户使用yaf框架
+
+【功能说明】
 - 缓存：APC/文件/Memcache/Xcache 源自 [prestashop](https://github.com/PrestaShop/PrestaShop)
 - 数据库：MYSQLi/PDO/MYSQL 源自 [prestashop](https://github.com/PrestaShop/PrestaShop) ，可以通过配置mysql_cache_enable控制是否cache查询结果
 - 邮件支持：PHPMailer+Vemplator，可以通过建立模板文件，用Vemplator渲染后发送邮件
