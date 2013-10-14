@@ -9,9 +9,8 @@
  * one by one according to their defined order.
  *
  */
-abstract class Yaf_Bootstrap_Abstract
-{
-    const YAF_DEFAULT_BOOTSTRAP = 'Bootstrap';
-    const YAF_BOOTSTRAP_INITFUNC_PREFIX = '_init';
+abstract class Yaf_Bootstrap_Abstract {
+	const YAF_DEFAULT_BOOTSTRAP = 'Bootstrap';
+	const YAF_BOOTSTRAP_INITFUNC_PREFIX = '_init';
 
 }

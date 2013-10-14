@@ -40,7 +40,7 @@ class CacheMemcache extends Cache{
 	}
 
 	public function connect(){
-		if(class_exists('Memcache') && extension_loaded('memcache')){
+		if(extension_loaded('memcache') && class_exists('Memcache')){
 			$this->memcache=new Memcache();
 		}
 		else{

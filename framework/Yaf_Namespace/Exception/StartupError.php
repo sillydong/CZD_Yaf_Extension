@@ -8,6 +8,5 @@
  */
 namespace Yaf\Exception;
 
-class StartupError extends \Yaf\Exception
-{
+class StartupError extends \Yaf\Exception {
 }

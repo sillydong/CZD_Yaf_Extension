@@ -3,6 +3,5 @@
  * Yaf Exception StartupError
  */
 
-class Yaf_Exception_StartupError extends Yaf_Exception
-{
+class Yaf_Exception_StartupError extends Yaf_Exception {
 }

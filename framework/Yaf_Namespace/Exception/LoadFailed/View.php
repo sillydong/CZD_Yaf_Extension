@@ -8,6 +8,5 @@
  */
 namespace Yaf\Exception\LoadFailed;
 
-class View extends LoadFailed
-{
+class View extends LoadFailed {
 }

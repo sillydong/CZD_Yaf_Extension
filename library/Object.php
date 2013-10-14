@@ -17,7 +17,7 @@ abstract class Object{
 	protected $def=array();
 	protected $class_name;
 
-	protected static $is_cache_enabled=OBJECT_CACHE_ENABLE;
+	protected static $is_cache_enabled;
 	protected static $db=false;
 
 	public function __construct($id=null,$enable_hook=true){
@@ -25,6 +25,7 @@ abstract class Object{
 		if(!Object::$db){
 			Object::$db=Db::getInstance();
 		}
+		self::$is_cache_enabled=(defined('OBJECT_CACHE_ENABLE')?OBJECT_CACHE_ENABLE:false);
 
 		if(isset($id) && Validate::isUnsignedId($id)){
 			$cache_id=$this->class_name.self::CACHE_PREFIX_MODEL.(int)$id;

@@ -14,7 +14,7 @@ function yaf_auto_load($classname)
                 $fileName = str_replace($namespaceSeparator, DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
             }
     }
-    if ($namespace == 'Yaf' || stripos($namespace, 'Yaf'.$namespaceSeparator) === 0) {
+    if ($namespace == 'Yaf' || stripos($namespace, $yafNamespace.$namespaceSeparator) === 0) {
         include_once(APPLICATION_PATH . '/framework/Yaf_Namespace/G.php');
         \Yaf\G::iniSet('yaf.use_namespace', true);
         $fileName = str_replace('Yaf'.DIRECTORY_SEPARATOR, 'Yaf_Namespace'.DIRECTORY_SEPARATOR, $fileName);
@@ -23,9 +23,5 @@ function yaf_auto_load($classname)
     if (file_exists(APPLICATION_PATH . '/framework/' . $path )) {
         require_once(APPLICATION_PATH. '/framework/' . $path);
     }
-    /*$path = str_replace("_", DIRECTORY_SEPARATOR, $classname);
-    if (file_exists(APPLICATION_PATH . '/framework/' . $path . '.php')) {
-        require_once(APPLICATION_PATH. '/framework/' . $path . '.php');
-    }*/
 }
 spl_autoload_register('yaf_auto_load');

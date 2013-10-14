@@ -8,6 +8,5 @@
  */
 namespace Yaf\Exception;
 
-class TypeError extends \Yaf\Exception
-{
+class TypeError extends \Yaf\Exception {
 }

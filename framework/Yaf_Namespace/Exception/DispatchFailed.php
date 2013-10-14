@@ -8,6 +8,5 @@
  */
 namespace Yaf\Exception;
 
-class DispatchFailed extends \Yaf\Exception
-{
+class DispatchFailed extends \Yaf\Exception {
 }

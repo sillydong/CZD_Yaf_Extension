@@ -11,85 +11,74 @@
  */
 namespace Yaf\Response;
 
-class Http extends \Yaf\Response_Abstract
-{
-    protected $_sendheader = true;
-    protected $_responseCode = 200;
+class Http extends \Yaf\Response_Abstract {
+	protected $_sendheader = true;
+	protected $_responseCode = 200;
 
-   /**
-     * Set HTTP response code to use with headers
-     *
-     * @param int $code
-     * @return Yaf_Response_Http
-     */
-    public function setResponseCode($code)
-    {
-        if (!is_int($code) || (100 > $code) || (599 < $code)) {
-            throw new Exception('Invalid HTTP response code');
-        }
+	/**
+	 * Retrieve HTTP response code
+	 *
+	 * @return int
+	 */
+	public function getResponseCode() {
+		return $this->_responseCode;
+	}
 
-        $this->_responseCode = $code;
-        return $this;
-    }
+	/**
+	 * Set HTTP response code to use with headers
+	 *
+	 * @param int $code
+	 * @return Yaf_Response_Http
+	 */
+	public function setResponseCode($code) {
+		if (!is_int($code) || (100 > $code) || (599 < $code)) {
+			throw new Exception('Invalid HTTP response code');
+		}
 
-    /**
-     * Retrieve HTTP response code
-     *
-     * @return int
-     */
-    public function getResponseCode()
-    {
-        return $this->_responseCode;
-    }
+		$this->_responseCode = $code;
+		return $this;
+	}
 
-    /**
-     * Send all headers
-     *
-     * Sends any headers specified.
-     * If an {@link setResponseCode() HTTP response code}
-     * has been specified, it is sent with the first header.
-     *
-     * @return Yaf_Response_Http
-     */
-    protected function sendHeaders()
-    {
-        $httpCodeSent = false;
+	/**
+	 * Set redirect URL
+	 *
+	 * Sets Location header. Forces replacement of any prior redirects.
+	 *
+	 * @param string $url
+	 * @return Yaf_Response_Abstract
+	 */
+	public function setRedirect($url) {
+		$this->setHeader('Location', $url, true)->setResponseCode(302);
+		return $this;
+	}
 
-        foreach ($this->_headers as $header) {
-            if (!$httpCodeSent && $this->_responseCode) {
-                header(
-                    $header['name'] . ': ' . $header['value'],
-                    $header['replace'], $this->_responseCode
-                );
-                $httpCodeSent = true;
-            } else {
-                header(
-                    $header['name'] . ': ' . $header['value'],
-                    $header['replace']
-                );
-            }
-        }
+	/**
+	 * Send all headers
+	 *
+	 * Sends any headers specified.
+	 * If an {@link setResponseCode() HTTP response code}
+	 * has been specified, it is sent with the first header.
+	 *
+	 * @return Yaf_Response_Http
+	 */
+	protected function sendHeaders() {
+		$httpCodeSent = false;
 
-        /*if (!$httpCodeSent) {
-            header('HTTP/1.1 ' . $this->_responseCode);
-            $httpCodeSent = true;
-        }*/
+		foreach ($this->_headers as $header) {
+			if (!$httpCodeSent && $this->_responseCode) {
+				header($header['name'] . ': ' . $header['value'], $header['replace'], $this->_responseCode);
+				$httpCodeSent = true;
+			}
+			else {
+				header($header['name'] . ': ' . $header['value'], $header['replace']);
+			}
+		}
 
-        return $this;
-    }
+		/*if (!$httpCodeSent) {
+			header('HTTP/1.1 ' . $this->_responseCode);
+			$httpCodeSent = true;
+		}*/
 
-    /**
-     * Set redirect URL
-     *
-     * Sets Location header. Forces replacement of any prior redirects.
-     *
-     * @param string $url
-     * @return Yaf_Response_Abstract
-     */
-    public function setRedirect($url)
-    {
-        $this->setHeader('Location', $url, true)
-        ->setResponseCode(302);
-        return $this;
-    }
+		return $this;
+	}
 }

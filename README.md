@@ -4,7 +4,8 @@ CZD_Yaf_Extension
 建立在[Yaf](https://github.com/laruence/php-yaf) 的基础上，集成了Smarty引擎，加入了封装出来的各种功能类，位于APPLICATION_DIR/library下
 
 【更新记录】
-2013.10.04 加入了[yaf_phpport](https://github.com/mzsolti/yaf-phpport)，方便使用虚拟空间的用户使用yaf框架
+- 2013.10.14 格式化framework的代码，修复了framework的一处可能导致redeclare class的错误
+- 2013.10.04 加入了[yaf_phpport](https://github.com/mzsolti/yaf-phpport)，方便使用虚拟空间的用户使用yaf框架
 
 【功能说明】
 - 缓存：APC/文件/Memcache/Xcache 源自 [prestashop](https://github.com/PrestaShop/PrestaShop)

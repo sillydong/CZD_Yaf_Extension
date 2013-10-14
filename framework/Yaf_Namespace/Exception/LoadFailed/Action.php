@@ -8,6 +8,5 @@
  */
 namespace Yaf\Exception\LoadFailed;
 
-class Action extends LoadFailed
-{
+class Action extends LoadFailed {
 }

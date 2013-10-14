@@ -218,7 +218,7 @@ class Validate {
 	}
 	
 	public static function isNumber($data){
-		return preg_match("/^[0-9]+$/u",$data);
+		return preg_match("/^-?[0-9]+$/u",$data);
 	}
 	
 	public static function isCorrectImageExt($data){

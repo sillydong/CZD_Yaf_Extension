@@ -8,6 +8,5 @@
  */
 namespace Yaf\Exception;
 
-class RouterFailed extends \Yaf\Exception
-{
+class RouterFailed extends \Yaf\Exception {
 }

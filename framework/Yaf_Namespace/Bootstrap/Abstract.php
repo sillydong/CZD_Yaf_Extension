@@ -15,9 +15,8 @@
  */
 namespace Yaf;
 
-abstract class Bootstrap_Abstract
-{
-    const YAF_DEFAULT_BOOTSTRAP = 'Bootstrap';
-    const YAF_BOOTSTRAP_INITFUNC_PREFIX = '_init';
+abstract class Bootstrap_Abstract {
+	const YAF_DEFAULT_BOOTSTRAP = 'Bootstrap';
+	const YAF_BOOTSTRAP_INITFUNC_PREFIX = '_init';
 
 }

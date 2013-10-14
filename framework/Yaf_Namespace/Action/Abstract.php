@@ -9,16 +9,14 @@
  */
 namespace Yaf;
 
-abstract class Action_Abstract extends Controller_Abstract
-{
-    protected $_controller = null;
-    public function execute()
-    {
+abstract class Action_Abstract extends Controller_Abstract {
+	protected $_controller = null;
 
-    }
+	public function execute() {
 
-    public function getController()
-    {
-        return $this->_controller;
-    }
+	}
+
+	public function getController() {
+		return $this->_controller;
+	}
 }

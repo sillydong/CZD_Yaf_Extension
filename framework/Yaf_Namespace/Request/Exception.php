@@ -8,6 +8,5 @@
  */
 namespace Yaf\Request;
 
-class Exception extends \Yaf\Exception
-{
+class Exception extends \Yaf\Exception {
 }

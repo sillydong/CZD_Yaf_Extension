@@ -11,229 +11,209 @@
  */
 namespace Yaf;
 
-abstract class Response_Abstract
-{
-    /**
-     * Body content
-     * @var array
-     */
-    protected $_body = '';
+abstract class Response_Abstract {
+	/**
+	 * Body content
+	 * @var array
+	 */
+	protected $_body = '';
+	/**
+	 * Array of headers. Each header is an array with keys 'name' and 'value'
+	 * @var array
+	 */
+	protected $_headers = array();
+	/**
+	 * Determine to send the headers or not
+	 * @var unknown_type
+	 */
+	protected $_sendheader = false;
 
-    /**
-     * Array of headers. Each header is an array with keys 'name' and 'value'
-     * @var array
-     */
-    protected $_headers = array();
+	public function __construct() {
+	}
 
-    /**
-     * Determine to send the headers or not
-     * @var unknown_type
-     */
-    protected $_sendheader = false;
+	/**
+	 * Append content to the body content
+	 *
+	 * @param string $content
+	 * @return Yaf_Response_Abstract
+	 */
+	public function appendBody($body) {
+		$this->_body .= (string) $body;
+		return $this;
+	}
 
-    /**
-     * Append content to the body content
-     *
-     * @param string $content
-     * @return Yaf_Response_Abstract
-     */
-    public function appendBody($body)
-    {
-        $this->_body .= (string) $body;
-        return $this;
-    }
+	/**
+	 * Clear the entire body
+	 *
+	 * @return boolean
+	 */
+	public function clearBody() {
+		$this->_body = '';
+		return true;
+	}
 
-    /**
-     * Clear the entire body
-     *
-     * @return boolean
-     */
-    public function clearBody()
-    {
-        $this->_body = '';
-        return true;
-    }
+	/**
+	 * Clear headers
+	 *
+	 * @return Yaf_Response_Abstract
+	 */
+	public function clearHeaders() {
+		$this->_headers = array();
+		return $this;
+	}
 
-    /**
-     * Clear headers
-     *
-     * @return Yaf_Response_Abstract
-     */
-    public function clearHeaders()
-    {
-        $this->_headers = array();
-        return $this;
-    }
+	public function __destruct() {
+	}
 
-    private function __clone()
-    {
-        //close is not possible
-    }
+	/**
+	 * Return the body content
+	 *
+	 * @return string
+	 */
+	public function getBody() {
+		return $this->_body;
+	}
 
-    public function __construct()
-    {
-    }
+	/**
+	 * Set body content
+	 *
+	 * @param string $body
+	 * @return Yaf_Response_Abstract
+	 */
+	public function setBody($body) {
+		$this->_body = (string) $body;
+		return $this;
+	}
 
-    public function __destruct()
-    {
-    }
-    /**
-     * Return the body content
-     *
-     * @return string
-     */
-    public function getBody()
-    {
-        return $this->_body;
-    }
-    /**
-     * Return array of headers; see {@link $_headers} for format
-     *
-     * @return array
-     */
-    public function getHeader()
-    {
-        return $this->_headers;
-    }
-    /**
-     * Prepend content the body
-     *
-     * @param string $body
-     * @return Yaf_Response_Abstract
-     */
-    public function prependBody($body)
-    {
-        $this->_body = $body . $this->_body;
-        return $this;
-    }
-    /**
-     * Send the response, including all headers
-     *
-     * @return void
-     */
-    public function response()
-    {
-        if ($this->_sendheader == true) {
-            $this->sendHeaders();
-        }
-        echo $this->_body;
-    }
+	/**
+	 * Return array of headers; see {@link $_headers} for format
+	 *
+	 * @return array
+	 */
+	public function getHeader() {
+		return $this->_headers;
+	}
 
-    private function setAllHeaders()
-    {
-        //did not found what should this do
-    }
-    /**
-     * Set body content
-     *
-     * @param string $body
-     * @return Yaf_Response_Abstract
-     */
-    public function setBody($body)
-    {
-        $this->_body = (string) $body;
-        return $this;
-    }
+	/**
+	 * Prepend content the body
+	 *
+	 * @param string $body
+	 * @return Yaf_Response_Abstract
+	 */
+	public function prependBody($body) {
+		$this->_body = $body . $this->_body;
+		return $this;
+	}
 
-    /**
-     * Set a header
-     *
-     * If $replace is true, replaces any headers already defined with that
-     * $name.
-     *
-     * @param string $name
-     * @param string $value
-     * @param boolean $replace
-     * @return Yaf_Response_Abstract
-     */
-    public function setHeader($name, $value, $replace = false)
-    {
-        $name  = $this->_normalizeHeader($name);
-        $value = (string) $value;
+	/**
+	 * Send the response, including all headers
+	 *
+	 * @return void
+	 */
+	public function response() {
+		if ($this->_sendheader == true) {
+			$this->sendHeaders();
+		}
+		echo $this->_body;
+	}
 
-        if ($replace) {
-            foreach ($this->_headers as $key => $header) {
-                if ($name == $header['name']) {
-                    unset($this->_headers[$key]);
-                }
-            }
-        }
+	/**
+	 * Set a header
+	 *
+	 * If $replace is true, replaces any headers already defined with that
+	 * $name.
+	 *
+	 * @param string $name
+	 * @param string $value
+	 * @param boolean $replace
+	 * @return Yaf_Response_Abstract
+	 */
+	public function setHeader($name, $value, $replace = false) {
+		$name = $this->_normalizeHeader($name);
+		$value = (string) $value;
 
-        $this->_headers[] = array(
-            'name'    => $name,
-            'value'   => $value,
-            'replace' => $replace
-        );
+		if ($replace) {
+			foreach ($this->_headers as $key => $header) {
+				if ($name == $header['name']) {
+					unset($this->_headers[$key]);
+				}
+			}
+		}
 
-        return $this;
-    }
+		$this->_headers[] = array(
+			'name' => $name, 'value' => $value, 'replace' => $replace
+		);
 
-    /**
-     * Set redirect URL
-     *
-     * Sets Location header. Forces replacement of any prior redirects.
-     *
-     * @param string $url
-     * @return Yaf_Response_Abstract
-     */
-    public function setRedirect($url)
-    {
-        $this->setHeader('Location', $url, true);
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Magic __toString functionality
-     *
-     * Returns response value as string
-     * using output buffering.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        ob_start();
-        $this->response();
-        return ob_get_clean();
-    }
+	/**
+	 * Set redirect URL
+	 *
+	 * Sets Location header. Forces replacement of any prior redirects.
+	 *
+	 * @param string $url
+	 * @return Yaf_Response_Abstract
+	 */
+	public function setRedirect($url) {
+		$this->setHeader('Location', $url, true);
+		return $this;
+	}
 
+	/**
+	 * Magic __toString functionality
+	 *
+	 * Returns response value as string
+	 * using output buffering.
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		ob_start();
+		$this->response();
+		return ob_get_clean();
+	}
+
+	/**
+	 * Normalize a header name
+	 *
+	 * Normalizes a header name to X-Capitalized-Names
+	 *
+	 * @param  string $name
+	 * @return string
+	 */
+	protected function _normalizeHeader($name) {
+		$filtered = str_replace(array('-', '_'), ' ', (string) $name);
+		$filtered = ucwords(strtolower($filtered));
+		$filtered = str_replace(' ', '-', $filtered);
+		return $filtered;
+	}
+
+	/**
+	 * Send all headers
+	 *
+	 * Sends any headers specified.
+	 * If an {@link setHttpResponseCode() HTTP response code}
+	 * has been specified, it is sent with the first header.
+	 *
+	 * @return Yaf_Response_Abstract
+	 */
+	protected function sendHeaders() {
+		foreach ($this->_headers as $header) {
+			header($header['name'] . ': ' . $header['value'], $header['replace']);
+		}
+		return $this;
+	}
 
 
-//method added to be possible
-  /**
-     * Normalize a header name
-     *
-     * Normalizes a header name to X-Capitalized-Names
-     *
-     * @param  string $name
-     * @return string
-     */
-    protected function _normalizeHeader($name)
-    {
-        $filtered = str_replace(array('-', '_'), ' ', (string) $name);
-        $filtered = ucwords(strtolower($filtered));
-        $filtered = str_replace(' ', '-', $filtered);
-        return $filtered;
-    }
+	//method added to be possible
 
-   /**
-     * Send all headers
-     *
-     * Sends any headers specified.
-     * If an {@link setHttpResponseCode() HTTP response code}
-     * has been specified, it is sent with the first header.
-     *
-     * @return Yaf_Response_Abstract
-     */
-    protected function sendHeaders()
-    {
-        foreach ($this->_headers as $header) {
-            header(
-                $header['name'] . ': ' . $header['value'],
-                $header['replace']
-            );
-        }
-        return $this;
-    }
+	private function __clone() {
+		//close is not possible
+	}
+
+	private function setAllHeaders() {
+		//did not found what should this do
+	}
 
 }
