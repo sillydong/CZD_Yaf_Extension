@@ -309,12 +309,10 @@ abstract class Object{
 
 	public function cleanCache($module,$search){
 		if(self::$is_cache_enabled){
-			if($module){
-				Cache::getInstance()->delete($this->class_name.self::CACHE_PREFIX_MODEL.$this->id);
-			}
-			if($search){
-				Cache::getInstance()->delete($this->class_name.self::CACHE_PREFIX_SEARCH.'*');
-			}
+			if($module)
+				Cache::clean($this->class_name.self::CACHE_PREFIX_MODEL.$this->id);
+			if($search)
+				Cache::clean($this->class_name.self::CACHE_PREFIX_SEARCH.'*');
 		}
 	}
 
