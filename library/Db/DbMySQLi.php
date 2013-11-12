@@ -1,8 +1,8 @@
 <?php
 
-class DbMySQLi extends Db{
-	public function	connect(){
-		if (strpos($this->server, ':') !== false){
+class DbMySQLi extends Db {
+	public function connect() {
+		if (strpos($this->server, ':') !== false) {
 			list($server, $port) = explode(':', $this->server);
 			$this->link = @new mysqli($server, $this->user, $this->password, $this->database, $port);
 		}
@@ -20,63 +20,55 @@ class DbMySQLi extends Db{
 		return $this->link;
 	}
 
-	public function	disconnect(){
+	public function disconnect() {
 		@$this->link->close();
 	}
 
-	protected function _query($sql){
-		return $this->link->query($sql);
-	}
-
-	public function nextRow($result = false){
+	public function nextRow($result = false) {
 		if (!$result)
 			$result = $this->result;
 		return $result->fetch_assoc();
 	}
 
-	protected function _numRows($result){
-		return $result->num_rows;
-	}
-
-	public function	Insert_ID(){
+	public function Insert_ID() {
 		return $this->link->insert_id;
 	}
 
-	public function	Affected_Rows(){
+	public function Affected_Rows() {
 		return $this->link->affected_rows;
 	}
 
-	public function getMsgError($query = false){
+	public function getMsgError($query = false) {
 		return $this->link->error;
 	}
 
-	public function getNumberError(){
+	public function getNumberError() {
 		return $this->link->errno;
 	}
 
-	public function getVersion(){
+	public function getVersion() {
 		return $this->getValue('SELECT VERSION()');
 	}
 
-	public function _escape($str){
+	public function _escape($str) {
 		return $this->link->real_escape_string($str);
 	}
 
-	public function set_db($db_name){
-		return $this->link->query('USE '.pSQL($db_name));
+	public function set_db($db_name) {
+		return $this->link->query('USE ' . pSQL($db_name));
 	}
 
-	public static function hasTableWithSamePrefix($server, $user, $pwd, $db, $prefix){
+	public static function hasTableWithSamePrefix($server, $user, $pwd, $db, $prefix) {
 		$link = @new mysqli($server, $user, $pwd, $db);
 		if (mysqli_connect_error())
 			return false;
 
-		$sql = 'SHOW TABLES LIKE \''.$prefix.'%\'';
+		$sql = 'SHOW TABLES LIKE \'' . $prefix . '%\'';
 		$result = $link->query($sql);
-		return (bool)$result->fetch_assoc();
+		return (bool) $result->fetch_assoc();
 	}
 
-	public static function tryToConnect($server, $user, $pwd, $db, $newDbLink = true, $engine = null, $timeout = 5){
+	public static function tryToConnect($server, $user, $pwd, $db, $newDbLink = true, $engine = null, $timeout = 5) {
 		$link = mysqli_init();
 		if (!$link)
 			return -1;
@@ -87,8 +79,7 @@ class DbMySQLi extends Db{
 		if (!$link->real_connect($server, $user, $pwd, $db))
 			return (mysqli_connect_errno() == 1049) ? 2 : 1;
 
-		if (strtolower($engine) == 'innodb')
-		{
+		if (strtolower($engine) == 'innodb') {
 			$sql = 'SHOW VARIABLES WHERE Variable_name = \'have_innodb\'';
 			$result = $link->query($sql);
 			if (!$result)
@@ -101,14 +92,13 @@ class DbMySQLi extends Db{
 		return 0;
 	}
 
-	public static function checkCreatePrivilege($server, $user, $pwd, $db, $prefix, $engine)
-	{
+	public static function checkCreatePrivilege($server, $user, $pwd, $db, $prefix, $engine) {
 		$link = @new mysqli($server, $user, $pwd, $db);
 		if (mysqli_connect_error())
 			return false;
 
 		$sql = '
-		CREATE TABLE `'.$prefix.'test` (
+		CREATE TABLE `' . $prefix . 'test` (
 		`test` tinyint(1) unsigned NOT NULL
 		) ENGINE=MyISAM';
 		$result = $link->query($sql);
@@ -116,14 +106,38 @@ class DbMySQLi extends Db{
 		if (!$result)
 			return $link->error;
 
-		$link->query('DROP TABLE `'.$prefix.'test`');
+		$link->query('DROP TABLE `' . $prefix . 'test`');
 		return true;
 	}
 
-	static public function tryUTF8($server, $user, $pwd){
+	static public function tryUTF8($server, $user, $pwd) {
 		$link = @new mysqli($server, $user, $pwd, $db);
 		$ret = $link->query("SET NAMES 'UTF8'");
 		$link->close();
 		return $ret;
+	}
+
+	public function ping() {
+		if (!mysqli_ping($this->link)) {
+			$this->disconnect();
+			return false;
+		}
+		return true;
+	}
+
+	protected function _query($sql) {
+		if ($this->ping())
+			return $this->link->query($sql);
+		else {
+			if ($this->connect()) {
+				return $this->link->query($sql);
+			}
+			else
+				return false;
+		}
+	}
+
+	protected function _numRows($result) {
+		return $result->num_rows;
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-abstract class Db{
+abstract class Db {
 
 	const INSERT = 1;
 	const INSERT_IGNORE = 2;
@@ -53,35 +53,32 @@ abstract class Db{
 
 	abstract public function set_db($db_name);
 
+	abstract public function ping();
+
 	/**
 	 * 获取Db实例，可选择主从
 	 * @param bool $master
 	 * @return mixed
 	 */
-	public static function getInstance($master = true){
+	public static function getInstance($master = true) {
 		static $id = 0;
 
-		if(self::$_servers==null){
-			self::$_servers=Yaf_Registry::get('database');
+		if (self::$_servers == null) {
+			self::$_servers = Yaf_Registry::get('database');
 		}
 
-		$id_server=($master || count(self::$_servers)==1)?0:1;
+		$id_server = ($master || count(self::$_servers) == 1) ? 0 : 1;
 
-		if (!isset(self::$instance[$id_server])){
+		if (!isset(self::$instance[$id_server])) {
 			$class = Db::getClass();
-			Yaf_Loader::import(dirname(__FILE__).'/'.$class.'.php');
-			self::$instance[$id_server] = new $class(
-					self::$_servers[$id_server]['server'],
-					self::$_servers[$id_server]['user'],
-					self::$_servers[$id_server]['password'],
-					self::$_servers[$id_server]['database']
-			);
+			Yaf_Loader::import(dirname(__FILE__) . '/' . $class . '.php');
+			self::$instance[$id_server] = new $class(self::$_servers[$id_server]['server'], self::$_servers[$id_server]['user'], self::$_servers[$id_server]['password'], self::$_servers[$id_server]['database']);
 		}
 
 		return self::$instance[$id_server];
 	}
 
-	public static function getClass(){
+	public static function getClass() {
 		$class = 'MySQL';
 		if (PHP_VERSION_ID >= 50200 && extension_loaded('pdo_mysql'))
 			$class = 'DbPDO';
@@ -90,29 +87,29 @@ abstract class Db{
 		return $class;
 	}
 
-	public function __construct($server, $user, $password, $database, $connect = true){
+	public function __construct($server, $user, $password, $database, $connect = true) {
 		$this->server = $server;
 		$this->user = $user;
 		$this->password = $password;
 		$this->database = $database;
 		$this->is_cache_enabled = (defined('MYSQL_CACHE_ENABLE')) ? MYSQL_CACHE_ENABLE : false;
-		$this->log_error=(defined('MYSQL_LOG_ERROR')?MYSQL_LOG_ERROR:false);
+		$this->log_error = (defined('MYSQL_LOG_ERROR') ? MYSQL_LOG_ERROR : false);
 
 		if ($connect)
 			$this->connect();
 	}
 
-	public function __destruct(){
+	public function __destruct() {
 		if ($this->link)
 			$this->disconnect();
 	}
 
-	public function query($sql){
+	public function query($sql) {
 		if ($sql instanceof DbQuery)
 			$sql = $sql->build();
 
 		$this->result = $this->_query($sql);
-		if($this->log_error){
+		if ($this->log_error) {
 			$this->logError($sql);
 		}
 		return $this->result;
@@ -127,7 +124,7 @@ abstract class Db{
 	 * @param int $type
 	 * @return bool
 	 */
-	public function insert($table, $data, $null_values = false, $use_cache = true, $type = Db::INSERT){
+	public function insert($table, $data, $null_values = false, $use_cache = true, $type = Db::INSERT) {
 		if (!$data && !$null_values)
 			return true;
 
@@ -147,10 +144,10 @@ abstract class Db{
 
 		$keys = array();
 		$values_stringified = array();
-		foreach ($data as $row_data){
+		foreach ($data as $row_data) {
 			$values = array();
-			foreach ($row_data as $key => $value){
-				if (isset($keys_stringified)){
+			foreach ($row_data as $key => $value) {
+				if (isset($keys_stringified)) {
 					// Check if row array mapping are the same
 					if (!in_array("`$key`", $keys))
 						die(Tools::displayError('Keys form $data subarray don\'t match'));
@@ -166,11 +163,11 @@ abstract class Db{
 					$values[] = $null_values && ($value['value'] === '' || is_null($value['value'])) ? 'NULL' : "'{$value['value']}'";
 			}
 			$keys_stringified = implode(', ', $keys);
-			$values_stringified[] = '('.implode(', ', $values).')';
+			$values_stringified[] = '(' . implode(', ', $values) . ')';
 		}
 
-		$sql = $insert_keyword.' INTO `'.$table.'` ('.$keys_stringified.') VALUES '.implode(', ', $values_stringified);
-		return (bool)$this->q($sql,$use_cache);
+		$sql = $insert_keyword . ' INTO `' . $table . '` (' . $keys_stringified . ') VALUES ' . implode(', ', $values_stringified);
+		return (bool) $this->q($sql, $use_cache);
 	}
 
 	/**
@@ -183,12 +180,12 @@ abstract class Db{
 	 * @param bool $use_cache
 	 * @return bool
 	 */
-	public function update($table, $data, $where = '', $limit = 0, $null_values = false, $use_cache = true){
+	public function update($table, $data, $where = '', $limit = 0, $null_values = false, $use_cache = true) {
 		if (!$data)
 			return true;
 
-		$sql = 'UPDATE `'.$table.'` SET ';
-		foreach ($data as $key => $value){
+		$sql = 'UPDATE `' . $table . '` SET ';
+		foreach ($data as $key => $value) {
 			if (!is_array($value))
 				$value = array('type' => 'text', 'value' => $value);
 			if ($value['type'] == 'sql')
@@ -199,10 +196,10 @@ abstract class Db{
 
 		$sql = rtrim($sql, ',');
 		if ($where)
-			$sql .= ' WHERE '.$where;
+			$sql .= ' WHERE ' . $where;
 		if ($limit)
-			$sql .= ' LIMIT '.(int)$limit;
-		return (bool)$this->q($sql,$use_cache);
+			$sql .= ' LIMIT ' . (int) $limit;
+		return (bool) $this->q($sql, $use_cache);
 	}
 
 	/**
@@ -213,14 +210,14 @@ abstract class Db{
 	 * @param bool $use_cache
 	 * @return bool
 	 */
-	public function delete($table, $where = '', $limit = 0, $use_cache = true){
+	public function delete($table, $where = '', $limit = 0, $use_cache = true) {
 
 		$this->result = false;
-		$sql = 'DELETE FROM `'.bqSQL($table).'`'.($where ? ' WHERE '.$where : '').($limit ? ' LIMIT '.(int)$limit : '');
+		$sql = 'DELETE FROM `' . bqSQL($table) . '`' . ($where ? ' WHERE ' . $where : '') . ($limit ? ' LIMIT ' . (int) $limit : '');
 		$res = $this->query($sql);
 		if ($use_cache && $this->is_cache_enabled)
 			Cache::getInstance()->deleteQuery($sql);
-		return (bool)$res;
+		return (bool) $res;
 	}
 
 	/**
@@ -229,14 +226,14 @@ abstract class Db{
 	 * @param bool $use_cache
 	 * @return bool
 	 */
-	public function execute($sql, $use_cache = true){
+	public function execute($sql, $use_cache = true) {
 		if ($sql instanceof DbQuery)
 			$sql = $sql->build();
 
 		$this->result = $this->query($sql);
 		if ($use_cache && $this->is_cache_enabled)
 			Cache::getInstance()->deleteQuery($sql);
-		return (bool)$this->result;
+		return (bool) $this->result;
 	}
 
 	/**
@@ -246,19 +243,18 @@ abstract class Db{
 	 * @param bool $use_cache
 	 * @return array|bool|mixed
 	 */
-	public function executeS($sql, $array = true, $use_cache = true){
+	public function executeS($sql, $array = true, $use_cache = true) {
 		if ($sql instanceof DbQuery)
 			$sql = $sql->build();
 
 		// This method must be used only with queries which display results
-		if (!preg_match('#^\s*\(?\s*(select|show|explain|describe|desc)\s#i', $sql))
-		{
+		if (!preg_match('#^\s*\(?\s*(select|show|explain|describe|desc)\s#i', $sql)) {
 			return $this->execute($sql, $use_cache);
 		}
 
 		$this->result = false;
 		$this->last_query = $sql;
-		if ($use_cache && $this->is_cache_enabled && $array && ($result = Cache::getInstance()->get(md5($sql)))){
+		if ($use_cache && $this->is_cache_enabled && $array && ($result = Cache::getInstance()->get(md5($sql)))) {
 			$this->last_cached = true;
 			return $result;
 		}
@@ -286,16 +282,16 @@ abstract class Db{
 	 * @param bool $use_cache
 	 * @return bool|mixed
 	 */
-	public function getRow($sql, $use_cache = true){
+	public function getRow($sql, $use_cache = true) {
 		if ($sql instanceof DbQuery)
 			$sql = $sql->build();
 
-		if(stripos($sql, ' limit ')===false){
+		if (stripos($sql, ' limit ') === false) {
 			$sql .= ' LIMIT 1';
 		}
 		$this->result = false;
 		$this->last_query = $sql;
-		if ($use_cache && $this->is_cache_enabled && ($result = Cache::getInstance()->get(md5($sql)))){
+		if ($use_cache && $this->is_cache_enabled && ($result = Cache::getInstance()->get(md5($sql)))) {
 			$this->last_cached = true;
 			return $result;
 		}
@@ -317,7 +313,7 @@ abstract class Db{
 	 * @param bool $use_cache
 	 * @return bool|mixed
 	 */
-	public function getValue($sql, $use_cache = true){
+	public function getValue($sql, $use_cache = true) {
 		if ($sql instanceof DbQuery)
 			$sql = $sql->build();
 
@@ -330,18 +326,18 @@ abstract class Db{
 	 * 查询结果行数
 	 * @return bool|mixed
 	 */
-	public function numRows(){
-		if (!$this->last_cached && $this->result){
+	public function numRows() {
+		if (!$this->last_cached && $this->result) {
 			$nrows = $this->_numRows($this->result);
 			if ($this->is_cache_enabled)
-				Cache::getInstance()->set(md5($this->last_query).'_nrows', $nrows);
+				Cache::getInstance()->set(md5($this->last_query) . '_nrows', $nrows);
 			return $nrows;
 		}
 		else if ($this->is_cache_enabled && $this->last_cached)
-			return Cache::getInstance()->get(md5($this->last_query).'_nrows');
+			return Cache::getInstance()->get(md5($this->last_query) . '_nrows');
 	}
 
-	protected function q($sql, $use_cache = true){
+	protected function q($sql, $use_cache = true) {
 		if ($sql instanceof DbQuery)
 			$sql = $sql->build();
 
@@ -352,10 +348,10 @@ abstract class Db{
 		return $result;
 	}
 
-	public function escape($string, $html_ok = false){
+	public function escape($string, $html_ok = false) {
 		if (get_magic_quotes_gpc())
 			$string = stripslashes($string);
-		if (!is_numeric($string)){
+		if (!is_numeric($string)) {
 			$string = $this->_escape($string);
 			if (!$html_ok)
 				$string = strip_tags(Tools::nl2br($string));
@@ -364,25 +360,25 @@ abstract class Db{
 		return $string;
 	}
 
-	public function nextId($table_name){
-		return $this->getValue("select AUTO_INCREMENT from information_schema.TABLES where TABLE_SCHEMA='".$this->database."' and TABLE_NAME='".pSQL($table_name)."'");
+	public function nextId($table_name) {
+		return $this->getValue("select AUTO_INCREMENT from information_schema.TABLES where TABLE_SCHEMA='" . $this->database . "' and TABLE_NAME='" . pSQL($table_name) . "'");
 	}
 
-	protected function logError($sql=false){
-		if($this->getNumberError()){
-			Log::out('sql_error','E',$this->getMsgError().':'.$sql);
+	protected function logError($sql = false) {
+		if ($this->getNumberError()) {
+			Log::out('sql_error', 'E', $this->getMsgError() . ':' . $sql);
 		}
 	}
 
-	public static function checkConnection($server, $user, $pwd, $db, $new_db_link = true, $engine = null, $timeout = 5){
+	public static function checkConnection($server, $user, $pwd, $db, $new_db_link = true, $engine = null, $timeout = 5) {
 		return call_user_func_array(array(Db::getClass(), 'tryToConnect'), array($server, $user, $pwd, $db, $new_db_link, $engine, $timeout));
 	}
 
-	public static function checkEncoding($server, $user, $pwd){
+	public static function checkEncoding($server, $user, $pwd) {
 		return call_user_func_array(array(Db::getClass(), 'tryUTF8'), array($server, $user, $pwd));
 	}
 
-	public static function hasTableWithSamePrefix($server, $user, $pwd, $db, $prefix){
+	public static function hasTableWithSamePrefix($server, $user, $pwd, $db, $prefix) {
 		return call_user_func_array(array(Db::getClass(), 'hasTableWithSamePrefix'), array($server, $user, $pwd, $db, $prefix));
 	}
 
