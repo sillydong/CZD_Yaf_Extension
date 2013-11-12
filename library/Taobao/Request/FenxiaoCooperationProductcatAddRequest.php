@@ -1,79 +1,69 @@
 <?php
 /**
  * TOP API: taobao.fenxiao.cooperation.productcat.add request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_FenxiaoCooperationProductcatAddRequest
-{
-	/** 
+class Taobao_Request_FenxiaoCooperationProductcatAddRequest {
+	/**
 	 * 合作关系id
 	 **/
 	private $cooperateId;
-	
-	/** 
+
+	/**
 	 * 等级ID（为空则不修改）
 	 **/
 	private $gradeId;
-	
-	/** 
+
+	/**
 	 * 产品线id列表，若有多个，以逗号分隔
 	 **/
 	private $productLineList;
-	
+
 	private $apiParas = array();
-	
-	public function setCooperateId($cooperateId)
-	{
+
+	public function setCooperateId($cooperateId) {
 		$this->cooperateId = $cooperateId;
 		$this->apiParas["cooperate_id"] = $cooperateId;
 	}
 
-	public function getCooperateId()
-	{
+	public function getCooperateId() {
 		return $this->cooperateId;
 	}
 
-	public function setGradeId($gradeId)
-	{
+	public function setGradeId($gradeId) {
 		$this->gradeId = $gradeId;
 		$this->apiParas["grade_id"] = $gradeId;
 	}
 
-	public function getGradeId()
-	{
+	public function getGradeId() {
 		return $this->gradeId;
 	}
 
-	public function setProductLineList($productLineList)
-	{
+	public function setProductLineList($productLineList) {
 		$this->productLineList = $productLineList;
 		$this->apiParas["product_line_list"] = $productLineList;
 	}
 
-	public function getProductLineList()
-	{
+	public function getProductLineList() {
 		return $this->productLineList;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.fenxiao.cooperation.productcat.add";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->cooperateId,"cooperateId");
-		Taobao_RequestCheckUtil::checkNotNull($this->productLineList,"productLineList");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->cooperateId, "cooperateId");
+		Taobao_RequestCheckUtil::checkNotNull($this->productLineList, "productLineList");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

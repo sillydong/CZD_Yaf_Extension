@@ -1,63 +1,55 @@
 <?php
 /**
  * TOP API: taobao.inventory.initial.item request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_InventoryInitialItemRequest
-{
-	/** 
+class Taobao_Request_InventoryInitialItemRequest {
+	/**
 	 * 后端商品id
 	 **/
 	private $scItemId;
-	
-	/** 
+
+	/**
 	 * 商品初始库存信息： [{"storeCode":"必选,商家仓库编号","inventoryType":"可选，库存类型 1：正常,2：损坏,3：冻结,10：质押,11-20:用户自定义,默认为1","quantity":"必选,数量"}]
 	 **/
 	private $storeInventorys;
-	
+
 	private $apiParas = array();
-	
-	public function setScItemId($scItemId)
-	{
+
+	public function setScItemId($scItemId) {
 		$this->scItemId = $scItemId;
 		$this->apiParas["sc_item_id"] = $scItemId;
 	}
 
-	public function getScItemId()
-	{
+	public function getScItemId() {
 		return $this->scItemId;
 	}
 
-	public function setStoreInventorys($storeInventorys)
-	{
+	public function setStoreInventorys($storeInventorys) {
 		$this->storeInventorys = $storeInventorys;
 		$this->apiParas["store_inventorys"] = $storeInventorys;
 	}
 
-	public function getStoreInventorys()
-	{
+	public function getStoreInventorys() {
 		return $this->storeInventorys;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.inventory.initial.item";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->scItemId,"scItemId");
-		Taobao_RequestCheckUtil::checkNotNull($this->storeInventorys,"storeInventorys");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->scItemId, "scItemId");
+		Taobao_RequestCheckUtil::checkNotNull($this->storeInventorys, "storeInventorys");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

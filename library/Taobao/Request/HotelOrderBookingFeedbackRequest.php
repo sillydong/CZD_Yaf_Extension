@@ -1,149 +1,131 @@
 <?php
 /**
  * TOP API: taobao.hotel.order.booking.feedback request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_HotelOrderBookingFeedbackRequest
-{
-	/** 
+class Taobao_Request_HotelOrderBookingFeedbackRequest {
+	/**
 	 * 失败原因,当result为failed时,此项为必填，最长200个字符
 	 **/
 	private $failedReason;
-	
-	/** 
+
+	/**
 	 * 指令消息中的messageid,最长128字符
 	 **/
 	private $messageId;
-	
-	/** 
+
+	/**
 	 * 酒店订单id
 	 **/
 	private $oid;
-	
-	/** 
+
+	/**
 	 * 合作方订单号,最长250个字符
 	 **/
 	private $outOid;
-	
-	/** 
+
+	/**
 	 * 在合作方退订时可能要用到的标识码，最长250个字符
 	 **/
 	private $refundCode;
-	
-	/** 
-	 * 预订结果 
-S:成功
-F:失败
+
+	/**
+	 * 预订结果
+	S:成功
+	F:失败
 	 **/
 	private $result;
-	
-	/** 
+
+	/**
 	 * 指令消息中的session_id
 	 **/
 	private $sessionId;
-	
+
 	private $apiParas = array();
-	
-	public function setFailedReason($failedReason)
-	{
+
+	public function setFailedReason($failedReason) {
 		$this->failedReason = $failedReason;
 		$this->apiParas["failed_reason"] = $failedReason;
 	}
 
-	public function getFailedReason()
-	{
+	public function getFailedReason() {
 		return $this->failedReason;
 	}
 
-	public function setMessageId($messageId)
-	{
+	public function setMessageId($messageId) {
 		$this->messageId = $messageId;
 		$this->apiParas["message_id"] = $messageId;
 	}
 
-	public function getMessageId()
-	{
+	public function getMessageId() {
 		return $this->messageId;
 	}
 
-	public function setOid($oid)
-	{
+	public function setOid($oid) {
 		$this->oid = $oid;
 		$this->apiParas["oid"] = $oid;
 	}
 
-	public function getOid()
-	{
+	public function getOid() {
 		return $this->oid;
 	}
 
-	public function setOutOid($outOid)
-	{
+	public function setOutOid($outOid) {
 		$this->outOid = $outOid;
 		$this->apiParas["out_oid"] = $outOid;
 	}
 
-	public function getOutOid()
-	{
+	public function getOutOid() {
 		return $this->outOid;
 	}
 
-	public function setRefundCode($refundCode)
-	{
+	public function setRefundCode($refundCode) {
 		$this->refundCode = $refundCode;
 		$this->apiParas["refund_code"] = $refundCode;
 	}
 
-	public function getRefundCode()
-	{
+	public function getRefundCode() {
 		return $this->refundCode;
 	}
 
-	public function setResult($result)
-	{
+	public function setResult($result) {
 		$this->result = $result;
 		$this->apiParas["result"] = $result;
 	}
 
-	public function getResult()
-	{
+	public function getResult() {
 		return $this->result;
 	}
 
-	public function setSessionId($sessionId)
-	{
+	public function setSessionId($sessionId) {
 		$this->sessionId = $sessionId;
 		$this->apiParas["session_id"] = $sessionId;
 	}
 
-	public function getSessionId()
-	{
+	public function getSessionId() {
 		return $this->sessionId;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.hotel.order.booking.feedback";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->messageId,"messageId");
-		Taobao_RequestCheckUtil::checkMinValue($this->oid,0,"oid");
-		Taobao_RequestCheckUtil::checkNotNull($this->outOid,"outOid");
-		Taobao_RequestCheckUtil::checkNotNull($this->result,"result");
-		Taobao_RequestCheckUtil::checkNotNull($this->sessionId,"sessionId");
-		Taobao_RequestCheckUtil::checkMinValue($this->sessionId,0,"sessionId");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->messageId, "messageId");
+		Taobao_RequestCheckUtil::checkMinValue($this->oid, 0, "oid");
+		Taobao_RequestCheckUtil::checkNotNull($this->outOid, "outOid");
+		Taobao_RequestCheckUtil::checkNotNull($this->result, "result");
+		Taobao_RequestCheckUtil::checkNotNull($this->sessionId, "sessionId");
+		Taobao_RequestCheckUtil::checkMinValue($this->sessionId, 0, "sessionId");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

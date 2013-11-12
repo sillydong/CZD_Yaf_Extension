@@ -1,64 +1,56 @@
 <?php
 /**
  * TOP API: taobao.item.img.delete request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_ItemImgDeleteRequest
-{
-	/** 
+class Taobao_Request_ItemImgDeleteRequest {
+	/**
 	 * 商品图片ID
 	 **/
 	private $id;
-	
-	/** 
+
+	/**
 	 * 商品数字ID，必选
 	 **/
 	private $numIid;
-	
+
 	private $apiParas = array();
-	
-	public function setId($id)
-	{
+
+	public function setId($id) {
 		$this->id = $id;
 		$this->apiParas["id"] = $id;
 	}
 
-	public function getId()
-	{
+	public function getId() {
 		return $this->id;
 	}
 
-	public function setNumIid($numIid)
-	{
+	public function setNumIid($numIid) {
 		$this->numIid = $numIid;
 		$this->apiParas["num_iid"] = $numIid;
 	}
 
-	public function getNumIid()
-	{
+	public function getNumIid() {
 		return $this->numIid;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.item.img.delete";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->id,"id");
-		Taobao_RequestCheckUtil::checkNotNull($this->numIid,"numIid");
-		Taobao_RequestCheckUtil::checkMinValue($this->numIid,0,"numIid");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->id, "id");
+		Taobao_RequestCheckUtil::checkNotNull($this->numIid, "numIid");
+		Taobao_RequestCheckUtil::checkMinValue($this->numIid, 0, "numIid");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

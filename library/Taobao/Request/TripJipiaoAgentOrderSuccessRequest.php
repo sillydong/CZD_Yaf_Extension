@@ -1,64 +1,56 @@
 <?php
 /**
  * TOP API: taobao.trip.jipiao.agent.order.success request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_TripJipiaoAgentOrderSuccessRequest
-{
-	/** 
+class Taobao_Request_TripJipiaoAgentOrderSuccessRequest {
+	/**
 	 * 淘宝系统订单id
 	 **/
 	private $orderId;
-	
-	/** 
+
+	/**
 	 * 成功订单参数：列表元素结构为——旧乘机人姓名;新乘机人姓名;pnr;票号 (以分号进行分隔)。说明：有时用户输入的乘机人姓名输入错误或者有生僻字，代理商必须输入新的名字以保证验真通过；即旧乘机人姓名和新乘机人姓名不需要变化时可以相同
 	 **/
 	private $successInfo;
-	
+
 	private $apiParas = array();
-	
-	public function setOrderId($orderId)
-	{
+
+	public function setOrderId($orderId) {
 		$this->orderId = $orderId;
 		$this->apiParas["order_id"] = $orderId;
 	}
 
-	public function getOrderId()
-	{
+	public function getOrderId() {
 		return $this->orderId;
 	}
 
-	public function setSuccessInfo($successInfo)
-	{
+	public function setSuccessInfo($successInfo) {
 		$this->successInfo = $successInfo;
 		$this->apiParas["success_info"] = $successInfo;
 	}
 
-	public function getSuccessInfo()
-	{
+	public function getSuccessInfo() {
 		return $this->successInfo;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.trip.jipiao.agent.order.success";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->orderId,"orderId");
-		Taobao_RequestCheckUtil::checkNotNull($this->successInfo,"successInfo");
-		Taobao_RequestCheckUtil::checkMaxListSize($this->successInfo,9,"successInfo");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->orderId, "orderId");
+		Taobao_RequestCheckUtil::checkNotNull($this->successInfo, "successInfo");
+		Taobao_RequestCheckUtil::checkMaxListSize($this->successInfo, 9, "successInfo");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

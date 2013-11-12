@@ -4,84 +4,84 @@
  * 2013-4-25
  */
 
-class Smarty_Adapter implements Yaf_View_Interface{
+class Smarty_Adapter implements Yaf_View_Interface {
 
 	public $_smarty;
 
 	public function __construct($tplPath = null, $extraParams = array()) {
 
-		$current_dir=dirname(__FILE__);
-		Yaf_Loader::import($current_dir.'/Smarty.class.php');
-		Yaf_Loader::import($current_dir.'/sysplugins/smarty_internal_templatecompilerbase.php');
-		Yaf_Loader::import($current_dir.'/sysplugins/smarty_internal_templatelexer.php');
-		Yaf_Loader::import($current_dir.'/sysplugins/smarty_internal_templateparser.php');
-		Yaf_Loader::import($current_dir.'/sysplugins/smarty_internal_compilebase.php');
-		Yaf_Loader::import($current_dir.'/sysplugins/smarty_internal_write_file.php');
+		$current_dir = dirname(__FILE__);
+		Yaf_Loader::import($current_dir . '/Smarty.class.php');
+		Yaf_Loader::import($current_dir . '/sysplugins/smarty_internal_templatecompilerbase.php');
+		Yaf_Loader::import($current_dir . '/sysplugins/smarty_internal_templatelexer.php');
+		Yaf_Loader::import($current_dir . '/sysplugins/smarty_internal_templateparser.php');
+		Yaf_Loader::import($current_dir . '/sysplugins/smarty_internal_compilebase.php');
+		Yaf_Loader::import($current_dir . '/sysplugins/smarty_internal_write_file.php');
 
 		$this->_smarty = new Smarty;
 
-		if ($tplPath!==null) {
+		if ($tplPath !== null) {
 			$this->setScriptPath($tplPath);
 		}
 
-		if($extraParams!=null){
+		if ($extraParams != null) {
 			foreach ($extraParams as $key => $value) {
 				$this->_smarty->$key = $value;
 			}
 		}
 	}
 
-	public function getEngine(){
+	public function getEngine() {
 		return $this->_smarty;
 	}
 
-	public function setScriptPath($path){
-		if(is_readable($path)){
-			$this->_smarty->template_dir=$path;
+	public function setScriptPath($path) {
+		if (is_readable($path)) {
+			$this->_smarty->template_dir = $path;
 		}
-		else{
+		else {
 			throw new Exception('Invalid path provided');
 		}
 	}
 
-	public function getScriptPath(){
+	public function getScriptPath() {
 		return $this->_smarty->template_dir;
 	}
 
-	public function __set($key,$val){
+	public function __set($key, $val) {
 		$this->_smarty->assign($key, $val);
 	}
 
-	public function __get($key){
+	public function __get($key) {
 		return $this->_smarty->getTemplateVars($key);
 	}
 
-	public function __isset($key){
-		return ($this->_smarty->getTemplateVars($key)!==null);
+	public function __isset($key) {
+		return ($this->_smarty->getTemplateVars($key) !== null);
 	}
 
-	public function __unset($key){
+	public function __unset($key) {
 		$this->_smarty->clearAssign($key);
 	}
 
-	public function clearVars(){
+	public function clearVars() {
 		$this->_smarty->clearAllAssign();
 	}
 
-	public function cleanCache($name){
-		if(!empty($name)){
+	public function cleanCache($name) {
+		if (!empty($name)) {
 			$this->_smarty->clearCache($name);
 			$this->_smarty->clearCompiledTemplate($name);
 		}
-		else{
+		else {
 			$this->_smarty->clearAllCache();
 			$this->_smarty->clearCompiledTemplate();
 		}
 	}
 
-	public function display($name,$tpl_vars=array()){
+	public function display($name, $tpl_vars = array()) {
 		//die(var_dump($name));
-		if(!empty($tpl_vars)){
+		if (!empty($tpl_vars)) {
 			$this->assign($tpl_vars);
 		}
 		echo $this->_smarty->display($name);
@@ -96,15 +96,15 @@ class Smarty_Adapter implements Yaf_View_Interface{
 		$this->_smarty->assign($spec, $value);
 	}
 
-	public function render($name,$tpl_vars=array()) {
-		if(!empty($tpl_vars)){
+	public function render($name, $tpl_vars = array()) {
+		if (!empty($tpl_vars)) {
 			$this->assign($tpl_vars);
 		}
 		return $this->_smarty->fetch($name);
 	}
-	
-	public function registerFunction($type,$function,$params){
-		if(!in_array($type, array('function','modifier')))
+
+	public function registerFunction($type, $function, $params) {
+		if (!in_array($type, array('function', 'modifier')))
 			return false;
 		$this->_smarty->registerPlugin($type, $function, $params);
 	}

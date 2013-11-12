@@ -1,78 +1,68 @@
 <?php
 /**
  * TOP API: taobao.fenxiao.product.gradeprice.get request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_FenxiaoProductGradepriceGetRequest
-{
-	/** 
+class Taobao_Request_FenxiaoProductGradepriceGetRequest {
+	/**
 	 * 产品id
 	 **/
 	private $productId;
-	
-	/** 
+
+	/**
 	 * skuId
 	 **/
 	private $skuId;
-	
-	/** 
+
+	/**
 	 * 经、代销模式（1：代销、2：经销）
 	 **/
 	private $tradeType;
-	
+
 	private $apiParas = array();
-	
-	public function setProductId($productId)
-	{
+
+	public function setProductId($productId) {
 		$this->productId = $productId;
 		$this->apiParas["product_id"] = $productId;
 	}
 
-	public function getProductId()
-	{
+	public function getProductId() {
 		return $this->productId;
 	}
 
-	public function setSkuId($skuId)
-	{
+	public function setSkuId($skuId) {
 		$this->skuId = $skuId;
 		$this->apiParas["sku_id"] = $skuId;
 	}
 
-	public function getSkuId()
-	{
+	public function getSkuId() {
 		return $this->skuId;
 	}
 
-	public function setTradeType($tradeType)
-	{
+	public function setTradeType($tradeType) {
 		$this->tradeType = $tradeType;
 		$this->apiParas["trade_type"] = $tradeType;
 	}
 
-	public function getTradeType()
-	{
+	public function getTradeType() {
 		return $this->tradeType;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.fenxiao.product.gradeprice.get";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->productId,"productId");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->productId, "productId");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

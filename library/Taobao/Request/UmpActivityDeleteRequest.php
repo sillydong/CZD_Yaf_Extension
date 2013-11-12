@@ -1,46 +1,40 @@
 <?php
 /**
  * TOP API: taobao.ump.activity.delete request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_UmpActivityDeleteRequest
-{
-	/** 
+class Taobao_Request_UmpActivityDeleteRequest {
+	/**
 	 * 活动id
 	 **/
 	private $actId;
-	
+
 	private $apiParas = array();
-	
-	public function setActId($actId)
-	{
+
+	public function setActId($actId) {
 		$this->actId = $actId;
 		$this->apiParas["act_id"] = $actId;
 	}
 
-	public function getActId()
-	{
+	public function getActId() {
 		return $this->actId;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.ump.activity.delete";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->actId,"actId");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->actId, "actId");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

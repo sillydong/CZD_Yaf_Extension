@@ -1,63 +1,55 @@
 <?php
 /**
  * TOP API: taobao.simba.insight.catsforecast.get request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_SimbaInsightCatsforecastGetRequest
-{
-	/** 
+class Taobao_Request_SimbaInsightCatsforecastGetRequest {
+	/**
 	 * 主人昵称
 	 **/
 	private $nick;
-	
-	/** 
+
+	/**
 	 * 查询词数组，最大长度200
 	 **/
 	private $words;
-	
+
 	private $apiParas = array();
-	
-	public function setNick($nick)
-	{
+
+	public function setNick($nick) {
 		$this->nick = $nick;
 		$this->apiParas["nick"] = $nick;
 	}
 
-	public function getNick()
-	{
+	public function getNick() {
 		return $this->nick;
 	}
 
-	public function setWords($words)
-	{
+	public function setWords($words) {
 		$this->words = $words;
 		$this->apiParas["words"] = $words;
 	}
 
-	public function getWords()
-	{
+	public function getWords() {
 		return $this->words;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.simba.insight.catsforecast.get";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->words,"words");
-		Taobao_RequestCheckUtil::checkMaxListSize($this->words,200,"words");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->words, "words");
+		Taobao_RequestCheckUtil::checkMaxListSize($this->words, 200, "words");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

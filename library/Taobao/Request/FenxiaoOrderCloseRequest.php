@@ -1,80 +1,70 @@
 <?php
 /**
  * TOP API: taobao.fenxiao.order.close request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_FenxiaoOrderCloseRequest
-{
-	/** 
+class Taobao_Request_FenxiaoOrderCloseRequest {
+	/**
 	 * 关闭理由,特殊字符会被转义，会改变长度，有特殊字符是请注意
 	 **/
 	private $message;
-	
-	/** 
+
+	/**
 	 * 采购单编号
 	 **/
 	private $purchaseOrderId;
-	
-	/** 
+
+	/**
 	 * 子采购单ID，可传多笔子单ID，逗号分隔
 	 **/
 	private $subOrderIds;
-	
+
 	private $apiParas = array();
-	
-	public function setMessage($message)
-	{
+
+	public function setMessage($message) {
 		$this->message = $message;
 		$this->apiParas["message"] = $message;
 	}
 
-	public function getMessage()
-	{
+	public function getMessage() {
 		return $this->message;
 	}
 
-	public function setPurchaseOrderId($purchaseOrderId)
-	{
+	public function setPurchaseOrderId($purchaseOrderId) {
 		$this->purchaseOrderId = $purchaseOrderId;
 		$this->apiParas["purchase_order_id"] = $purchaseOrderId;
 	}
 
-	public function getPurchaseOrderId()
-	{
+	public function getPurchaseOrderId() {
 		return $this->purchaseOrderId;
 	}
 
-	public function setSubOrderIds($subOrderIds)
-	{
+	public function setSubOrderIds($subOrderIds) {
 		$this->subOrderIds = $subOrderIds;
 		$this->apiParas["sub_order_ids"] = $subOrderIds;
 	}
 
-	public function getSubOrderIds()
-	{
+	public function getSubOrderIds() {
 		return $this->subOrderIds;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.fenxiao.order.close";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->message,"message");
-		Taobao_RequestCheckUtil::checkMaxLength($this->message,200,"message");
-		Taobao_RequestCheckUtil::checkNotNull($this->purchaseOrderId,"purchaseOrderId");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->message, "message");
+		Taobao_RequestCheckUtil::checkMaxLength($this->message, 200, "message");
+		Taobao_RequestCheckUtil::checkNotNull($this->purchaseOrderId, "purchaseOrderId");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

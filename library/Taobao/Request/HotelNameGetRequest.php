@@ -1,132 +1,116 @@
 <?php
 /**
  * TOP API: taobao.hotel.name.get request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_HotelNameGetRequest
-{
-	/** 
+class Taobao_Request_HotelNameGetRequest {
+	/**
 	 * 城市编码。参见：http://kezhan.trip.taobao.com/area.html。
-domestic为true时，province,city,district不能同时为空或为0
+	domestic为true时，province,city,district不能同时为空或为0
 	 **/
 	private $city;
-	
-	/** 
+
+	/**
 	 * domestic为true时，固定China；
-domestic为false时，必须传定义的海外国家编码值，是必填项。参见：http://kezhan.trip.taobao.com/countrys.html
+	domestic为false时，必须传定义的海外国家编码值，是必填项。参见：http://kezhan.trip.taobao.com/countrys.html
 	 **/
 	private $country;
-	
-	/** 
+
+	/**
 	 * 区域（县级市）编码。参见：http://kezhan.trip.taobao.com/area.html。
-domestic为true时，province,city,district不能同时为空或为0
+	domestic为true时，province,city,district不能同时为空或为0
 	 **/
 	private $district;
-	
-	/** 
+
+	/**
 	 * 是否国内酒店。可选值：true，false
 	 **/
 	private $domestic;
-	
-	/** 
+
+	/**
 	 * 酒店全部名称/别名。不能超过60字节
 	 **/
 	private $name;
-	
-	/** 
+
+	/**
 	 * 省份编码。参见：http://kezhan.trip.taobao.com/area.html。
-domestic为true时，province,city,district不能同时为空或为0
+	domestic为true时，province,city,district不能同时为空或为0
 	 **/
 	private $province;
-	
+
 	private $apiParas = array();
-	
-	public function setCity($city)
-	{
+
+	public function setCity($city) {
 		$this->city = $city;
 		$this->apiParas["city"] = $city;
 	}
 
-	public function getCity()
-	{
+	public function getCity() {
 		return $this->city;
 	}
 
-	public function setCountry($country)
-	{
+	public function setCountry($country) {
 		$this->country = $country;
 		$this->apiParas["country"] = $country;
 	}
 
-	public function getCountry()
-	{
+	public function getCountry() {
 		return $this->country;
 	}
 
-	public function setDistrict($district)
-	{
+	public function setDistrict($district) {
 		$this->district = $district;
 		$this->apiParas["district"] = $district;
 	}
 
-	public function getDistrict()
-	{
+	public function getDistrict() {
 		return $this->district;
 	}
 
-	public function setDomestic($domestic)
-	{
+	public function setDomestic($domestic) {
 		$this->domestic = $domestic;
 		$this->apiParas["domestic"] = $domestic;
 	}
 
-	public function getDomestic()
-	{
+	public function getDomestic() {
 		return $this->domestic;
 	}
 
-	public function setName($name)
-	{
+	public function setName($name) {
 		$this->name = $name;
 		$this->apiParas["name"] = $name;
 	}
 
-	public function getName()
-	{
+	public function getName() {
 		return $this->name;
 	}
 
-	public function setProvince($province)
-	{
+	public function setProvince($province) {
 		$this->province = $province;
 		$this->apiParas["province"] = $province;
 	}
 
-	public function getProvince()
-	{
+	public function getProvince() {
 		return $this->province;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.hotel.name.get";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->domestic,"domestic");
-		Taobao_RequestCheckUtil::checkNotNull($this->name,"name");
-		Taobao_RequestCheckUtil::checkMaxLength($this->name,60,"name");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->domestic, "domestic");
+		Taobao_RequestCheckUtil::checkNotNull($this->name, "name");
+		Taobao_RequestCheckUtil::checkMaxLength($this->name, 60, "name");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

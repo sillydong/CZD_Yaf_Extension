@@ -1,77 +1,67 @@
 <?php
 /**
  * TOP API: taobao.wlb.item.consignment.page.get request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_WlbItemConsignmentPageGetRequest
-{
-	/** 
+class Taobao_Request_WlbItemConsignmentPageGetRequest {
+	/**
 	 * 代销商宝贝id
 	 **/
 	private $icItemId;
-	
-	/** 
+
+	/**
 	 * 供应商商品id
 	 **/
 	private $ownerItemId;
-	
-	/** 
+
+	/**
 	 * 供应商用户昵称
 	 **/
 	private $ownerUserNick;
-	
+
 	private $apiParas = array();
-	
-	public function setIcItemId($icItemId)
-	{
+
+	public function setIcItemId($icItemId) {
 		$this->icItemId = $icItemId;
 		$this->apiParas["ic_item_id"] = $icItemId;
 	}
 
-	public function getIcItemId()
-	{
+	public function getIcItemId() {
 		return $this->icItemId;
 	}
 
-	public function setOwnerItemId($ownerItemId)
-	{
+	public function setOwnerItemId($ownerItemId) {
 		$this->ownerItemId = $ownerItemId;
 		$this->apiParas["owner_item_id"] = $ownerItemId;
 	}
 
-	public function getOwnerItemId()
-	{
+	public function getOwnerItemId() {
 		return $this->ownerItemId;
 	}
 
-	public function setOwnerUserNick($ownerUserNick)
-	{
+	public function setOwnerUserNick($ownerUserNick) {
 		$this->ownerUserNick = $ownerUserNick;
 		$this->apiParas["owner_user_nick"] = $ownerUserNick;
 	}
 
-	public function getOwnerUserNick()
-	{
+	public function getOwnerUserNick() {
 		return $this->ownerUserNick;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.wlb.item.consignment.page.get";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
+
+	public function check() {
+
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

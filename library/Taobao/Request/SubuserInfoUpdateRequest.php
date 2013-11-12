@@ -1,78 +1,68 @@
 <?php
 /**
  * TOP API: taobao.subuser.info.update request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_SubuserInfoUpdateRequest
-{
-	/** 
+class Taobao_Request_SubuserInfoUpdateRequest {
+	/**
 	 * 是否停用子账号 true:表示停用该子账号false:表示开启该子账号
 	 **/
 	private $isDisableSubaccount;
-	
-	/** 
+
+	/**
 	 * 子账号是否参与分流 true:参与分流 false:不参与分流
 	 **/
 	private $isDispatch;
-	
-	/** 
+
+	/**
 	 * 子账号ID
 	 **/
 	private $subId;
-	
+
 	private $apiParas = array();
-	
-	public function setIsDisableSubaccount($isDisableSubaccount)
-	{
+
+	public function setIsDisableSubaccount($isDisableSubaccount) {
 		$this->isDisableSubaccount = $isDisableSubaccount;
 		$this->apiParas["is_disable_subaccount"] = $isDisableSubaccount;
 	}
 
-	public function getIsDisableSubaccount()
-	{
+	public function getIsDisableSubaccount() {
 		return $this->isDisableSubaccount;
 	}
 
-	public function setIsDispatch($isDispatch)
-	{
+	public function setIsDispatch($isDispatch) {
 		$this->isDispatch = $isDispatch;
 		$this->apiParas["is_dispatch"] = $isDispatch;
 	}
 
-	public function getIsDispatch()
-	{
+	public function getIsDispatch() {
 		return $this->isDispatch;
 	}
 
-	public function setSubId($subId)
-	{
+	public function setSubId($subId) {
 		$this->subId = $subId;
 		$this->apiParas["sub_id"] = $subId;
 	}
 
-	public function getSubId()
-	{
+	public function getSubId() {
 		return $this->subId;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.subuser.info.update";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->subId,"subId");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->subId, "subId");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

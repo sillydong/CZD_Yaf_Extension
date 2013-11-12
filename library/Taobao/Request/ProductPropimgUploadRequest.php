@@ -1,112 +1,98 @@
 <?php
 /**
  * TOP API: taobao.product.propimg.upload request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_ProductPropimgUploadRequest
-{
-	/** 
+class Taobao_Request_ProductPropimgUploadRequest {
+	/**
 	 * 产品属性图片ID
 	 **/
 	private $id;
-	
-	/** 
+
+	/**
 	 * 图片内容.图片最大为2M,只支持JPG,GIF.
 	 **/
 	private $image;
-	
-	/** 
+
+	/**
 	 * 图片序号
 	 **/
 	private $position;
-	
-	/** 
+
+	/**
 	 * 产品ID.Product的id
 	 **/
 	private $productId;
-	
-	/** 
+
+	/**
 	 * 属性串.目前仅支持颜色属性.调用taobao.itemprops.get获取类目属性,取得颜色属性pid,再用taobao.itempropvalues.get取得vid;格式:pid:vid,只能传入一个颜色pid:vid串;
 	 **/
 	private $props;
-	
+
 	private $apiParas = array();
-	
-	public function setId($id)
-	{
+
+	public function setId($id) {
 		$this->id = $id;
 		$this->apiParas["id"] = $id;
 	}
 
-	public function getId()
-	{
+	public function getId() {
 		return $this->id;
 	}
 
-	public function setImage($image)
-	{
+	public function setImage($image) {
 		$this->image = $image;
 		$this->apiParas["image"] = $image;
 	}
 
-	public function getImage()
-	{
+	public function getImage() {
 		return $this->image;
 	}
 
-	public function setPosition($position)
-	{
+	public function setPosition($position) {
 		$this->position = $position;
 		$this->apiParas["position"] = $position;
 	}
 
-	public function getPosition()
-	{
+	public function getPosition() {
 		return $this->position;
 	}
 
-	public function setProductId($productId)
-	{
+	public function setProductId($productId) {
 		$this->productId = $productId;
 		$this->apiParas["product_id"] = $productId;
 	}
 
-	public function getProductId()
-	{
+	public function getProductId() {
 		return $this->productId;
 	}
 
-	public function setProps($props)
-	{
+	public function setProps($props) {
 		$this->props = $props;
 		$this->apiParas["props"] = $props;
 	}
 
-	public function getProps()
-	{
+	public function getProps() {
 		return $this->props;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.product.propimg.upload";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->image,"image");
-		Taobao_RequestCheckUtil::checkNotNull($this->productId,"productId");
-		Taobao_RequestCheckUtil::checkNotNull($this->props,"props");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->image, "image");
+		Taobao_RequestCheckUtil::checkNotNull($this->productId, "productId");
+		Taobao_RequestCheckUtil::checkNotNull($this->props, "props");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

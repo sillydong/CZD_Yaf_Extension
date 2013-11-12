@@ -1,46 +1,40 @@
 <?php
 /**
  * TOP API: taobao.logistics.online.cancel request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_LogisticsOnlineCancelRequest
-{
-	/** 
+class Taobao_Request_LogisticsOnlineCancelRequest {
+	/**
 	 * 淘宝交易ID
 	 **/
 	private $tid;
-	
+
 	private $apiParas = array();
-	
-	public function setTid($tid)
-	{
+
+	public function setTid($tid) {
 		$this->tid = $tid;
 		$this->apiParas["tid"] = $tid;
 	}
 
-	public function getTid()
-	{
+	public function getTid() {
 		return $this->tid;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.logistics.online.cancel";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->tid,"tid");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->tid, "tid");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

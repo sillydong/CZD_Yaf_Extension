@@ -1,63 +1,55 @@
 <?php
 /**
  * TOP API: taobao.ump.detail.update request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_UmpDetailUpdateRequest
-{
-	/** 
+class Taobao_Request_UmpDetailUpdateRequest {
+	/**
 	 * 活动详情内容，可以通过ump sdk中的MarketingTool来生成这个内容
 	 **/
 	private $content;
-	
-	/** 
+
+	/**
 	 * 活动详情id
 	 **/
 	private $detailId;
-	
+
 	private $apiParas = array();
-	
-	public function setContent($content)
-	{
+
+	public function setContent($content) {
 		$this->content = $content;
 		$this->apiParas["content"] = $content;
 	}
 
-	public function getContent()
-	{
+	public function getContent() {
 		return $this->content;
 	}
 
-	public function setDetailId($detailId)
-	{
+	public function setDetailId($detailId) {
 		$this->detailId = $detailId;
 		$this->apiParas["detail_id"] = $detailId;
 	}
 
-	public function getDetailId()
-	{
+	public function getDetailId() {
 		return $this->detailId;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.ump.detail.update";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->content,"content");
-		Taobao_RequestCheckUtil::checkNotNull($this->detailId,"detailId");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->content, "content");
+		Taobao_RequestCheckUtil::checkNotNull($this->detailId, "detailId");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

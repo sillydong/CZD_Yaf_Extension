@@ -1,94 +1,82 @@
 <?php
 /**
  * TOP API: taobao.sellercats.list.update request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_SellercatsListUpdateRequest
-{
-	/** 
+class Taobao_Request_SellercatsListUpdateRequest {
+	/**
 	 * 卖家自定义类目编号
 	 **/
 	private $cid;
-	
-	/** 
+
+	/**
 	 * 卖家自定义类目名称。不超过20个字符
 	 **/
 	private $name;
-	
-	/** 
+
+	/**
 	 * 链接图片URL地址
 	 **/
 	private $pictUrl;
-	
-	/** 
+
+	/**
 	 * 该类目在页面上的排序位置,取值范围:大于零的整数
 	 **/
 	private $sortOrder;
-	
+
 	private $apiParas = array();
-	
-	public function setCid($cid)
-	{
+
+	public function setCid($cid) {
 		$this->cid = $cid;
 		$this->apiParas["cid"] = $cid;
 	}
 
-	public function getCid()
-	{
+	public function getCid() {
 		return $this->cid;
 	}
 
-	public function setName($name)
-	{
+	public function setName($name) {
 		$this->name = $name;
 		$this->apiParas["name"] = $name;
 	}
 
-	public function getName()
-	{
+	public function getName() {
 		return $this->name;
 	}
 
-	public function setPictUrl($pictUrl)
-	{
+	public function setPictUrl($pictUrl) {
 		$this->pictUrl = $pictUrl;
 		$this->apiParas["pict_url"] = $pictUrl;
 	}
 
-	public function getPictUrl()
-	{
+	public function getPictUrl() {
 		return $this->pictUrl;
 	}
 
-	public function setSortOrder($sortOrder)
-	{
+	public function setSortOrder($sortOrder) {
 		$this->sortOrder = $sortOrder;
 		$this->apiParas["sort_order"] = $sortOrder;
 	}
 
-	public function getSortOrder()
-	{
+	public function getSortOrder() {
 		return $this->sortOrder;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.sellercats.list.update";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->cid,"cid");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->cid, "cid");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

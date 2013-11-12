@@ -1,201 +1,177 @@
 <?php
 /**
  * TOP API: taobao.logistics.ordertrace.push request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_LogisticsOrdertracePushRequest
-{
-	/** 
+class Taobao_Request_LogisticsOrdertracePushRequest {
+	/**
 	 * 物流公司名称
 	 **/
 	private $companyName;
-	
-	/** 
+
+	/**
 	 * 流转节点的当前城市
 	 **/
 	private $currentCity;
-	
-	/** 
+
+	/**
 	 * 网点名称
 	 **/
 	private $facilityName;
-	
-	/** 
+
+	/**
 	 * 快递单号。各个快递公司的运单号格式不同。
 	 **/
 	private $mailNo;
-	
-	/** 
+
+	/**
 	 * 流转节点的下一个城市
 	 **/
 	private $nextCity;
-	
-	/** 
+
+	/**
 	 * 描述当前节点的操作，操作是“揽收”、“派送”或“签收”。
 	 **/
 	private $nodeDescription;
-	
-	/** 
+
+	/**
 	 * 流转节点发生时间
 	 **/
 	private $occureTime;
-	
-	/** 
+
+	/**
 	 * 流转节点的详细地址及操作描述
 	 **/
 	private $operateDetail;
-	
-	/** 
+
+	/**
 	 * 快递业务员联系方式，手机号码或电话。
 	 **/
 	private $operatorContact;
-	
-	/** 
+
+	/**
 	 * 快递业务员名称
 	 **/
 	private $operatorName;
-	
+
 	private $apiParas = array();
-	
-	public function setCompanyName($companyName)
-	{
+
+	public function setCompanyName($companyName) {
 		$this->companyName = $companyName;
 		$this->apiParas["company_name"] = $companyName;
 	}
 
-	public function getCompanyName()
-	{
+	public function getCompanyName() {
 		return $this->companyName;
 	}
 
-	public function setCurrentCity($currentCity)
-	{
+	public function setCurrentCity($currentCity) {
 		$this->currentCity = $currentCity;
 		$this->apiParas["current_city"] = $currentCity;
 	}
 
-	public function getCurrentCity()
-	{
+	public function getCurrentCity() {
 		return $this->currentCity;
 	}
 
-	public function setFacilityName($facilityName)
-	{
+	public function setFacilityName($facilityName) {
 		$this->facilityName = $facilityName;
 		$this->apiParas["facility_name"] = $facilityName;
 	}
 
-	public function getFacilityName()
-	{
+	public function getFacilityName() {
 		return $this->facilityName;
 	}
 
-	public function setMailNo($mailNo)
-	{
+	public function setMailNo($mailNo) {
 		$this->mailNo = $mailNo;
 		$this->apiParas["mail_no"] = $mailNo;
 	}
 
-	public function getMailNo()
-	{
+	public function getMailNo() {
 		return $this->mailNo;
 	}
 
-	public function setNextCity($nextCity)
-	{
+	public function setNextCity($nextCity) {
 		$this->nextCity = $nextCity;
 		$this->apiParas["next_city"] = $nextCity;
 	}
 
-	public function getNextCity()
-	{
+	public function getNextCity() {
 		return $this->nextCity;
 	}
 
-	public function setNodeDescription($nodeDescription)
-	{
+	public function setNodeDescription($nodeDescription) {
 		$this->nodeDescription = $nodeDescription;
 		$this->apiParas["node_description"] = $nodeDescription;
 	}
 
-	public function getNodeDescription()
-	{
+	public function getNodeDescription() {
 		return $this->nodeDescription;
 	}
 
-	public function setOccureTime($occureTime)
-	{
+	public function setOccureTime($occureTime) {
 		$this->occureTime = $occureTime;
 		$this->apiParas["occure_time"] = $occureTime;
 	}
 
-	public function getOccureTime()
-	{
+	public function getOccureTime() {
 		return $this->occureTime;
 	}
 
-	public function setOperateDetail($operateDetail)
-	{
+	public function setOperateDetail($operateDetail) {
 		$this->operateDetail = $operateDetail;
 		$this->apiParas["operate_detail"] = $operateDetail;
 	}
 
-	public function getOperateDetail()
-	{
+	public function getOperateDetail() {
 		return $this->operateDetail;
 	}
 
-	public function setOperatorContact($operatorContact)
-	{
+	public function setOperatorContact($operatorContact) {
 		$this->operatorContact = $operatorContact;
 		$this->apiParas["operator_contact"] = $operatorContact;
 	}
 
-	public function getOperatorContact()
-	{
+	public function getOperatorContact() {
 		return $this->operatorContact;
 	}
 
-	public function setOperatorName($operatorName)
-	{
+	public function setOperatorName($operatorName) {
 		$this->operatorName = $operatorName;
 		$this->apiParas["operator_name"] = $operatorName;
 	}
 
-	public function getOperatorName()
-	{
+	public function getOperatorName() {
 		return $this->operatorName;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.logistics.ordertrace.push";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->companyName,"companyName");
-		Taobao_RequestCheckUtil::checkMaxLength($this->companyName,20,"companyName");
-		Taobao_RequestCheckUtil::checkMaxLength($this->currentCity,20,"currentCity");
-		Taobao_RequestCheckUtil::checkMaxLength($this->facilityName,100,"facilityName");
-		Taobao_RequestCheckUtil::checkNotNull($this->mailNo,"mailNo");
-		Taobao_RequestCheckUtil::checkMaxLength($this->nextCity,20,"nextCity");
-		Taobao_RequestCheckUtil::checkMaxLength($this->nodeDescription,20,"nodeDescription");
-		Taobao_RequestCheckUtil::checkNotNull($this->occureTime,"occureTime");
-		Taobao_RequestCheckUtil::checkNotNull($this->operateDetail,"operateDetail");
-		Taobao_RequestCheckUtil::checkMaxLength($this->operateDetail,200,"operateDetail");
-		Taobao_RequestCheckUtil::checkMaxLength($this->operatorContact,20,"operatorContact");
-		Taobao_RequestCheckUtil::checkMaxLength($this->operatorName,20,"operatorName");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->companyName, "companyName");
+		Taobao_RequestCheckUtil::checkMaxLength($this->companyName, 20, "companyName");
+		Taobao_RequestCheckUtil::checkMaxLength($this->currentCity, 20, "currentCity");
+		Taobao_RequestCheckUtil::checkMaxLength($this->facilityName, 100, "facilityName");
+		Taobao_RequestCheckUtil::checkNotNull($this->mailNo, "mailNo");
+		Taobao_RequestCheckUtil::checkMaxLength($this->nextCity, 20, "nextCity");
+		Taobao_RequestCheckUtil::checkMaxLength($this->nodeDescription, 20, "nodeDescription");
+		Taobao_RequestCheckUtil::checkNotNull($this->occureTime, "occureTime");
+		Taobao_RequestCheckUtil::checkNotNull($this->operateDetail, "operateDetail");
+		Taobao_RequestCheckUtil::checkMaxLength($this->operateDetail, 200, "operateDetail");
+		Taobao_RequestCheckUtil::checkMaxLength($this->operatorContact, 20, "operatorContact");
+		Taobao_RequestCheckUtil::checkMaxLength($this->operatorName, 20, "operatorName");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;

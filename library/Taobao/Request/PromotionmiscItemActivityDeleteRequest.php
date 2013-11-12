@@ -1,47 +1,41 @@
 <?php
 /**
  * TOP API: taobao.promotionmisc.item.activity.delete request
- * 
+ *
  * @author auto create
  * @since 1.0, 2013-09-13 16:51:03
  */
-class Taobao_Request_PromotionmiscItemActivityDeleteRequest
-{
-	/** 
+class Taobao_Request_PromotionmiscItemActivityDeleteRequest {
+	/**
 	 * 活动id。
 	 **/
 	private $activityId;
-	
+
 	private $apiParas = array();
-	
-	public function setActivityId($activityId)
-	{
+
+	public function setActivityId($activityId) {
 		$this->activityId = $activityId;
 		$this->apiParas["activity_id"] = $activityId;
 	}
 
-	public function getActivityId()
-	{
+	public function getActivityId() {
 		return $this->activityId;
 	}
 
-	public function getApiMethodName()
-	{
+	public function getApiMethodName() {
 		return "taobao.promotionmisc.item.activity.delete";
 	}
-	
-	public function getApiParas()
-	{
+
+	public function getApiParas() {
 		return $this->apiParas;
 	}
-	
-	public function check()
-	{
-		
-		Taobao_RequestCheckUtil::checkNotNull($this->activityId,"activityId");
-		Taobao_RequestCheckUtil::checkMinValue($this->activityId,0,"activityId");
+
+	public function check() {
+
+		Taobao_RequestCheckUtil::checkNotNull($this->activityId, "activityId");
+		Taobao_RequestCheckUtil::checkMinValue($this->activityId, 0, "activityId");
 	}
-	
+
 	public function putOtherTextParam($key, $value) {
 		$this->apiParas[$key] = $value;
 		$this->$key = $value;
