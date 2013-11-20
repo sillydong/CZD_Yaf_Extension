@@ -38,7 +38,7 @@ class Validate {
 	}
 
 	public static function isName($name) {
-		return preg_match(Tools::cleanNonUnicodeSupport('/^[^!<>,;?=+()@#"°{}$%:]*$/u'), stripslashes($name));
+		return preg_match(Tools::cleanNonUnicodeSupport('/^[^!<>,;?=+()@#"°{}$%:]+$/u'), stripslashes($name));
 	}
 
 	public static function isAlias($alias) {
@@ -54,15 +54,15 @@ class Validate {
 	}
 
 	public static function isSearch($search) {
-		return preg_match('/^[^<>;=#{}]{0,64}$/u', $search);
+		return preg_match('/^[^<>;=#{}]{1,64}$/u', $search);
 	}
 
 	public static function isGenericName($name) {
-		return preg_match(Tools::cleanNonUnicodeSupport('/^[^<>;=+@#"°{}$%:]*$/u'), stripslashes($name));
+		return preg_match(Tools::cleanNonUnicodeSupport('/^[^<>;=+@#"°{}$%:]+$/u'), stripslashes($name));
 	}
 
 	public static function isMessage($message) {
-		return !preg_match('/[<>{}]/i', $message);
+		return !empty($message) && !preg_match('/[<>{}]/i', $message);
 	}
 
 	public static function isCleanHtml($html) {
@@ -175,7 +175,7 @@ class Validate {
 	}
 
 	public static function isString($data) {
-		return is_string($data);
+		return !empty($data) && is_string($data);
 	}
 
 	public static function isSerializedArray($data) {
