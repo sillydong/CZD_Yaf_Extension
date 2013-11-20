@@ -98,20 +98,24 @@ class ImageManager {
 	public static function write($type, $resource, $filename) {
 		switch ($type) {
 			case 'gif':
+			case IMAGETYPE_GIF:
 				$success = imagegif($resource, $filename);
 				break;
-
 			case 'png':
-				$success = imagepng($resource, $filename, 7);
+			case IMAGETYPE_PNG:
+				$success = imagepng($resource, $filename);
 				break;
-
+			case 'bmp':
+			case IMAGETYPE_BMP:
+				$success = imagewbmp($resource,$filename);
+				break;
 			case 'jpg':
 			case 'jpeg':
+			case IMAGETYPE_JPEG:
 			default:
-				$success = imagejpeg($resource, $filename, 90);
+				$success = imagejpeg($resource, $filename, 100);
 				break;
 		}
-		imagedestroy($resource);
 		@chmod($filename, 0664);
 		return $success;
 	}
@@ -236,6 +240,58 @@ class ImageManager {
 		return (ImageManager::write($file_type, $dest_image, $dst_file));
 	}
 
+	public static function squre($src_file,$dest_file,$dest_type){
+		list($src_width, $src_height, $type) = @getimagesize($src_file);
+		if($src_width && $src_height && $type){
+			$image=array('width'=>$src_width,'height'=>$src_height,'type'=>$type);
+			switch($type){
+				case IMAGETYPE_PNG:
+					$image['image']=@imagecreatefrompng($src_file);
+					break;
+				case IMAGETYPE_JPEG:
+					$image['image']=@imagecreatefromjpeg($src_file);
+					break;
+				case IMAGETYPE_BMP:
+					$image['image']=@imagecreatefromwbmp($src_file);
+					break;
+				case IMAGETYPE_GIF:
+					$image['image']=@imagecreatefromgif($src_file);
+					break;
+				default:
+					$image['image']=false;
+					break;
+			}
+			if($image['image']){
+				if($image['width']>$image['height']){
+					$image['dest_width']=$image['width'];
+					$image['dest_height']=$image['width'];
+					$image['start_x']=0;
+					$image['start_y']=round(($image['width']-$image['height'])/2);
+				}
+				elseif($image['width']<$image['height']){
+					$image['dest_width']=$image['height'];
+					$image['dest_height']=$image['height'];
+					$image['start_x']=round(($image['height']-$image['width'])/2);
+					$image['start_y']=0;
+				}
+				else{
+					if($dest_file && $dest_type)
+						return self::write($dest_type,$image['image'],$dest_file);
+					else
+						return $image['image'];
+				}
+				$canvas=self::createWhiteImage($image['dest_width'],$image['dest_height']);
+				if(@imagecopyresampled($canvas,$image['image'],$image['start_x'],$image['start_y'],0,0,$image['width'],$image['height'],$image['width'],$image['height'])){
+					if($dest_file && $dest_type)
+						return self::write($dest_type,$canvas,$dest_file);
+					else
+						return $canvas;
+				}
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * 检查文件是否真的是图片文件
 	 * @param $filename
@@ -321,6 +377,20 @@ class ImageManager {
 		$image = imagecreatetruecolor($width, $height);
 		$white = imagecolorallocate($image, 255, 255, 255);
 		imagefill($image, 0, 0, $white);
+		return $image;
+	}
+
+	/**
+	 * 生成透明背景图片
+	 * @param $width
+	 * @param $height
+	 * @return resource
+	 */
+	public static function createTransImage($width, $height) {
+		$image = imagecreatetruecolor($width, $height);
+		$white = imagecolorallocate($image, 255, 255, 255);
+		imagefill($image, 0, 0, $white);
+		imagecolortransparent($image,$white);
 		return $image;
 	}
 

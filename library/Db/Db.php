@@ -71,7 +71,7 @@ abstract class Db {
 
 		if (!isset(self::$instance[$id_server])) {
 			$class = Db::getClass();
-			Yaf_Loader::import(dirname(__FILE__) . '/' . $class . '.php');
+			include_once(dirname(__FILE__).'/'.$class.'.php');
 			self::$instance[$id_server] = new $class(self::$_servers[$id_server]['server'], self::$_servers[$id_server]['user'], self::$_servers[$id_server]['password'], self::$_servers[$id_server]['database']);
 		}
 

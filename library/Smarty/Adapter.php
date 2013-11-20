@@ -26,7 +26,10 @@ class Smarty_Adapter implements Yaf_View_Interface {
 
 		if ($extraParams != null) {
 			foreach ($extraParams as $key => $value) {
-				$this->_smarty->$key = $value;
+				if($key=='plugins_dir')
+					$this->_smarty->$key=array_merge($this->_smarty->$key,array($value));
+				else
+					$this->_smarty->$key = $value;
 			}
 		}
 	}
