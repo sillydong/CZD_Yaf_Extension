@@ -78,12 +78,12 @@ abstract class Object {
 		}
 
 		if (!isset($value) && isset($data['required']) && $data['required'] == true) {
-			return 'Property ' . $this->class_name . '->' . $field . ' is required';
+			return $this->class_name . '->' . $field . ' is required';
 		}
 
 		if (isset($value)) {
 			if (!empty($data['values']) && is_array($data['values']) && !in_array($value, $data['values']))
-				return 'Property ' . $this->class_name . '->' . $field . ':' . $value . ' is bad value (allowed values are: ' . implode(', ', $data['values']) . ')';
+				return $this->class_name . '->' . $field . ':' . $value . ' is bad value (allowed values are: ' . implode(', ', $data['values']) . ')';
 
 			if (!empty($data['size'])) {
 				$size = $data['size'];
@@ -96,7 +96,7 @@ abstract class Object {
 						$value = Tools::substr($value, 0, $size['max']);
 					}
 					else {
-						return 'Property ' . $this->class_name . '->' . $field . ' length (' . $length . ') must be between ' . $size['min'] . ' and ' . $size['max'];
+						return $this->class_name . '->' . $field . ' length (' . $length . ') must be between ' . $size['min'] . ' and ' . $size['max'];
 					}
 				}
 			}
@@ -106,7 +106,7 @@ abstract class Object {
 					throw new Exception('Validation function not found. ' . $data['validate']);
 
 				if (!empty($value) && !call_user_func(array('Validate', $data['validate']), $value))
-					return 'Property ' . $this->class_name . '->' . $field . ':' . $value . ' is not valid';
+					return $this->class_name . '->' . $field . ':' . $value . ' is not valid';
 			}
 		}
 
@@ -176,9 +176,7 @@ abstract class Object {
 
 			return $fields;
 		}
-		else {
-			return $info;
-		}
+		return $info;
 	}
 
 	public function setDatas(array $data) {
@@ -208,7 +206,7 @@ abstract class Object {
 		$fields = $this->getFields($skip_validation);
 		if (!is_array($fields)) {
 			Log::out('fieldserror', 'E', $fields);
-			return 'Fields error';
+			return 'Fields error:'.$fields;
 		}
 		if (!$result = Object::$db->insert($this->def['table'], $fields, $null_values)) {
 			return 'Add object db error';
@@ -235,7 +233,7 @@ abstract class Object {
 		$fields = $this->getFields($skip_validation, true);
 		if (!is_array($fields)) {
 			Log::out('fieldserror', 'E', $fields);
-			return 'Fields error';
+			return 'Fields error'.$fields;
 		}
 
 		if (!$result = Object::$db->update($this->def['table'], $fields, '`' . pSQL($this->def['primary']) . '` = ' . (int) $this->id, 0, $null_values))

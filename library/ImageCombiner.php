@@ -154,6 +154,8 @@ class ImageCombiner{
 
 			$this->checkSrcs();
 			$this->checkSizes();
+			if($this->dest_width>20000 || $this->dest_height>20000)
+				throw new Yaf_Exception('combined image size too large may cause out of memory exception');
 
 			if(!empty($this->src_infos)){
 				$this->canvas=ImageManager::createTransImage($this->dest_width,$this->dest_height);
@@ -205,7 +207,7 @@ class ImageCombiner{
 	public function saveCombination($dest_file){
 		$image=$this->combine();
 		if($image){
-			if(ImageManager::write($this->dest_type,$this->canvas,$dest_file)){
+			if(ImageManager::write($this->dest_type,$this->canvas,$dest_file,90)){
 				imagedestroy($this->canvas);
 				return true;
 			}
