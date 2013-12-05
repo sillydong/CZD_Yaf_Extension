@@ -42,7 +42,15 @@ class Log {
 			}
 			$handle = @fopen($logfile, "a+");
 			if ($handle) {
-				$strContent = "[" . date("Y-m-d H:i:s") . "] [" . strtoupper($strType) . "] [" . Tools::getRemoteAddr() . "] MSG:[" . $strMSG . "]" . $strExtra . " Location:" . $_SERVER["SCRIPT_FILENAME"] . ($line ? " Line:" . $line : "") . " QUERY_STRING:" . $_SERVER["QUERY_STRING"] . " HTTP_REFERER:" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "") . " User-Agent:" . $_SERVER["HTTP_USER_AGENT"] . "\n";
+				if(Tools::isCli()){
+					$arg="";
+					if($_SERVER['argc']>0){
+						$arg=" ARGV:".json_encode($_SERVER['argv']);
+					}
+					$strContent = "[" . date("Y-m-d H:i:s") . "] [" . strtoupper($strType) . "] [CLI] MSG:[" . $strMSG . "]" . $strExtra . " Location:" . $_SERVER["SCRIPT_FILENAME"] . $arg .($line ? " Line:" . $line : "") . "\n";
+				}
+				else
+					$strContent = "[" . date("Y-m-d H:i:s") . "] [" . strtoupper($strType) . "] [" . Tools::getRemoteAddr() . "] MSG:[" . $strMSG . "]" . $strExtra . " Location:" . $_SERVER["SCRIPT_FILENAME"] . ($line ? " Line:" . $line : "") . " QUERY_STRING:" . $_SERVER["QUERY_STRING"] . " HTTP_REFERER:" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "") . " User-Agent:" . $_SERVER["HTTP_USER_AGENT"] . "\n";
 				if (!fwrite($handle, $strContent)) {
 					@fclose($handle);
 					die("Write permission deny");
