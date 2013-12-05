@@ -1249,7 +1249,7 @@ class Tools {
 	 * @return bool
 	 */
 	public static function isCli() {
-		if (isset($_SERVER['SHELL']) && !isset($_SER['HTTP_HOST'])) {
+		if (isset($_SERVER['SHELL']) && !isset($_SERVER['HTTP_HOST'])) {
 			return true;
 		}
 		return false;

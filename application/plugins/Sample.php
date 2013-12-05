@@ -8,8 +8,7 @@
 class SamplePlugin extends Yaf_Plugin_Abstract {
 
 	public function routerStartup(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response) {
-		var_dump($request);
-		die(var_dump($request->getRequestUri()));
+
 	}
 
 	public function routerShutdown(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response) {

@@ -2,9 +2,11 @@
 class Bootstrap extends Yaf_Bootstrap_Abstract{
 	protected $config;
 
-	public function _initConfig() {
+	public function _initConfig(Yaf_Dispatcher $dispatcher) {
 		$this->config = Yaf_Application::app()->getConfig();
 		Yaf_Registry::set('config', $this->config);
+		//判断请求方式，命令行请求应跳过一些HTTP请求使用的初始化操作，如模板引擎初始化
+		define('REQUEST_METHOD',strtoupper($dispatcher->getRequest()->getMethod()));
 		Yaf_Loader::import(APPLICATION_PATH.'/conf/defines.inc.php');
 	}
 
@@ -24,9 +26,12 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 			$benchmark=new BenchmarkPlugin();
 			$dispatcher->registerPlugin($benchmark);
 		}
-	
-		$cookie = new CookiePlugin();
-		$dispatcher->registerPlugin($cookie);
+
+		//cookie涉及HTTP请求，命令行下应禁用
+		if(REQUEST_METHOD!='CLI'){
+			$cookie = new CookiePlugin();
+			$dispatcher->registerPlugin($cookie);
+		}
 	}
 	
 	public function _initRoute(Yaf_Dispatcher $dispatcher) {
@@ -108,13 +113,20 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 	}
 	
 	public function _initView(Yaf_Dispatcher $dispatcher){
-		$smarty=new Smarty_Adapter(null,$this->config->smarty);
-		$smarty->registerFunction('function','truncate', array('Tools','truncate'));
-		$dispatcher->setView($smarty);
+		//命令行下基本不需要使用smarty
+		if(REQUEST_METHOD!='CLI'){
+			$smarty=new Smarty_Adapter(null,$this->config->smarty);
+			$smarty->registerFunction('function','truncate', array('Tools','truncate'));
+			$dispatcher->setView($smarty);
+		}
 	}
 
 	public function _initSite(Yaf_Dispatcher $dispatcher){
-		define('SITE_URL',Tools::getHttpHost(true));
+		define('SITE_NAME','sample');
+		//某些根据HTTP请求赋值的操作在命令行下应跳过
+		if(REQUEST_METHOD!='CLI'){
+			define('SITE_URL',Tools::getHttpHost(true));
+		}
 	}
 
 }

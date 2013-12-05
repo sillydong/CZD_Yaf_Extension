@@ -5,7 +5,7 @@
  * @desc 默认控制器
  * @see http://www.php.net/manual/en/class.yaf-controller-abstract.php
  */
-class IndexController extends Yaf_Controller_Abstract {
+class IndexController extends FControllerModel {
 
 	/** 
      * 默认动作
@@ -23,8 +23,8 @@ class IndexController extends Yaf_Controller_Abstract {
 		$model->setDatas(array('email'=>'sample@sample.com','nick'=>'nick','passwd'=>'123456','ip_address'=>Tools::getRemoteAddr()));
 
 		//3. assign
-		$this->getView()->assign("content", $model->selectSample());
-		$this->getView()->assign("name", $name);
+		$this->_view->assign('content',$model->selectSample());
+		$this->_view->assign('name',$name);
 
 		//cache用法
 		//Cache::getInstance()->get($key);
