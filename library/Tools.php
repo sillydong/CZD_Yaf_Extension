@@ -945,7 +945,7 @@ class Tools {
 	public static function walkArray(&$array, $function, $keys = false) {
 		foreach ($array as $key => $value) {
 			if (is_array($value)) {
-				self::recursive($array[$key], $function, $keys);
+				self::walkArray($array[$key], $function, $keys);
 			}
 			elseif (is_string($value)) {
 				$array[$key] = $function($value);
