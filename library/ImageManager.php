@@ -241,122 +241,126 @@ class ImageManager {
 	}
 
 	public static function squre($src_file,$dest_file,$dest_type,$limit_min=400,$limit_max=800){
-		list($src_width, $src_height, $type) = @getimagesize($src_file);
-		if($src_width && $src_height && $type){
-			$image=array('width'=>$src_width,'height'=>$src_height,'type'=>$type);
-			switch($type){
-				case IMAGETYPE_PNG:
-					$image['image']=@imagecreatefrompng($src_file);
-					break;
-				case IMAGETYPE_JPEG:
-					$image['image']=@imagecreatefromjpeg($src_file);
-					break;
-				case IMAGETYPE_BMP:
-					$image['image']=@imagecreatefromwbmp($src_file);
-					break;
-				case IMAGETYPE_GIF:
-					$image['image']=@imagecreatefromgif($src_file);
-					break;
-				default:
-					$image['image']=false;
-					break;
-			}
-			if($image['image']){
-				if($image['width']>$image['height']){
-					//宽图
-					if($image['width']>$limit_max){
-						//缩
-						$image['dest_width']=$limit_max;
-						$image['dest_height']=$limit_max;
-						$image['res_width']=$limit_max;
-						$image['res_height']=round($image['height']*$image['dest_width']/$image['width']);
-						$image['start_x']=0;
-						$image['start_y']=round(($image['dest_height']-$image['res_height'])/2);
-					}
-					elseif($image['width']<$limit_min){
-						//放
-						$image['dest_width']=$limit_min;
-						$image['dest_height']=$limit_min;
-						$image['res_width']=$limit_min;
-						$image['res_height']=round($image['height']*$image['dest_width']/$image['width']);
-						$image['start_x']=0;
-						$image['start_y']=round(($image['dest_height']-$image['res_height'])/2);
-					}
-					else{
-						$image['dest_width']=$image['width'];
-						$image['dest_height']=$image['width'];
-						$image['res_width']=$image['width'];
-						$image['res_height']=$image['height'];
-						$image['start_x']=0;
-						$image['start_y']=round(($image['dest_height']-$image['res_height'])/2);
-					}
+		$tmp=tempnam(Tools::sys_get_temp_dir(),'img_');
+		if(Tools::saveFile($src_file,$tmp)){
+			list($src_width, $src_height, $type) = @getimagesize($tmp);
+			if($src_width && $src_height && $type){
+				$image=array('width'=>$src_width,'height'=>$src_height,'type'=>$type);
+				switch($type){
+					case IMAGETYPE_PNG:
+						$image['image']=@imagecreatefrompng($tmp);
+						break;
+					case IMAGETYPE_JPEG:
+						$image['image']=@imagecreatefromjpeg($tmp);
+						break;
+					case IMAGETYPE_BMP:
+						$image['image']=@imagecreatefromwbmp($tmp);
+						break;
+					case IMAGETYPE_GIF:
+						$image['image']=@imagecreatefromgif($tmp);
+						break;
+					default:
+						$image['image']=false;
+						break;
 				}
-				elseif($image['width']<$image['height']){
-					//长图
-					if($image['height']>$limit_max){
-						//缩
-						$image['dest_width']=$limit_max;
-						$image['dest_height']=$limit_max;
-						$image['res_width']=round($image['width']*$image['dest_width']/$image['height']);
-						$image['res_height']=$limit_max;
-						$image['start_x']=round(($image['dest_width']-$image['res_width'])/2);
-						$image['start_y']=0;
-					}
-					elseif($image['height']<$limit_min){
-						//放
-						$image['dest_width']=$limit_min;
-						$image['dest_height']=$limit_min;
-						$image['res_width']=round($image['width']*$image['dest_width']/$image['height']);
-						$image['res_height']=$limit_min;
-						$image['start_x']=round(($image['dest_width']-$image['res_width'])/2);
-						$image['start_y']=0;
-					}
-					else{
-						$image['dest_width']=$image['height'];
-						$image['dest_height']=$image['height'];
-						$image['res_width']=$image['width'];
-						$image['res_height']=$image['height'];
-						$image['start_x']=round(($image['dest_width']-$image['res_width'])/2);
-						$image['start_y']=0;
-					}
-				}
-				else{
-					if($image['width']>$limit_max){
-						$image['dest_width']=$limit_max;
-						$image['dest_height']=$limit_max;
-						$image['res_width']=$limit_max;
-						$image['res_height']=$limit_max;
-						$image['start_x']=0;
-						$image['start_y']=0;
-					}
-					elseif($image['width']<$limit_min){
-						$image['dest_width']=$limit_min;
-						$image['dest_height']=$limit_min;
-						$image['res_width']=$limit_min;
-						$image['res_height']=$limit_min;
-						$image['start_x']=0;
-						$image['start_y']=0;
-					}
-					else{
-						if($dest_file && $dest_type)
-							return self::write($dest_type,$image['image'],$dest_file);
-						else
-							return $image['image'];
-					}
-				}
-				$canvas=self::createWhiteImage($image['dest_width'],$image['dest_height']);
-				if(@imagecopyresampled($canvas,$image['image'],$image['start_x'],$image['start_y'],0,0,$image['res_width'],$image['res_height'],$image['width'],$image['height'])){
-					imagedestroy($image['image']);
-					if($dest_file && $dest_type)
-						if(self::write($dest_type,$canvas,$dest_file)){
-							imagedestroy($canvas);
-							return true;
+				if($image['image']){
+					if($image['width']>$image['height']){
+						//宽图
+						if($image['width']>$limit_max){
+							//缩
+							$image['dest_width']=$limit_max;
+							$image['dest_height']=$limit_max;
+							$image['res_width']=$limit_max;
+							$image['res_height']=round($image['height']*$image['dest_width']/$image['width']);
+							$image['start_x']=0;
+							$image['start_y']=round(($image['dest_height']-$image['res_height'])/2);
 						}
-					else
-						return $canvas;
+						elseif($image['width']<$limit_min){
+							//放
+							$image['dest_width']=$limit_min;
+							$image['dest_height']=$limit_min;
+							$image['res_width']=$limit_min;
+							$image['res_height']=round($image['height']*$image['dest_width']/$image['width']);
+							$image['start_x']=0;
+							$image['start_y']=round(($image['dest_height']-$image['res_height'])/2);
+						}
+						else{
+							$image['dest_width']=$image['width'];
+							$image['dest_height']=$image['width'];
+							$image['res_width']=$image['width'];
+							$image['res_height']=$image['height'];
+							$image['start_x']=0;
+							$image['start_y']=round(($image['dest_height']-$image['res_height'])/2);
+						}
+					}
+					elseif($image['width']<$image['height']){
+						//长图
+						if($image['height']>$limit_max){
+							//缩
+							$image['dest_width']=$limit_max;
+							$image['dest_height']=$limit_max;
+							$image['res_width']=round($image['width']*$image['dest_width']/$image['height']);
+							$image['res_height']=$limit_max;
+							$image['start_x']=round(($image['dest_width']-$image['res_width'])/2);
+							$image['start_y']=0;
+						}
+						elseif($image['height']<$limit_min){
+							//放
+							$image['dest_width']=$limit_min;
+							$image['dest_height']=$limit_min;
+							$image['res_width']=round($image['width']*$image['dest_width']/$image['height']);
+							$image['res_height']=$limit_min;
+							$image['start_x']=round(($image['dest_width']-$image['res_width'])/2);
+							$image['start_y']=0;
+						}
+						else{
+							$image['dest_width']=$image['height'];
+							$image['dest_height']=$image['height'];
+							$image['res_width']=$image['width'];
+							$image['res_height']=$image['height'];
+							$image['start_x']=round(($image['dest_width']-$image['res_width'])/2);
+							$image['start_y']=0;
+						}
+					}
+					else{
+						if($image['width']>$limit_max){
+							$image['dest_width']=$limit_max;
+							$image['dest_height']=$limit_max;
+							$image['res_width']=$limit_max;
+							$image['res_height']=$limit_max;
+							$image['start_x']=0;
+							$image['start_y']=0;
+						}
+						elseif($image['width']<$limit_min){
+							$image['dest_width']=$limit_min;
+							$image['dest_height']=$limit_min;
+							$image['res_width']=$limit_min;
+							$image['res_height']=$limit_min;
+							$image['start_x']=0;
+							$image['start_y']=0;
+						}
+						else{
+							if($dest_file && $dest_type)
+								return self::write($dest_type,$image['image'],$dest_file);
+							else
+								return $image['image'];
+						}
+					}
+					$canvas=self::createWhiteImage($image['dest_width'],$image['dest_height']);
+					if(@imagecopyresampled($canvas,$image['image'],$image['start_x'],$image['start_y'],0,0,$image['res_width'],$image['res_height'],$image['width'],$image['height'])){
+						imagedestroy($image['image']);
+						if($dest_file && $dest_type)
+							if(self::write($dest_type,$canvas,$dest_file)){
+								imagedestroy($canvas);
+								return true;
+							}
+							else
+								return $canvas;
+					}
 				}
 			}
 		}
+
 		return false;
 	}
 
