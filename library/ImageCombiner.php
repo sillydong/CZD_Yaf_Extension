@@ -153,11 +153,12 @@ class ImageCombiner{
 				clearstatcache();
 
 			$this->checkSrcs();
-			$this->checkSizes();
-			if($this->dest_width>20000 || $this->dest_height>20000)
-				throw new Yaf_Exception('combined image size too large may cause out of memory exception');
-
 			if(!empty($this->src_infos)){
+				$this->checkSizes();
+
+				if($this->dest_width>20000 || $this->dest_height>20000)
+					throw new Yaf_Exception('combined image size too large may cause out of memory exception');
+
 				$this->canvas=ImageManager::createTransImage($this->dest_width,$this->dest_height);
 				switch($this->combine_mode){
 					case self::COMBINE_HORIZONTAL:
