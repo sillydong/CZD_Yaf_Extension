@@ -4,6 +4,9 @@ CZD_Yaf_Extension
 建立在[Yaf](https://github.com/laruence/php-yaf) 的基础上，集成了Smarty引擎，加入了封装出来的各种功能类，位于APPLICATION_DIR/library下
 
 【更新记录】
+- 2013.12.19
+	加入PHPExcel
+	Tools添加向浏览器返回文件的函数
 - 2013.12.05  
 	加入命令行请求入口，请求示例：`php -f indexc.php "request_uri=/crontab/crontab/index"`  
 	增加module的示例代码，包括后台及命令行，在模块的controllers同级目录建立views文件夹，模板文件放置及命名规则同APPLICATION_DIR/views文件夹
@@ -37,6 +40,7 @@ CZD_Yaf_Extension
 - Tools：一些常用静态方法
 - Validate：常用验证方法
 - Weixin：集成的微信接口
+- PHPExcel：源自 [PHPExcel](http://phpexcel.codeplex.com/)，加载规则与Yaf自身加载规则相同，所以去除了它自带的Autoload
 
 ===============
 其他具体信息详见代码

@@ -335,6 +335,7 @@ abstract class Db {
 		}
 		else if ($this->is_cache_enabled && $this->last_cached)
 			return Cache::getInstance()->get(md5($this->last_query) . '_nrows');
+		return 0;
 	}
 
 	protected function q($sql, $use_cache = true) {
