@@ -473,7 +473,7 @@ class Tools {
 	 * @return int
 	 */
 	public static function getExactTime() {
-		return time() + microtime();
+		return microtime(true);
 	}
 
 	/**
