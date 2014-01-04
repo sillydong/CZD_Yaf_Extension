@@ -4,6 +4,9 @@ CZD_Yaf_Extension
 建立在[Yaf](https://github.com/laruence/php-yaf) 的基础上，集成了Smarty引擎，加入了封装出来的各种功能类，位于APPLICATION_DIR/library下
 
 【更新记录】
+- 2014.01.04  
+	根据腾讯最新的微信接口文档完善了Weixin类，包含了基础接口、自定义菜单和高级接口的所有功能  
+	加入了Simsimi请求类，能完成和小黄鸡对话，请求出错可以更新代码中的JSESSIONID  
 - 2013.12.25  
 	Pagination修改数组索引名，去掉page前缀，assign到view中变量名缩短为pager  
 - 2013.12.19  
