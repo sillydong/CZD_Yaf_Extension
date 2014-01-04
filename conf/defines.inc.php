@@ -4,8 +4,6 @@
  * 2013-4-26
  */
 
-define('SITE_NAME','sample');
-
 define('_COOKIE_KEY_', '');
 define('_COOKIE_IV_', '');
 

@@ -1,4 +1,5 @@
 <?php
+
 class Tools {
 
 	const FLAG_NUMERIC = 1;
@@ -7,12 +8,15 @@ class Tools {
 
 	/**
 	 * 生成随机密码
+	 *
 	 * @param integer $length Desired length (optional)
-	 * @param string $flag Output type (NUMERIC, ALPHANUMERIC, NO_NUMERIC)
+	 * @param string  $flag   Output type (NUMERIC, ALPHANUMERIC, NO_NUMERIC)
+	 *
 	 * @return string Password
 	 */
 	public static function passwdGen($length = 8, $flag = self::FLAG_NO_NUMERIC) {
-		switch ($flag) {
+		switch ($flag)
+		{
 			case self::FLAG_NUMERIC:
 				$str = '0123456789';
 				break;
@@ -27,29 +31,35 @@ class Tools {
 
 		for ($i = 0, $passwd = ''; $i < $length; $i++)
 			$passwd .= Tools::substr($str, mt_rand(0, Tools::strlen($str) - 1), 1);
+
 		return $passwd;
 	}
 
 	/**
 	 * 替换第一次出现的字符串
-	 * @param $search
-	 * @param $replace
-	 * @param $subject
+	 *
+	 * @param     $search
+	 * @param     $replace
+	 * @param     $subject
 	 * @param int $cur
+	 *
 	 * @return mixed
 	 */
 	public static function strReplaceFirst($search, $replace, $subject, $cur = 0) {
-		return (strpos($subject, $search, $cur)) ? substr_replace($subject, $replace, (int) strpos($subject, $search, $cur), strlen($search)) : $subject;
+		return (strpos($subject, $search, $cur)) ? substr_replace($subject, $replace, (int)strpos($subject, $search, $cur), strlen($search)) : $subject;
 	}
 
 	/**
 	 * 跳转
-	 * @param $url
+	 *
+	 * @param      $url
 	 * @param null $headers
 	 */
 	public static function redirect($url, $headers = null) {
-		if (!empty($url)) {
-			if ($headers) {
+		if (!empty($url))
+		{
+			if ($headers)
+			{
 				if (!is_array($headers))
 					$headers = array($headers);
 
@@ -64,79 +74,100 @@ class Tools {
 
 	/**
 	 * 清理URL中的http头
-	 * @param $url
+	 *
+	 * @param      $url
 	 * @param bool $cleanall
+	 *
 	 * @return mixed|string
 	 */
 	public static function cleanUrl($url, $cleanall = true) {
-		if (strpos($url, 'http://') !== false) {
-			if ($cleanall) {
+		if (strpos($url, 'http://') !== false)
+		{
+			if ($cleanall)
+			{
 				return '/';
 			}
-			else {
+			else
+			{
 				return str_replace('http://', '', $url);
 			}
 		}
+
 		return $url;
 	}
 
 	/**
 	 * 获取当前域名
+	 *
 	 * @param bool $http
 	 * @param bool $entities
+	 *
 	 * @return string
 	 */
 	public static function getHttpHost($http = false, $entities = false) {
 		$host = (isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : $_SERVER['HTTP_HOST']);
 		if ($entities)
 			$host = htmlspecialchars($host, ENT_COMPAT, 'UTF-8');
-		if ($http) {
+		if ($http)
+		{
 			$host = self::getCurrentUrlProtocolPrefix() . $host;
 		}
+
 		return $host;
 	}
 
 	/**
 	 * 获取当前服务器名
+	 *
 	 * @return mixed
 	 */
 	public static function getServerName() {
 		if (isset($_SERVER['HTTP_X_FORWARDED_SERVER']) && $_SERVER['HTTP_X_FORWARDED_SERVER'])
 			return $_SERVER['HTTP_X_FORWARDED_SERVER'];
+
 		return $_SERVER['SERVER_NAME'];
 	}
 
 	/**
 	 * 获取用户IP地址
+	 *
 	 * @return mixed
 	 */
 	public static function getRemoteAddr() {
-		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] && (!isset($_SERVER['REMOTE_ADDR']) || preg_match('/^127\..*/i', trim($_SERVER['REMOTE_ADDR'])) || preg_match('/^172\.16.*/i', trim($_SERVER['REMOTE_ADDR'])) || preg_match('/^192\.168\.*/i', trim($_SERVER['REMOTE_ADDR'])) || preg_match('/^10\..*/i', trim($_SERVER['REMOTE_ADDR'])))) {
-			if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',')) {
+		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] && (!isset($_SERVER['REMOTE_ADDR']) || preg_match('/^127\..*/i', trim($_SERVER['REMOTE_ADDR'])) || preg_match('/^172\.16.*/i', trim($_SERVER['REMOTE_ADDR'])) || preg_match('/^192\.168\.*/i', trim($_SERVER['REMOTE_ADDR'])) || preg_match('/^10\..*/i', trim($_SERVER['REMOTE_ADDR']))))
+		{
+			if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ','))
+			{
 				$ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+
 				return $ips[0];
 			}
 			else
 				return $_SERVER['HTTP_X_FORWARDED_FOR'];
 		}
+
 		return $_SERVER['REMOTE_ADDR'];
 	}
 
 	/**
 	 * 获取用户来源地址
+	 *
 	 * @return null
 	 */
 	public static function getReferer() {
-		if (isset($_SERVER['HTTP_REFERER'])) {
+		if (isset($_SERVER['HTTP_REFERER']))
+		{
 			return $_SERVER['HTTP_REFERER'];
 		}
-		else {
+		else
+		{
 			return null;
 		}
 	}
 
 	/**
 	 * 判断是否使用了HTTPS
+	 *
 	 * @return bool
 	 */
 	public static function usingSecureMode() {
@@ -144,11 +175,13 @@ class Tools {
 			return ($_SERVER['HTTPS'] == 1 || strtolower($_SERVER['HTTPS']) == 'on');
 		if (isset($_SERVER['SSL']))
 			return ($_SERVER['SSL'] == 1 || strtolower($_SERVER['SSL']) == 'on');
+
 		return false;
 	}
 
 	/**
 	 * 获取当前URL协议
+	 *
 	 * @return string
 	 */
 	public static function getCurrentUrlProtocolPrefix() {
@@ -160,19 +193,24 @@ class Tools {
 
 	/**
 	 * 判断是否本站链接
+	 *
 	 * @param $referrer
+	 *
 	 * @return string
 	 */
 	public static function secureReferrer($referrer) {
 		if (preg_match('/^http[s]?:\/\/' . Tools::getServerName() . '(:443)?\/.*$/Ui', $referrer))
 			return $referrer;
+
 		return '/';
 	}
 
 	/**
 	 * 获取POST或GET的指定字段内容
-	 * @param $key
+	 *
+	 * @param      $key
 	 * @param bool $default_value
+	 *
 	 * @return bool|string
 	 */
 	public static function getValue($key, $default_value = false) {
@@ -182,23 +220,29 @@ class Tools {
 
 		if (is_string($ret) === true)
 			$ret = trim(urldecode(preg_replace('/((\%5C0+)|(\%00+))/i', '', urlencode($ret))));
+
 		return !is_string($ret) ? $ret : stripslashes($ret);
 	}
 
 	/**
 	 * 判断POST或GET中是否包含指定字段
+	 *
 	 * @param $key
+	 *
 	 * @return bool
 	 */
 	public static function getIsset($key) {
 		if (!isset($key) || empty($key) || !is_string($key))
 			return false;
+
 		return isset($_POST[$key]) ? true : (isset($_GET[$key]) ? true : false);
 	}
 
 	/**
 	 * 判断是否为提交操作
+	 *
 	 * @param $submit
+	 *
 	 * @return bool
 	 */
 	public static function isSubmit($submit) {
@@ -207,30 +251,36 @@ class Tools {
 
 	/**
 	 * 过滤HTML内容后返回
-	 * @param $string
+	 *
+	 * @param      $string
 	 * @param bool $html
+	 *
 	 * @return array|string
 	 */
 	public static function safeOutput($string, $html = false) {
 		if (!$html)
 			$string = strip_tags($string);
+
 		return @Tools::htmlentitiesUTF8($string, ENT_QUOTES);
 	}
 
 	public static function htmlentitiesUTF8($string, $type = ENT_QUOTES) {
 		if (is_array($string))
 			return array_map(array('Tools', 'htmlentitiesUTF8'), $string);
-		return htmlentities((string) $string, $type, 'utf-8');
+
+		return htmlentities((string)$string, $type, 'utf-8');
 	}
 
 	public static function htmlentitiesDecodeUTF8($string) {
 		if (is_array($string))
 			return array_map(array('Tools', 'htmlentitiesDecodeUTF8'), $string);
-		return html_entity_decode((string) $string, ENT_QUOTES, 'utf-8');
+
+		return html_entity_decode((string)$string, ENT_QUOTES, 'utf-8');
 	}
 
 	/**
 	 * 对POST内容进行处理
+	 *
 	 * @return array
 	 */
 	public static function safePostVars() {
@@ -241,15 +291,18 @@ class Tools {
 
 	/**
 	 * 删除文件夹
-	 * @param $dirname
+	 *
+	 * @param      $dirname
 	 * @param bool $delete_self
 	 */
 	public static function deleteDirectory($dirname, $delete_self = true) {
 		$dirname = rtrim($dirname, '/') . '/';
-		if (is_dir($dirname)) {
+		if (is_dir($dirname))
+		{
 			$files = scandir($dirname);
 			foreach ($files as $file)
-				if ($file != '.' && $file != '..' && $file != '.svn') {
+				if ($file != '.' && $file != '..' && $file != '.svn')
+				{
 					if (is_dir($dirname . $file))
 						Tools::deleteDirectory($dirname . $file, true);
 					elseif (file_exists($dirname . $file))
@@ -262,28 +315,35 @@ class Tools {
 
 	/**
 	 * 显示错误信息
+	 *
 	 * @param string $string
-	 * @param array $error
-	 * @param bool $htmlentities
+	 * @param array  $error
+	 * @param bool   $htmlentities
+	 *
 	 * @return mixed|string
 	 */
 	public static function displayError($string = 'Fatal error', $error = array(), $htmlentities = true) {
-		if (DEBUG_MODE) {
+		if (DEBUG_MODE)
+		{
 			if (!is_array($error) || empty($error))
 				return str_replace('"', '&quot;', $string) . ('<pre>' . print_r(debug_backtrace(), true) . '</pre>');
 			$key = md5(str_replace('\'', '\\\'', $string));
 			$str = (isset($error) AND is_array($error) AND key_exists($key, $error)) ? ($htmlentities ? htmlentities($error[$key], ENT_COMPAT, 'UTF-8') : $error[$key]) : $string;
+
 			return str_replace('"', '&quot;', stripslashes($str));
 		}
-		else {
+		else
+		{
 			return str_replace('"', '&quot;', $string);
 		}
 	}
 
 	/**
 	 * 打印出对象的内容
-	 * @param $object
+	 *
+	 * @param      $object
 	 * @param bool $kill
+	 *
 	 * @return mixed
 	 */
 	public static function dieObject($object, $kill = true) {
@@ -292,6 +352,7 @@ class Tools {
 		echo '</pre><br />';
 		if ($kill)
 			die('END');
+
 		return ($object);
 	}
 
@@ -305,88 +366,87 @@ class Tools {
 
 	/**
 	 * 截取字符串，支持中文
-	 * @param $str
-	 * @param $max_length
+	 *
+	 * @param        $str
+	 * @param        $max_length
 	 * @param string $suffix
+	 *
 	 * @return string
 	 */
 	public static function truncate($str, $max_length, $suffix = '...') {
 		if (Tools::strlen($str) <= $max_length)
 			return $str;
 		$str = utf8_decode($str);
+
 		return (utf8_encode(substr($str, 0, $max_length - Tools::strlen($suffix)) . $suffix));
 	}
 
 	public static function replaceAccentedChars($str) {
-		$patterns = array(
-			/* Lowercase */
-			'/[\x{0105}\x{00E0}\x{00E1}\x{00E2}\x{00E3}\x{00E4}\x{00E5}]/u',
-			'/[\x{00E7}\x{010D}\x{0107}]/u',
-			'/[\x{010F}]/u',
-			'/[\x{00E8}\x{00E9}\x{00EA}\x{00EB}\x{011B}\x{0119}]/u',
-			'/[\x{00EC}\x{00ED}\x{00EE}\x{00EF}]/u',
-			'/[\x{0142}\x{013E}\x{013A}]/u',
-			'/[\x{00F1}\x{0148}]/u',
-			'/[\x{00F2}\x{00F3}\x{00F4}\x{00F5}\x{00F6}\x{00F8}]/u',
-			'/[\x{0159}\x{0155}]/u',
-			'/[\x{015B}\x{0161}]/u',
-			'/[\x{00DF}]/u',
-			'/[\x{0165}]/u',
-			'/[\x{00F9}\x{00FA}\x{00FB}\x{00FC}\x{016F}]/u',
-			'/[\x{00FD}\x{00FF}]/u',
-			'/[\x{017C}\x{017A}\x{017E}]/u',
-			'/[\x{00E6}]/u',
-			'/[\x{0153}]/u',
-			/* Uppercase */
-			'/[\x{0104}\x{00C0}\x{00C1}\x{00C2}\x{00C3}\x{00C4}\x{00C5}]/u',
-			'/[\x{00C7}\x{010C}\x{0106}]/u',
-			'/[\x{010E}]/u',
-			'/[\x{00C8}\x{00C9}\x{00CA}\x{00CB}\x{011A}\x{0118}]/u',
-			'/[\x{0141}\x{013D}\x{0139}]/u',
-			'/[\x{00D1}\x{0147}]/u',
-			'/[\x{00D3}]/u',
-			'/[\x{0158}\x{0154}]/u',
-			'/[\x{015A}\x{0160}]/u',
-			'/[\x{0164}]/u',
-			'/[\x{00D9}\x{00DA}\x{00DB}\x{00DC}\x{016E}]/u',
-			'/[\x{017B}\x{0179}\x{017D}]/u',
-			'/[\x{00C6}]/u',
-			'/[\x{0152}]/u'
-		);
+		$patterns = array( /* Lowercase */
+						   '/[\x{0105}\x{00E0}\x{00E1}\x{00E2}\x{00E3}\x{00E4}\x{00E5}]/u',
+						   '/[\x{00E7}\x{010D}\x{0107}]/u',
+						   '/[\x{010F}]/u',
+						   '/[\x{00E8}\x{00E9}\x{00EA}\x{00EB}\x{011B}\x{0119}]/u',
+						   '/[\x{00EC}\x{00ED}\x{00EE}\x{00EF}]/u',
+						   '/[\x{0142}\x{013E}\x{013A}]/u',
+						   '/[\x{00F1}\x{0148}]/u',
+						   '/[\x{00F2}\x{00F3}\x{00F4}\x{00F5}\x{00F6}\x{00F8}]/u',
+						   '/[\x{0159}\x{0155}]/u',
+						   '/[\x{015B}\x{0161}]/u',
+						   '/[\x{00DF}]/u',
+						   '/[\x{0165}]/u',
+						   '/[\x{00F9}\x{00FA}\x{00FB}\x{00FC}\x{016F}]/u',
+						   '/[\x{00FD}\x{00FF}]/u',
+						   '/[\x{017C}\x{017A}\x{017E}]/u',
+						   '/[\x{00E6}]/u',
+						   '/[\x{0153}]/u',
+						   /* Uppercase */
+						   '/[\x{0104}\x{00C0}\x{00C1}\x{00C2}\x{00C3}\x{00C4}\x{00C5}]/u',
+						   '/[\x{00C7}\x{010C}\x{0106}]/u',
+						   '/[\x{010E}]/u',
+						   '/[\x{00C8}\x{00C9}\x{00CA}\x{00CB}\x{011A}\x{0118}]/u',
+						   '/[\x{0141}\x{013D}\x{0139}]/u',
+						   '/[\x{00D1}\x{0147}]/u',
+						   '/[\x{00D3}]/u',
+						   '/[\x{0158}\x{0154}]/u',
+						   '/[\x{015A}\x{0160}]/u',
+						   '/[\x{0164}]/u',
+						   '/[\x{00D9}\x{00DA}\x{00DB}\x{00DC}\x{016E}]/u',
+						   '/[\x{017B}\x{0179}\x{017D}]/u',
+						   '/[\x{00C6}]/u',
+						   '/[\x{0152}]/u');
 
-		$replacements = array(
-			'a',
-			'c',
-			'd',
-			'e',
-			'i',
-			'l',
-			'n',
-			'o',
-			'r',
-			's',
-			'ss',
-			't',
-			'u',
-			'y',
-			'z',
-			'ae',
-			'oe',
-			'A',
-			'C',
-			'D',
-			'E',
-			'L',
-			'N',
-			'O',
-			'R',
-			'S',
-			'T',
-			'U',
-			'Z',
-			'AE',
-			'OE'
-		);
+		$replacements = array('a',
+							  'c',
+							  'd',
+							  'e',
+							  'i',
+							  'l',
+							  'n',
+							  'o',
+							  'r',
+							  's',
+							  'ss',
+							  't',
+							  'u',
+							  'y',
+							  'z',
+							  'ae',
+							  'oe',
+							  'A',
+							  'C',
+							  'D',
+							  'E',
+							  'L',
+							  'N',
+							  'O',
+							  'R',
+							  'S',
+							  'T',
+							  'U',
+							  'Z',
+							  'AE',
+							  'OE');
 
 		return preg_replace($patterns, $replacements, $str);
 	}
@@ -394,11 +454,13 @@ class Tools {
 	public static function cleanNonUnicodeSupport($pattern) {
 		if (!defined('PREG_BAD_UTF8_OFFSET'))
 			return $pattern;
+
 		return preg_replace('/\\\[px]\{[a-z]\}{1,2}|(\/[a-z]*)u([a-z]*)$/i', "$1$2", $pattern);
 	}
 
 	/**
 	 * 生成年份
+	 *
 	 * @return array
 	 */
 	public static function dateYears() {
@@ -406,11 +468,13 @@ class Tools {
 
 		for ($i = date('Y') - 10; $i >= 1900; $i--)
 			$tab[] = $i;
+
 		return $tab;
 	}
 
 	/**
 	 * 生成日
+	 *
 	 * @return array
 	 */
 	public static function dateDays() {
@@ -418,11 +482,13 @@ class Tools {
 
 		for ($i = 1; $i != 32; $i++)
 			$tab[] = $i;
+
 		return $tab;
 	}
 
 	/**
 	 * 生成月
+	 *
 	 * @return array
 	 */
 	public static function dateMonths() {
@@ -430,14 +496,17 @@ class Tools {
 
 		for ($i = 1; $i != 13; $i++)
 			$tab[$i] = date('F', mktime(0, 0, 0, $i, date('m'), date('Y')));
+
 		return $tab;
 	}
 
 	/**
 	 * 根据时分秒生成时间字符串
+	 *
 	 * @param $hours
 	 * @param $minutes
 	 * @param $seconds
+	 *
 	 * @return string
 	 */
 	public static function hourGenerate($hours, $minutes, $seconds) {
@@ -446,30 +515,37 @@ class Tools {
 
 	/**
 	 * 一日之初
+	 *
 	 * @param $date
+	 *
 	 * @return string
 	 */
 	public static function dateFrom($date) {
 		$tab = explode(' ', $date);
 		if (!isset($tab[1]))
 			$date .= ' ' . self::hourGenerate(0, 0, 0);
+
 		return $date;
 	}
 
 	/**
 	 * 一日之终
+	 *
 	 * @param $date
+	 *
 	 * @return string
 	 */
 	public static function dateTo($date) {
 		$tab = explode(' ', $date);
 		if (!isset($tab[1]))
 			$date .= ' ' . self::hourGenerate(23, 59, 59);
+
 		return $date;
 	}
 
 	/**
 	 * 获取精准的时间
+	 *
 	 * @return int
 	 */
 	public static function getExactTime() {
@@ -478,7 +554,9 @@ class Tools {
 
 	/**
 	 * 转换成小写字符，支持中文
+	 *
 	 * @param $str
+	 *
 	 * @return bool|string
 	 */
 	public static function strtolower($str) {
@@ -486,26 +564,32 @@ class Tools {
 			return false;
 		if (function_exists('mb_strtolower'))
 			return mb_strtolower($str, 'utf-8');
+
 		return strtolower($str);
 	}
 
 	/**
 	 * 转换为int类型
+	 *
 	 * @param $val
+	 *
 	 * @return int
 	 */
 	public static function intval($val) {
 		if (is_int($val))
 			return $val;
 		if (is_string($val))
-			return (int) $val;
-		return (int) (string) $val;
+			return (int)$val;
+
+		return (int)(string)$val;
 	}
 
 	/**
 	 * 计算字符串长度
-	 * @param $str
+	 *
+	 * @param        $str
 	 * @param string $encoding
+	 *
 	 * @return bool|int
 	 */
 	public static function strlen($str, $encoding = 'UTF-8') {
@@ -514,18 +598,22 @@ class Tools {
 		$str = html_entity_decode($str, ENT_COMPAT, 'UTF-8');
 		if (function_exists('mb_strlen'))
 			return mb_strlen($str, $encoding);
+
 		return strlen($str);
 	}
 
 	public static function stripslashes($string) {
 		if (get_magic_quotes_gpc())
 			$string = stripslashes($string);
+
 		return $string;
 	}
 
 	/**
 	 * 转换成大写字符串
+	 *
 	 * @param $str
+	 *
 	 * @return bool|string
 	 */
 	public static function strtoupper($str) {
@@ -533,15 +621,18 @@ class Tools {
 			return false;
 		if (function_exists('mb_strtoupper'))
 			return mb_strtoupper($str, 'utf-8');
+
 		return strtoupper($str);
 	}
 
 	/**
 	 * 截取字符串
-	 * @param $str
-	 * @param $start
-	 * @param bool $length
+	 *
+	 * @param        $str
+	 * @param        $start
+	 * @param bool   $length
 	 * @param string $encoding
+	 *
 	 * @return bool|string
 	 */
 	public static function substr($str, $start, $length = false, $encoding = 'utf-8') {
@@ -549,11 +640,14 @@ class Tools {
 			return false;
 		if (function_exists('mb_substr'))
 			return mb_substr($str, intval($start), ($length === false ? self::strlen($str) : intval($length)), $encoding);
+
 		return substr($str, $start, ($length === false ? Tools::strlen($str) : intval($length)));
 	}
 
 	/**首字母大写
+	 *
 	 * @param $str
+	 *
 	 * @return string
 	 */
 	public static function ucfirst($str) {
@@ -570,7 +664,9 @@ class Tools {
 
 	/**
 	 * 判断是否真为空
+	 *
 	 * @param $field
+	 *
 	 * @return bool
 	 */
 	public static function isEmpty($field) {
@@ -580,24 +676,26 @@ class Tools {
 	public static function ceilf($value, $precision = 0) {
 		$precisionFactor = $precision == 0 ? 1 : pow(10, $precision);
 		$tmp = $value * $precisionFactor;
-		$tmp2 = (string) $tmp;
+		$tmp2 = (string)$tmp;
 		// If the current value has already the desired precision
 		if (strpos($tmp2, '.') === false)
 			return ($value);
 		if ($tmp2[strlen($tmp2) - 1] == 0)
 			return $value;
+
 		return ceil($tmp) / $precisionFactor;
 	}
 
 	public static function floorf($value, $precision = 0) {
 		$precisionFactor = $precision == 0 ? 1 : pow(10, $precision);
 		$tmp = $value * $precisionFactor;
-		$tmp2 = (string) $tmp;
+		$tmp2 = (string)$tmp;
 		// If the current value has already the desired precision
 		if (strpos($tmp2, '.') === false)
 			return ($value);
 		if ($tmp2[strlen($tmp2) - 1] == 0)
 			return $value;
+
 		return floor($tmp) / $precisionFactor;
 	}
 
@@ -607,34 +705,43 @@ class Tools {
 
 	/**
 	 * 获取日期
+	 *
 	 * @param null $timestamp
+	 *
 	 * @return bool|string
 	 */
 	public static function getSimpleDate($timestamp = null) {
-		if ($timestamp == null) {
+		if ($timestamp == null)
+		{
 			return date('Y-m-d');
 		}
-		else {
+		else
+		{
 			return date('Y-m-d', $timestamp);
 		}
 	}
 
 	/**
 	 * 获取完整时间
+	 *
 	 * @param null $timestamp
+	 *
 	 * @return bool|string
 	 */
 	public static function getFullDate($timestamp = null) {
-		if ($timestamp == null) {
+		if ($timestamp == null)
+		{
 			return date('Y-m-d H:i:s');
 		}
-		else {
+		else
+		{
 			return date('Y-m-d H:i:s', $timestamp);
 		}
 	}
 
 	/**
 	 * 判断是否64位架构
+	 *
 	 * @return bool
 	 */
 	public static function isX86_64arch() {
@@ -643,7 +750,9 @@ class Tools {
 
 	/**
 	 * 获取服务器配置允许最大上传文件大小
+	 *
 	 * @param int $max_size
+	 *
 	 * @return mixed
 	 */
 	public static function getMaxUploadSize($max_size = 0) {
@@ -653,17 +762,20 @@ class Tools {
 			$result = min($post_max_size, $upload_max_filesize, $max_size);
 		else
 			$result = min($post_max_size, $upload_max_filesize);
+
 		return $result;
 	}
 
 	public static function convertBytes($value) {
 		if (is_numeric($value))
 			return $value;
-		else {
+		else
+		{
 			$value_length = strlen($value);
-			$qty = (int) substr($value, 0, $value_length - 1);
+			$qty = (int)substr($value, 0, $value_length - 1);
 			$unit = strtolower(substr($value, $value_length - 1));
-			switch ($unit) {
+			switch ($unit)
+			{
 				case 'k':
 					$qty *= 1024;
 					break;
@@ -674,46 +786,55 @@ class Tools {
 					$qty *= 1073741824;
 					break;
 			}
+
 			return $qty;
 		}
 	}
 
 	/**
 	 * 获取内存限制
+	 *
 	 * @return int
 	 */
 	public static function getMemoryLimit() {
 		$memory_limit = @ini_get('memory_limit');
+
 		return Tools::getOctets($memory_limit);
 	}
 
 	public static function getOctets($option) {
 		if (preg_match('/[0-9]+k/i', $option))
-			return 1024 * (int) $option;
+			return 1024 * (int)$option;
 
 		if (preg_match('/[0-9]+m/i', $option))
-			return 1024 * 1024 * (int) $option;
+			return 1024 * 1024 * (int)$option;
 
 		if (preg_match('/[0-9]+g/i', $option))
-			return 1024 * 1024 * 1024 * (int) $option;
+			return 1024 * 1024 * 1024 * (int)$option;
 
 		return $option;
 	}
 
 	/**
 	 * 从array中取出指定字段
+	 *
 	 * @param $array
 	 * @param $key
+	 *
 	 * @return array|null
 	 */
 	public static function simpleArray($array, $key) {
-		if (!empty($array) && is_array($array)) {
+		if (!empty($array) && is_array($array))
+		{
 			$result = array();
-			foreach ($array as $k => $item) {
+			foreach ($array as $k => $item)
+			{
 				$result[$k] = $item[$key];
 			}
+
 			return $result;
 		}
+
 		return null;
 	}
 
@@ -723,67 +844,83 @@ class Tools {
 
 	public static function getmicrotime() {
 		list($usec, $sec) = explode(" ", microtime());
+
 		return floor($sec + $usec * 1000000);
 	}
 
 	/**
 	 * 根据时间生成图片名
+	 *
 	 * @param string $image_type
+	 *
 	 * @return float|string
 	 */
 	public static function getTimeImageName($image_type = "image/jpeg") {
-		if ($image_type == "image/jpeg" || $image_type == "image/pjpeg") {
+		if ($image_type == "image/jpeg" || $image_type == "image/pjpeg")
+		{
 			return self::getmicrotime() . ".jpg";
 		}
-		elseif ($image_type == "image/gif") {
+		elseif ($image_type == "image/gif")
+		{
 			return self::getmicrotime() . ".gif";
 		}
-		elseif ($image_type == "image/png") {
+		elseif ($image_type == "image/png")
+		{
 			return self::getmicrotime() . ".png";
 		}
-		else {
+		else
+		{
 			return self::getmicrotime();
 		}
 	}
 
 	/**
 	 * 日期计算
+	 *
 	 * @param $interval
 	 * @param $step
 	 * @param $date
+	 *
 	 * @return bool|string
 	 */
 	public static function dateadd($interval, $step, $date) {
 		list($year, $month, $day) = explode('-', $date);
-		if (strtolower($interval) == 'y') {
+		if (strtolower($interval) == 'y')
+		{
 			return date('Y-m-d', mktime(0, 0, 0, $month, $day, intval($year) + intval($step)));
 		}
-		elseif (strtolower($interval) == 'm') {
+		elseif (strtolower($interval) == 'm')
+		{
 			return date('Y-m-d', mktime(0, 0, 0, intval($month) + intval($step), $day, $year));
 		}
-		elseif (strtolower($interval) == 'd') {
+		elseif (strtolower($interval) == 'd')
+		{
 			return date('Y-m-d', mktime(0, 0, 0, $month, intval($day) + intval($step), $year));
 		}
+
 		return date('Y-m-d');
 	}
 
 	public static function echo_microtime($tag) {
 		list($usec, $sec) = explode(' ', microtime());
-		echo $tag . ':' . ((float) $usec + (float) $sec) . "\n";
+		echo $tag . ':' . ((float)$usec + (float)$sec) . "\n";
 	}
 
 	public static function redirectTo($link) {
-		if (strpos($link, 'http') !== false) {
+		if (strpos($link, 'http') !== false)
+		{
 			header('Location: ' . $link);
 		}
-		else {
+		else
+		{
 			header('Location: ' . Tools::getHttpHost(true) . '/' . $link);
 		}
 		exit;
 	}
 
 	public static function returnAjaxJson($array) {
-		if (!headers_sent()) {
+		if (!headers_sent())
+		{
 			header("Content-Type: application/json; charset=utf-8");
 		}
 		echo(json_encode($array));
@@ -792,45 +929,56 @@ class Tools {
 	}
 
 	public static function cmpWord($a, $b) {
-		if ($a['word'] > $b['word']) {
+		if ($a['word'] > $b['word'])
+		{
 			return 1;
 		}
-		elseif ($a['word'] == $b['word']) {
+		elseif ($a['word'] == $b['word'])
+		{
 			return 0;
 		}
-		else {
+		else
+		{
 			return -1;
 		}
 	}
 
 	/**
 	 * HackNews热度计算公式
+	 *
 	 * @param $time
 	 * @param $viewcount
+	 *
 	 * @return float|int
 	 */
 	public static function getGravity($time, $viewcount) {
 		$timegap = ($_SERVER['REQUEST_TIME'] - strtotime($time)) / 3600;
-		if ($timegap <= 24) {
+		if ($timegap <= 24)
+		{
 			return 999999;
 		}
+
 		return round((pow($viewcount, 0.8) / pow(($timegap + 24), 1.2)), 3) * 1000;
 	}
 
 	public static function getGravityS($stime, $viewcount) {
 		$timegap = ($_SERVER['REQUEST_TIME'] - $stime) / 3600;
-		if ($timegap <= 24) {
+		if ($timegap <= 24)
+		{
 			return 999999;
 		}
+
 		return round((pow($viewcount, 0.8) / pow(($timegap + 24), 1.2)), 3) * 1000;
 	}
 
 	/**
 	 * 优化的file_get_contents操作，超时关闭
-	 * @param $url
+	 *
+	 * @param      $url
 	 * @param bool $use_include_path
 	 * @param null $stream_context
-	 * @param int $curl_timeout
+	 * @param int  $curl_timeout
+	 *
 	 * @return bool|mixed|string
 	 */
 	public static function file_get_contents($url, $use_include_path = false, $stream_context = null, $curl_timeout = 8) {
@@ -838,7 +986,8 @@ class Tools {
 			$stream_context = @stream_context_create(array('http' => array('timeout' => $curl_timeout)));
 		if (in_array(ini_get('allow_url_fopen'), array('On', 'on', '1')) || !preg_match('/^https?:\/\//', $url))
 			return @file_get_contents($url, $use_include_path, $stream_context);
-		elseif (function_exists('curl_init')) {
+		elseif (function_exists('curl_init'))
+		{
 			$curl = curl_init();
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($curl, CURLOPT_URL, $url);
@@ -846,15 +995,18 @@ class Tools {
 			curl_setopt($curl, CURLOPT_TIMEOUT, $curl_timeout);
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 			$opts = stream_context_get_options($stream_context);
-			if (isset($opts['http']['method']) && Tools::strtolower($opts['http']['method']) == 'post') {
+			if (isset($opts['http']['method']) && Tools::strtolower($opts['http']['method']) == 'post')
+			{
 				curl_setopt($curl, CURLOPT_POST, true);
-				if (isset($opts['http']['content'])) {
+				if (isset($opts['http']['content']))
+				{
 					parse_str($opts['http']['content'], $datas);
 					curl_setopt($curl, CURLOPT_POSTFIELDS, $datas);
 				}
 			}
 			$content = curl_exec($curl);
 			curl_close($curl);
+
 			return $content;
 		}
 		else
@@ -863,6 +1015,7 @@ class Tools {
 
 	public static function ZipTest($from_file) {
 		$zip = new PclZip($from_file);
+
 		return ($zip->privCheckFormat() === true);
 		/*
 		if (class_exists('ZipArchive', false)) {
@@ -881,6 +1034,7 @@ class Tools {
 			mkdir($to_dir, 0777);
 		$zip = new PclZip($from_file);
 		$list = $zip->extract(PCLZIP_OPT_PATH, $to_dir);
+
 		return $list;
 		/*
 		if (class_exists('ZipArchive', false)) {
@@ -902,58 +1056,73 @@ class Tools {
 
 	/**
 	 * 获取文件扩展名
+	 *
 	 * @param $file
+	 *
 	 * @return mixed|string
 	 */
 	public static function getFileExtension($file) {
-		if (is_uploaded_file($file)) {
+		if (is_uploaded_file($file))
+		{
 			return "unknown";
 		}
+
 		return pathinfo($file, PATHINFO_EXTENSION);
 	}
 
 	/**
 	 * 以固定格式将数据及状态码返回手机端
-	 * @param $code
-	 * @param $data
+	 *
+	 * @param      $code
+	 * @param      $data
 	 * @param bool $native
 	 */
 	public static function returnMobileJson($code, $data, $native = false) {
-		if (!headers_sent()) {
+		if (!headers_sent())
+		{
 			header("Content-Type: application/json; charset=utf-8");
 		}
-		if (is_array($data) && $native) {
+		if (is_array($data) && $native)
+		{
 			self::walkArray($data, 'urlencode', true);
 			echo(urldecode(json_encode(array('code' => $code, 'data' => $data))));
 		}
-		elseif (is_string($data) && $native) {
+		elseif (is_string($data) && $native)
+		{
 			echo(urldecode(json_encode(array('code' => $code, 'data' => urlencode($data)))));
 		}
-		else {
+		else
+		{
 			echo(json_encode(array('code' => $code, 'data' => $data)));
 		}
 		ob_end_flush();
 		exit;
 	}
-
+	
 	/**
 	 * 遍历数组
-	 * @param $array
-	 * @param $function
+	 *
+	 * @param      $array
+	 * @param      $function
 	 * @param bool $keys
 	 */
 	public static function walkArray(&$array, $function, $keys = false) {
-		foreach ($array as $key => $value) {
-			if (is_array($value)) {
+		foreach ($array as $key => $value)
+		{
+			if (is_array($value))
+			{
 				self::walkArray($array[$key], $function, $keys);
 			}
-			elseif (is_string($value)) {
+			elseif (is_string($value))
+			{
 				$array[$key] = $function($value);
 			}
 
-			if ($keys && is_string($key)) {
+			if ($keys && is_string($key))
+			{
 				$newkey = $function($key);
-				if ($newkey != $key) {
+				if ($newkey != $key)
+				{
 					$array[$newkey] = $array[$key];
 					unset($array[$key]);
 				}
@@ -963,10 +1132,12 @@ class Tools {
 
 	/**
 	 * 遍历路径
-	 * @param $path
+	 *
+	 * @param        $path
 	 * @param string $ext
 	 * @param string $dir
-	 * @param bool $recursive
+	 * @param bool   $recursive
+	 *
 	 * @return array
 	 */
 	public static function scandir($path, $ext = 'php', $dir = '', $recursive = false) {
@@ -984,7 +1155,8 @@ class Tools {
 		$real_ext_length = strlen($real_ext);
 
 		$subdir = ($dir) ? $dir . '/' : '';
-		foreach ($files as $file) {
+		foreach ($files as $file)
+		{
 			if (!$real_ext || (strpos($file, $real_ext) && strpos($file, $real_ext) == (strlen($file) - $real_ext_length)))
 				$filtered_files[] = $subdir . $file;
 
@@ -992,6 +1164,7 @@ class Tools {
 				foreach (Tools::scandir($path, $ext, $subdir . $file, $recursive) as $subfile)
 					$filtered_files[] = $subfile;
 		}
+
 		return $filtered_files;
 	}
 
@@ -1004,59 +1177,75 @@ class Tools {
 
 	public static function arrayUnique2d($array, $keepkeys = true) {
 		$output = array();
-		if (!empty($array) && is_array($array)) {
+		if (!empty($array) && is_array($array))
+		{
 			$stArr = array_keys($array);
 			$ndArr = array_keys(end($array));
 
 			$tmp = array();
-			foreach ($array as $i) {
+			foreach ($array as $i)
+			{
 				$i = join("¤", $i);
 				$tmp[] = $i;
 			}
 
 			$tmp = array_unique($tmp);
 
-			foreach ($tmp as $k => $v) {
+			foreach ($tmp as $k => $v)
+			{
 				if ($keepkeys)
 					$k = $stArr[$k];
-				if ($keepkeys) {
+				if ($keepkeys)
+				{
 					$tmpArr = explode("¤", $v);
-					foreach ($tmpArr as $ndk => $ndv) {
+					foreach ($tmpArr as $ndk => $ndv)
+					{
 						$output[$k][$ndArr[$ndk]] = $ndv;
 					}
 				}
-				else {
+				else
+				{
 					$output[$k] = explode("¤", $v);
 				}
 			}
 		}
+
 		return $output;
 	}
 
 	public static function sys_get_temp_dir() {
-		if(function_exists('sys_get_temp_dir')){
+		if (function_exists('sys_get_temp_dir'))
+		{
 			return sys_get_temp_dir();
 		}
-		if( $temp=getenv('TMP') ){
+		if ($temp = getenv('TMP'))
+		{
 			return $temp;
 		}
-		if( $temp=getenv('TEMP') ) {
+		if ($temp = getenv('TEMP'))
+		{
 			return $temp;
 		}
-		if( $temp=getenv('TMPDIR') ) {
+		if ($temp = getenv('TMPDIR'))
+		{
 			return $temp;
 		}
-		$temp = tempnam(__FILE__,'');
-		if ( file_exists($temp) ){
+		$temp = tempnam(__FILE__, '');
+		if (file_exists($temp))
+		{
 			unlink($temp);
+
 			return dirname($temp);
 		}
+
 		return null;
 	}
 
 	/**
 	 * XSS
+	 *
 	 * @param $str
+	 *
 	 * @return mixed
 	 */
 	public static function removeXSS($str) {
@@ -1076,7 +1265,8 @@ class Tools {
 
 		// 非成对标签
 		$lone_tags = array("img", "param", "br", "hr");
-		foreach ($lone_tags as $key => $val) {
+		foreach ($lone_tags as $key => $val)
+		{
 			$val = preg_quote($val);
 			$str = preg_replace('/&lt;' . $val . '(.*)(\/?)&gt;/isU', '<' . $val . "\\1\\2>", $str);
 			$str = self::transCase($str);
@@ -1086,7 +1276,8 @@ class Tools {
 
 		// 成对标签
 		$double_tags = array("table", "tr", "td", "font", "a", "object", "embed", "p", "strong", "em", "u", "ol", "ul", "li", "div", "tbody", "span", "blockquote", "pre", "b", "font");
-		foreach ($double_tags as $key => $val) {
+		foreach ($double_tags as $key => $val)
+		{
 			$val = preg_quote($val);
 			$str = preg_replace('/&lt;' . $val . '(.*)&gt;/isU', '<' . $val . "\\1>", $str);
 			$str = self::transCase($str);
@@ -1094,32 +1285,31 @@ class Tools {
 			$str = preg_replace('/&lt;\/' . $val . '&gt;/is', '</' . $val . ">", $str);
 		}
 		// 清理js
-		$tags = Array(
-			'javascript',
-			'vbscript',
-			'expression',
-			'applet',
-			'meta',
-			'xml',
-			'behaviour',
-			'blink',
-			'link',
-			'style',
-			'script',
-			'embed',
-			'object',
-			'iframe',
-			'frame',
-			'frameset',
-			'ilayer',
-			'layer',
-			'bgsound',
-			'title',
-			'base',
-			'font'
-		);
+		$tags = Array('javascript',
+					  'vbscript',
+					  'expression',
+					  'applet',
+					  'meta',
+					  'xml',
+					  'behaviour',
+					  'blink',
+					  'link',
+					  'style',
+					  'script',
+					  'embed',
+					  'object',
+					  'iframe',
+					  'frame',
+					  'frameset',
+					  'ilayer',
+					  'layer',
+					  'bgsound',
+					  'title',
+					  'base',
+					  'font');
 
-		foreach ($tags as $tag) {
+		foreach ($tags as $tag)
+		{
 			$tag = preg_quote($tag);
 			$str = preg_replace('/' . $tag . '\(.*\)/isU', '\\1', $str);
 			$str = preg_replace('/' . $tag . '\s*:/isU', $tag . '\:', $str);
@@ -1132,14 +1322,16 @@ class Tools {
 
 	public static function transCase($str) {
 		$str = preg_replace('/(e|ｅ|Ｅ)(x|ｘ|Ｘ)(p|ｐ|Ｐ)(r|ｒ|Ｒ)(e|ｅ|Ｅ)(s|ｓ|Ｓ)(s|ｓ|Ｓ)(i|ｉ|Ｉ)(o|ｏ|Ｏ)(n|ｎ|Ｎ)/is', 'expression', $str);
+
 		Return $str;
 	}
 
 	/**
-	 * curl操作
-	 * @param $url
-	 * @param null $postFields
-	 * @param null $header
+	 * @param        $url
+	 * @param string $method
+	 * @param null   $postFields
+	 * @param null   $header
+	 *
 	 * @return mixed
 	 * @throws Exception
 	 */
@@ -1151,32 +1343,50 @@ class Tools {
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 
-		if (strlen($url) > 5 && strtolower(substr($url, 0, 5)) == "https") {
+		if (strlen($url) > 5 && strtolower(substr($url, 0, 5)) == "https")
+		{
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		}
 
-		switch ($method) {
+		switch ($method)
+		{
 			case 'POST':
 				curl_setopt($ch, CURLOPT_POST, true);
-				if (!empty($postFields) && is_array($postFields)) {
-					$postBodyString = "";
-					$postMultipart = false;
-					foreach ($postFields as $k => $v) {
-						if ("@" != substr($v, 0, 1)) { //判断是不是文件上传
-							$postBodyString .= "$k=" . urlencode($v) . "&";
+				if (!empty($postFields))
+				{
+					if (is_array($postFields) || is_object($postFields))
+					{
+						if (is_object($postFields))
+							$postFields = Tools::object2array($postFields);
+						$postBodyString = "";
+						$postMultipart = false;
+						foreach ($postFields as $k => $v)
+						{
+							if ("@" != substr($v, 0, 1))
+							{ //判断是不是文件上传
+								$postBodyString .= "$k=" . urlencode($v) . "&";
+							}
+							else
+							{ //文件上传用multipart/form-data，否则用www-form-urlencoded
+								$postMultipart = true;
+							}
 						}
-						else { //文件上传用multipart/form-data，否则用www-form-urlencoded
-							$postMultipart = true;
+						unset($k, $v);
+						if ($postMultipart)
+						{
+							curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+						}
+						else
+						{
+							curl_setopt($ch, CURLOPT_POSTFIELDS, substr($postBodyString, 0, -1));
 						}
 					}
-					unset($k, $v);
-					if ($postMultipart) {
+					else
+					{
 						curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
 					}
-					else {
-						curl_setopt($ch, CURLOPT_POSTFIELDS, substr($postBodyString, 0, -1));
-					}
+
 				}
 				break;
 			default:
@@ -1186,77 +1396,98 @@ class Tools {
 		}
 		curl_setopt($ch, CURLOPT_URL, $url);
 
-		if (!empty($header) && is_array($header)) {
+		if (!empty($header) && is_array($header))
+		{
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		}
 		$reponse = curl_exec($ch);
-		if (curl_errno($ch)) {
+		if (curl_errno($ch))
+		{
 			throw new Exception(curl_error($ch), 0);
 		}
 		curl_close($ch);
+
 		return $reponse;
 	}
 
 	/**
 	 * 下载文件保存到指定位置
+	 *
 	 * @param $url
 	 * @param $filepath
+	 *
 	 * @return bool
 	 */
 	public static function saveFile($url, $filepath) {
-		if (Validate::isAbsoluteUrl($url) && !empty($filepath)) {
+		if (Validate::isAbsoluteUrl($url) && !empty($filepath))
+		{
 			$file = self::file_get_contents($url);
 			$fp = @fopen($filepath, 'w');
-			if ($fp) {
+			if ($fp)
+			{
 				@fwrite($fp, $file);
 				@fclose($fp);
+
 				return $filepath;
 			}
 		}
+
 		return false;
 	}
 
 	/**
 	 * 文件复制
+	 *
 	 * @param $source
 	 * @param $dest
+	 *
 	 * @return bool
 	 */
 	public static function copyFile($source, $dest) {
-		if (file_exists($dest) || is_dir($dest)) {
+		if (file_exists($dest) || is_dir($dest))
+		{
 			return false;
 		}
+
 		return copy($source, $dest);
 	}
 
 	/**
 	 * 判断是否爬虫，范围略大
+	 *
 	 * @return bool
 	 */
 	public static function isSpider() {
 		$ua = strtolower($_SERVER['HTTP_USER_AGENT']);
 		$spiders = array('spider', 'bot');
-		foreach ($spiders as $spider) {
-			if (strpos($ua, $spider) !== false) {
+		foreach ($spiders as $spider)
+		{
+			if (strpos($ua, $spider) !== false)
+			{
 				return true;
 			}
 		}
+
 		return false;
 	}
 
 	/**
 	 * 判断是否命令行执行
+	 *
 	 * @return bool
 	 */
 	public static function isCli() {
-		if (isset($_SERVER['SHELL']) && !isset($_SERVER['HTTP_HOST'])) {
+		if (isset($_SERVER['SHELL']) && !isset($_SERVER['HTTP_HOST']))
+		{
 			return true;
 		}
+
 		return false;
 	}
 
 	public static function sendToBrowser($file, $delaftersend = true, $exitaftersend = true) {
-		if (file_exists($file) && is_readable($file)) {
+		if (file_exists($file) && is_readable($file))
+		{
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/octet-stream');
 			header('Content-Disposition: attachment;filename = ' . basename($file));
@@ -1268,10 +1499,12 @@ class Tools {
 			ob_clean();
 			flush();
 			readfile($file);
-			if ($delaftersend) {
+			if ($delaftersend)
+			{
 				unlink($file);
 			}
-			if ($exitaftersend) {
+			if ($exitaftersend)
+			{
 				exit;
 			}
 		}
