@@ -673,13 +673,12 @@ class WeiXin {
 	/**
 	 * 回复音乐消息
 	 *
-	 * @param        $thumbmediaid
 	 * @param string $title
 	 * @param string $description
 	 * @param string $url
 	 * @param string $hq_url
 	 */
-	public function responseMusicMessage($thumbmediaid, $title = '', $description = '', $url = '', $hq_url = '') {
+	public function responseMusicMessage( $title = '', $description = '', $url = '', $hq_url = '') {
 		$textTpl = '<xml>
 		<ToUserName><![CDATA[%s]]></ToUserName>
 		<FromUserName><![CDATA[%s]]></FromUserName>
@@ -690,10 +689,9 @@ class WeiXin {
 		<Description><![CDATA[%s]]></Description>
 		<MusicUrl><![CDATA[%s]]></MusicUrl>
 		<HQMusicUrl><![CDATA[%s]]></HQMusicUrl>
-		<ThumbMediaId><![CDATA[%s]]></ThumbMediaId>
 		</Music>
 		</xml>';
-		$resultStr = sprintf($textTpl, $this->postObj->FromUserName, $this->postObj->ToUserName, time(), self::REPLY_TYPE_MUSIC, $title, $description, $url, $hq_url, $thumbmediaid);
+		$resultStr = sprintf($textTpl, $this->postObj->FromUserName, $this->postObj->ToUserName, time(), self::REPLY_TYPE_MUSIC, $title, $description, $url, $hq_url);
 		if (!headers_sent())
 			header('Content-Type: application/xml; charset=utf-8');
 		self::response($resultStr);
