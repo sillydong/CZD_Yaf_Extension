@@ -5,15 +5,15 @@
  * This is the config file compiler class. It calls the lexer and parser to
  * perform the compiling.
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Config
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Main config file compiler class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Config
  */
 class Smarty_Internal_Config_File_Compiler {
@@ -68,6 +68,7 @@ class Smarty_Internal_Config_File_Compiler {
 	 * Method to compile a Smarty template.
 	 *
 	 * @param  Smarty_Internal_Config $config config object
+	 *
 	 * @return bool true if compiling succeeded, false if it failed
 	 */
 	public function compileSource(Smarty_Internal_Config $config) {
@@ -78,7 +79,8 @@ class Smarty_Internal_Config_File_Compiler {
 		// get config file source
 		$_content = $config->source->content . "\n";
 		// on empty template just return
-		if ($_content == '') {
+		if ($_content == '')
+		{
 			return true;
 		}
 		// init the lexer/parser to compile the config file
@@ -87,7 +89,8 @@ class Smarty_Internal_Config_File_Compiler {
 		if ($this->smarty->_parserdebug)
 			$parser->PrintTrace();
 		// get tokens from lexer and parse them
-		while ($lex->yylex()) {
+		while ($lex->yylex())
+		{
 			if ($this->smarty->_parserdebug)
 				echo "<br>Parsing  {$parser->yyTokenName[$lex->token]} Token {$lex->value} Line {$lex->line} \n";
 			$parser->doParse($lex->token, $lex->value);
@@ -112,24 +115,30 @@ class Smarty_Internal_Config_File_Compiler {
 		$this->parser = Smarty_Internal_Configfileparser::instance();
 		// get template source line which has error
 		$line = $this->lex->line;
-		if (isset($args)) {
+		if (isset($args))
+		{
 			// $line--;
 		}
 		$match = preg_split("/\n/", $this->lex->data);
 		$error_text = "Syntax error in config file '{$this->config->source->filepath}' on line {$line} '{$match[$line - 1]}' ";
-		if (isset($args)) {
+		if (isset($args))
+		{
 			// individual error message
 			$error_text .= $args;
 		}
-		else {
+		else
+		{
 			// exspected token from parser
-			foreach ($this->parser->yy_get_expected_tokens($this->parser->yymajor) as $token) {
+			foreach ($this->parser->yy_get_expected_tokens($this->parser->yymajor) as $token)
+			{
 				$exp_token = $this->parser->yyTokenName[$token];
-				if (isset($this->lex->smarty_token_names[$exp_token])) {
+				if (isset($this->lex->smarty_token_names[$exp_token]))
+				{
 					// token type from lexer
 					$expect[] = '"' . $this->lex->smarty_token_names[$exp_token] . '"';
 				}
-				else {
+				else
+				{
 					// otherwise internal token name
 					$expect[] = $this->parser->yyTokenName[$token];
 				}

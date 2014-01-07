@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.item.synchronize request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbItemSynchronizeRequest {
 	/**
@@ -13,9 +14,9 @@ class Taobao_Request_WlbItemSynchronizeRequest {
 
 	/**
 	 * 外部实体类型.存如下值
-	IC_ITEM   --表示IC商品
-	IC_SKU    --表示IC最小单位商品
-	若输入其他值，则按IC_ITEM处理
+	 * IC_ITEM   --表示IC商品
+	 * IC_SKU    --表示IC最小单位商品
+	 * 若输入其他值，则按IC_ITEM处理
 	 **/
 	private $extEntityType;
 

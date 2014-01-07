@@ -1,21 +1,22 @@
 <?php
+
 /**
  * TOP API: tmall.eai.order.refund.order.hold request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TmallEaiOrderRefundOrderHoldRequest {
 	/**
 	 * 1. 截停成功
-	2. 截停失败
+	 * 2. 截停失败
 	 **/
 	private $holdResult;
 
 	/**
 	 * 截停环节
-	1. 订单处理环节
-	2. 发货环节
+	 * 1. 订单处理环节
+	 * 2. 发货环节
 	 **/
 	private $holdStep;
 
@@ -31,7 +32,7 @@ class Taobao_Request_TmallEaiOrderRefundOrderHoldRequest {
 
 	/**
 	 * 售中：onsale
-	售后：aftersale
+	 * 售后：aftersale
 	 **/
 	private $refundPhase;
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bootstrap is a mechanism used to do some intial config
  * before a Application run.

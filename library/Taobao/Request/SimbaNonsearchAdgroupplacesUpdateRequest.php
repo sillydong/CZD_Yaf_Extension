@@ -1,14 +1,15 @@
 <?php
+
 /**
  * TOP API: taobao.simba.nonsearch.adgroupplaces.update request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_SimbaNonsearchAdgroupplacesUpdateRequest {
 	/**
 	 * 推广组id，投放位置id，出价，是否默认出价 json数组字符串，数组个数最多200个。是否默认出价不能为空, 出价以“分”为单位，不能小于5分，不能大于最高日限额，不能大于9999分。
-	json数组中的key必须和对应实体AdGroupPlace中的属性字段保持一致，否则对应的实体对象属性获取不到相应的值
+	 * json数组中的key必须和对应实体AdGroupPlace中的属性字段保持一致，否则对应的实体对象属性获取不到相应的值
 	 **/
 	private $adgroupPlacesJson;
 

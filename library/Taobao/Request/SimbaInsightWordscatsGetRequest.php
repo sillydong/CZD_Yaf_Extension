@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.simba.insight.wordscats.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_SimbaInsightWordscatsGetRequest {
 	/**
@@ -18,7 +19,7 @@ class Taobao_Request_SimbaInsightWordscatsGetRequest {
 
 	/**
 	 * 查询词和类目数组，最大长度200，每一个数组元素都是词+类目，以”^^”分割如下：
-	词^^类目
+	 * 词^^类目
 	 **/
 	private $wordCategories;
 

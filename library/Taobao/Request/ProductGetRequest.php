@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.product.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_ProductGetRequest {
 	/**
@@ -23,7 +24,7 @@ class Taobao_Request_ProductGetRequest {
 
 	/**
 	 * 市场ID，1为取C2C市场的产品信息， 2为取B2C市场的产品信息。
-	不填写此值则默认取C2C的产品信息。
+	 * 不填写此值则默认取C2C的产品信息。
 	 **/
 	private $marketId;
 

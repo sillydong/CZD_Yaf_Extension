@@ -1,4 +1,5 @@
 <?php
+
 abstract class Cache {
 
 	const KEYS_NAME = '_KEYS_';
@@ -23,30 +24,37 @@ abstract class Cache {
 	abstract public function flush();
 
 	public static function getInstance() {
-		if (!self::$instance) {
+		if (!self::$instance)
+		{
 			$caching_system = Yaf_Registry::get('config')->cache->caching_system;
-			if (!empty($caching_system) && file_exists(dirname(__FILE__) . '/' . $caching_system . '.php')) {
+			if (!empty($caching_system) && file_exists(dirname(__FILE__) . '/' . $caching_system . '.php'))
+			{
 				Yaf_Loader::import(dirname(__FILE__) . '/' . $caching_system . '.php');
 				self::$instance = new $caching_system();
 				self::$instance->blacklist = Yaf_Registry::get('cache_exclude_table');
-				if (!defined('CACHE_KEY_PREFIX')) {
+				if (!defined('CACHE_KEY_PREFIX'))
+				{
 					define('CACHE_KEY_PREFIX', 'cye_');
 				}
 			}
 		}
+
 		return self::$instance;
 	}
 
 	public function set($key, $value, $ttl = 0) {
 		$key = CACHE_KEY_PREFIX . $key;
-		if (strlen($key) <= 250 && $this->_set($key, $value, $ttl)) {
+		if (strlen($key) <= 250 && $this->_set($key, $value, $ttl))
+		{
 			if ($ttl < 0)
 				$ttl = 0;
 
 			$this->keys[$key] = ($ttl == 0) ? 0 : $_SERVER['REQUEST_TIME'] + $ttl;
 			$this->_writeKeys();
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -74,7 +82,8 @@ abstract class Cache {
 			$keys = $this->keys;
 		else if (strpos($key, '*') === false)
 			$keys = array($key);
-		else {
+		else
+		{
 			$pattern = str_replace('\\*', '.*', preg_quote($key));
 			foreach ($this->keys as $k => $ttl)
 				if (preg_match('#^' . $pattern . '$#', $k))
@@ -82,7 +91,8 @@ abstract class Cache {
 
 		}
 
-		foreach ($keys as $key) {
+		foreach ($keys as $key)
+		{
 			if (!isset($this->keys[$key]))
 				continue;
 
@@ -91,6 +101,7 @@ abstract class Cache {
 		}
 
 		$this->_writeKeys();
+
 		return $keys;
 	}
 
@@ -98,7 +109,8 @@ abstract class Cache {
 		if ($this->isBlacklist($query))
 			return true;
 
-		if (is_null($this->sql_tables_cached)) {
+		if (is_null($this->sql_tables_cached))
+		{
 			$this->sql_tables_cached = $this->get(self::SQL_TABLES_NAME);
 			if (!is_array($this->sql_tables_cached))
 				$this->sql_tables_cached = array();
@@ -109,10 +121,14 @@ abstract class Cache {
 			return true;
 		$this->set($key, $result);
 
-		if ($tables = $this->getTables($query)) {
-			foreach ($tables as $table) {
-				if (!empty($table)) {
-					if (!isset($this->sql_tables_cached[$table][$key])) {
+		if ($tables = $this->getTables($query))
+		{
+			foreach ($tables as $table)
+			{
+				if (!empty($table))
+				{
+					if (!isset($this->sql_tables_cached[$table][$key]))
+					{
 						$this->sql_tables_cached[$table][$key] = true;
 					}
 				}
@@ -122,26 +138,34 @@ abstract class Cache {
 	}
 
 	protected function getTables($string) {
-		if (preg_match_all('/(?:from|join|update|into)\s+`?([a-z_-]+)`?(?:,\s{0,}`?([a-z_-]+)`?)?\s.*/Umsi', $string . ' ', $res)) {
+		if (preg_match_all('/(?:from|join|update|into)\s+`?([a-z_-]+)`?(?:,\s{0,}`?([a-z_-]+)`?)?\s.*/Umsi', $string . ' ', $res))
+		{
 			return array_merge($res[1], $res[2]);
 		}
-		else {
+		else
+		{
 			return false;
 		}
 	}
 
 	public function deleteQuery($query) {
-		if (is_null($this->sql_tables_cached)) {
+		if (is_null($this->sql_tables_cached))
+		{
 			$this->sql_tables_cached = $this->get(self::SQL_TABLES_NAME);
 			if (!is_array($this->sql_tables_cached))
 				$this->sql_tables_cached = array();
 		}
 
-		if ($tables = $this->getTables($query)) {
-			foreach ($tables as $table) {
-				if (!empty($table)) {
-					if (isset($this->sql_tables_cached[$table])) {
-						foreach (array_keys($this->sql_tables_cached[$table]) as $fs_key) {
+		if ($tables = $this->getTables($query))
+		{
+			foreach ($tables as $table)
+			{
+				if (!empty($table))
+				{
+					if (isset($this->sql_tables_cached[$table]))
+					{
+						foreach (array_keys($this->sql_tables_cached[$table]) as $fs_key)
+						{
 							$this->delete($fs_key);
 							$this->delete($fs_key . '_nrows');
 						}
@@ -154,13 +178,17 @@ abstract class Cache {
 	}
 
 	protected function isBlacklist($query) {
-		if ($this->blacklist && is_array($this->blacklist)) {
-			foreach ($this->blacklist as $find) {
-				if (stripos($query, $find) !== false) {
+		if ($this->blacklist && is_array($this->blacklist))
+		{
+			foreach ($this->blacklist as $find)
+			{
+				if (stripos($query, $find) !== false)
+				{
 					return true;
 				}
 			}
 		}
+
 		return false;
 	}
 
@@ -181,7 +209,8 @@ abstract class Cache {
 	}
 
 	public static function clean($key) {
-		if (strpos($key, '*') !== false) {
+		if (strpos($key, '*') !== false)
+		{
 			$regexp = str_replace('\\*', '.*', preg_quote($key, '#'));
 			foreach (array_keys(Cache::$local) as $key)
 				if (preg_match('#^' . $regexp . '$#', $key))

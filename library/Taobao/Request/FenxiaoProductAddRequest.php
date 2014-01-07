@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.fenxiao.product.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_FenxiaoProductAddRequest {
 	/**
@@ -63,9 +64,9 @@ class Taobao_Request_FenxiaoProductAddRequest {
 
 	/**
 	 * 添加产品时，添加入参isAuthz:yes|no
-	yes:需要授权
-	no:不需要授权
-	默认是需要授权
+	 * yes:需要授权
+	 * no:不需要授权
+	 * 默认是需要授权
 	 **/
 	private $isAuthz;
 

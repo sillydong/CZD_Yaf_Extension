@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.scitem.map.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_ScitemMapAddRequest {
 	/**
@@ -13,8 +14,8 @@ class Taobao_Request_ScitemMapAddRequest {
 
 	/**
 	 * 默认值为false
-	true:进行高级校验,前端商品或SKU的商家编码必须与后端商品的商家编码一致，否则会拒绝关联
-	false:不进行高级校验
+	 * true:进行高级校验,前端商品或SKU的商家编码必须与后端商品的商家编码一致，否则会拒绝关联
+	 * false:不进行高级校验
 	 **/
 	private $needCheck;
 

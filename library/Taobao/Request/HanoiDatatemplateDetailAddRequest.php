@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.hanoi.datatemplate.detail.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HanoiDatatemplateDetailAddRequest {
 	/**
@@ -13,7 +14,7 @@ class Taobao_Request_HanoiDatatemplateDetailAddRequest {
 
 	/**
 	 * attr: 将AttributeVO转换成JSON格式
-	name: 详情的名称
+	 * name: 详情的名称
 	 **/
 	private $dataTemplateDetails;
 

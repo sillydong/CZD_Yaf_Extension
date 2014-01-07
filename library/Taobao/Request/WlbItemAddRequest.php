@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.item.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbItemAddRequest {
 	/**
@@ -68,20 +69,20 @@ class Taobao_Request_WlbItemAddRequest {
 
 	/**
 	 * 属性名列表,目前支持的属性：
-	毛重:GWeight
-	净重:Nweight
-	皮重: Tweight
-	自定义属性：
-	paramkey1
-	paramkey2
-	paramkey3
-	paramkey4
+	 * 毛重:GWeight
+	 * 净重:Nweight
+	 * 皮重: Tweight
+	 * 自定义属性：
+	 * paramkey1
+	 * paramkey2
+	 * paramkey3
+	 * paramkey4
 	 **/
 	private $proNameList;
 
 	/**
 	 * 属性值列表：
-	10,8
+	 * 10,8
 	 **/
 	private $proValueList;
 
@@ -102,8 +103,8 @@ class Taobao_Request_WlbItemAddRequest {
 
 	/**
 	 * NORMAL--普通商品
-	COMBINE--组合商品
-	DISTRIBUTION--分销
+	 * COMBINE--组合商品
+	 * DISTRIBUTION--分销
 	 **/
 	private $type;
 

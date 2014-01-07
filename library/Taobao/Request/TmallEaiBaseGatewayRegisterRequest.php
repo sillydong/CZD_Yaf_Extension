@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: tmall.eai.base.gateway.register request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TmallEaiBaseGatewayRegisterRequest {
 	/**
@@ -23,7 +24,7 @@ class Taobao_Request_TmallEaiBaseGatewayRegisterRequest {
 
 	/**
 	 * 数据格式:XML,JSON。
-	默认:JSON
+	 * 默认:JSON
 	 **/
 	private $contentType;
 
@@ -54,9 +55,9 @@ class Taobao_Request_TmallEaiBaseGatewayRegisterRequest {
 
 	/**
 	 * 用户通知接收方式,邮件,电话或者其他。
-	email:邮件;
-	message:短信;
-	aliwangwang:阿里旺旺弹出消息。
+	 * email:邮件;
+	 * message:短信;
+	 * aliwangwang:阿里旺旺弹出消息。
 	 **/
 	private $notifyType;
 
@@ -72,9 +73,9 @@ class Taobao_Request_TmallEaiBaseGatewayRegisterRequest {
 
 	/**
 	 * 接口/api名称:
-	天猫退款消息可选值为:
-	tmall.eai.order.refund.refundBill.push
-	tmall.eai.order.refund.refundStatus.push
+	 * 天猫退款消息可选值为:
+	 * tmall.eai.order.refund.refundBill.push
+	 * tmall.eai.order.refund.refundStatus.push
 	 **/
 	private $topic;
 
@@ -85,13 +86,13 @@ class Taobao_Request_TmallEaiBaseGatewayRegisterRequest {
 
 	/**
 	 * url协议
-	HTTP默认
+	 * HTTP默认
 	 **/
 	private $urlProtocal;
 
 	/**
 	 * 0:普通TOP-OPEN-API用户;
-	1:JIP用户。
+	 * 1:JIP用户。
 	 **/
 	private $userType;
 

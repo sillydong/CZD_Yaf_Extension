@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.topats.fenxiao.orders.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TopatsFenxiaoOrdersGetRequest {
 	/**
@@ -13,15 +14,15 @@ class Taobao_Request_TopatsFenxiaoOrdersGetRequest {
 
 	/**
 	 * 多个字段用","分隔。
-
-	fields
-	如果为空：返回所有采购单对象(purchase_orders)字段。
-	如果不为空：返回指定采购单对象(purchase_orders)字段。
-
-	例1：
-	sub_purchase_orders.tc_order_id 表示只返回tc_order_id
-	例2：
-	sub_purchase_orders表示只返回子采购单列表
+	 *
+	 * fields
+	 * 如果为空：返回所有采购单对象(purchase_orders)字段。
+	 * 如果不为空：返回指定采购单对象(purchase_orders)字段。
+	 *
+	 * 例1：
+	 * sub_purchase_orders.tc_order_id 表示只返回tc_order_id
+	 * 例2：
+	 * sub_purchase_orders表示只返回子采购单列表
 	 **/
 	private $fields;
 

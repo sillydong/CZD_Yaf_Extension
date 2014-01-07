@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.taobaoke.mobile.items.elite.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TaobaokeMobileItemsEliteGetRequest {
 	/**
@@ -33,7 +34,7 @@ class Taobao_Request_TaobaokeMobileItemsEliteGetRequest {
 
 	/**
 	 * 需返回的字段列表.可选值:num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume
-	;字段之间用","分隔
+	 * ;字段之间用","分隔
 	 **/
 	private $fields;
 
@@ -69,27 +70,27 @@ class Taobao_Request_TaobaokeMobileItemsEliteGetRequest {
 
 	/**
 	 * 卖家信用:
-
-	1heart(一心)
-	2heart (两心)
-	3heart(三心)
-	4heart(四心)
-	5heart(五心)
-	1diamond(一钻)
-	2diamond(两钻)
-	3diamond(三钻)
-	4diamond(四钻)
-	5diamond(五钻)
-	1crown(一冠)
-	2crown(两冠)
-	3crown(三冠)
-	4crown(四冠)
-	5crown(五冠)
-	1goldencrown(一黄冠)
-	2goldencrown(二黄冠)
-	3goldencrown(三黄冠)
-	4goldencrown(四黄冠)
-	5goldencrown(五黄冠)
+	 *
+	 * 1heart(一心)
+	 * 2heart (两心)
+	 * 3heart(三心)
+	 * 4heart(四心)
+	 * 5heart(五心)
+	 * 1diamond(一钻)
+	 * 2diamond(两钻)
+	 * 3diamond(三钻)
+	 * 4diamond(四钻)
+	 * 5diamond(五钻)
+	 * 1crown(一冠)
+	 * 2crown(两冠)
+	 * 3crown(三冠)
+	 * 4crown(四冠)
+	 * 5crown(五冠)
+	 * 1goldencrown(一黄冠)
+	 * 2goldencrown(二黄冠)
+	 * 3goldencrown(三黄冠)
+	 * 4goldencrown(四黄冠)
+	 * 5goldencrown(五黄冠)
 	 **/
 	private $startCredit;
 

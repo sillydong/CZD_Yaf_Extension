@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.hotel.order.face.deal request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HotelOrderFaceDealRequest {
 	/**
@@ -23,7 +24,7 @@ class Taobao_Request_HotelOrderFaceDealRequest {
 
 	/**
 	 * 取消订单时的取消原因，可选值：1,2,3,4；
-	1：无房，2：价格变动，3：买家原因，4：其它原因
+	 * 1：无房，2：价格变动，3：买家原因，4：其它原因
 	 **/
 	private $reasonType;
 

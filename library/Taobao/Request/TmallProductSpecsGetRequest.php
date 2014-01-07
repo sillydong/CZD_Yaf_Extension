@@ -1,14 +1,15 @@
 <?php
+
 /**
  * TOP API: tmall.product.specs.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TmallProductSpecsGetRequest {
 	/**
 	 * 类目的ID号，该id必须和properties同时传入。
-	而且只有当product_id不传入的时候才起效果。
+	 * 而且只有当product_id不传入的时候才起效果。
 	 **/
 	private $catId;
 
@@ -19,7 +20,7 @@ class Taobao_Request_TmallProductSpecsGetRequest {
 
 	/**
 	 * 关键属性的字符串，pid:vid;pid:vid
-	该字段必须和cat_id同时传入才起效果。 而且只有当product_id不传入的时候才起效果。
+	 * 该字段必须和cat_id同时传入才起效果。 而且只有当product_id不传入的时候才起效果。
 	 **/
 	private $properties;
 

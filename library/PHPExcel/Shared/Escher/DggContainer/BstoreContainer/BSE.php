@@ -32,18 +32,17 @@
  * @package    PHPExcel_Shared_Escher
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
-{
-	const BLIPTYPE_ERROR	= 0x00;
-	const BLIPTYPE_UNKNOWN	= 0x01;
-	const BLIPTYPE_EMF		= 0x02;
-	const BLIPTYPE_WMF		= 0x03;
-	const BLIPTYPE_PICT		= 0x04;
-	const BLIPTYPE_JPEG		= 0x05;
-	const BLIPTYPE_PNG		= 0x06;
-	const BLIPTYPE_DIB		= 0x07;
-	const BLIPTYPE_TIFF		= 0x11;
-	const BLIPTYPE_CMYKJPEG	= 0x12;
+class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE {
+	const BLIPTYPE_ERROR = 0x00;
+	const BLIPTYPE_UNKNOWN = 0x01;
+	const BLIPTYPE_EMF = 0x02;
+	const BLIPTYPE_WMF = 0x03;
+	const BLIPTYPE_PICT = 0x04;
+	const BLIPTYPE_JPEG = 0x05;
+	const BLIPTYPE_PNG = 0x06;
+	const BLIPTYPE_DIB = 0x07;
+	const BLIPTYPE_TIFF = 0x11;
+	const BLIPTYPE_CMYKJPEG = 0x12;
 
 	/**
 	 * The parent BLIP Store Entry Container
@@ -71,8 +70,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
 	 *
 	 * @param PHPExcel_Shared_Escher_DggContainer_BstoreContainer $parent
 	 */
-	public function setParent($parent)
-	{
+	public function setParent($parent) {
 		$this->_parent = $parent;
 	}
 
@@ -81,8 +79,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
 	 *
 	 * @return PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
 	 */
-	public function getBlip()
-	{
+	public function getBlip() {
 		return $this->_blip;
 	}
 
@@ -91,8 +88,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
 	 *
 	 * @param PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip $blip
 	 */
-	public function setBlip($blip)
-	{
+	public function setBlip($blip) {
 		$this->_blip = $blip;
 		$blip->setParent($this);
 	}
@@ -102,8 +98,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
 	 *
 	 * @return int
 	 */
-	public function getBlipType()
-	{
+	public function getBlipType() {
 		return $this->_blipType;
 	}
 
@@ -112,8 +107,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
 	 *
 	 * @param int
 	 */
-	public function setBlipType($blipType)
-	{
+	public function setBlipType($blipType) {
 		$this->_blipType = $blipType;
 	}
 

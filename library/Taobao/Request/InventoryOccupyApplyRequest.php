@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.inventory.occupy.apply request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_InventoryOccupyApplyRequest {
 	/**
@@ -33,8 +34,8 @@ class Taobao_Request_InventoryOccupyApplyRequest {
 
 	/**
 	 * 占用类型
-	参数定义
-	AUTO_CALCULATE:自动计算可供占用，如果库存不够返回失败 ClIENT_FORCE：强制要求最大化占用，有多少占用多少
+	 * 参数定义
+	 * AUTO_CALCULATE:自动计算可供占用，如果库存不够返回失败 ClIENT_FORCE：强制要求最大化占用，有多少占用多少
 	 **/
 	private $occupyType;
 

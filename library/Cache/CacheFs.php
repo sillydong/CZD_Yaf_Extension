@@ -1,4 +1,5 @@
 <?php
+
 class CacheFs extends Cache {
 
 	protected $depth;
@@ -16,24 +17,31 @@ class CacheFs extends Cache {
 	}
 
 	protected function _get($key) {
-		if ($this->keys[$key] > 0 && $this->keys[$key] < time()) {
+		if ($this->keys[$key] > 0 && $this->keys[$key] < time())
+		{
 			$this->delete($key);
+
 			return false;
 		}
 
 		$filename = $this->getFilename($key);
-		if (!file_exists($filename)) {
+		if (!file_exists($filename))
+		{
 			unset($this->keys[$key]);
 			$this->_writeKeys();
+
 			return false;
 		}
 		$file = file_get_contents($filename);
+
 		return unserialize($file);
 	}
 
 	protected function _exists($key) {
-		if ($this->keys[$key] > 0 && $this->keys[$key] < time()) {
+		if ($this->keys[$key] > 0 && $this->keys[$key] < time())
+		{
 			$this->delete($key);
+
 			return false;
 		}
 
@@ -44,6 +52,7 @@ class CacheFs extends Cache {
 		$filename = $this->getFilename($key);
 		if (!file_exists($filename))
 			return true;
+
 		return unlink($filename);
 	}
 
@@ -53,6 +62,7 @@ class CacheFs extends Cache {
 
 	public function flush() {
 		$this->delete('*');
+
 		return true;
 	}
 
@@ -64,7 +74,8 @@ class CacheFs extends Cache {
 		if (!$directory)
 			$directory = CACHEFS_DIR;
 		$chars = '0123456789abcdef';
-		for ($i = 0, $length = strlen($chars); $i < $length; $i++) {
+		for ($i = 0, $length = strlen($chars); $i < $length; $i++)
+		{
 			$new_dir = $directory . $chars[$i] . '/';
 			if (mkdir($new_dir))
 				if (chmod($new_dir, 0777))

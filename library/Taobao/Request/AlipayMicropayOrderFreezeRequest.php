@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: alipay.micropay.order.freeze request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_AlipayMicropayOrderFreezeRequest {
 	/**
@@ -33,9 +34,9 @@ class Taobao_Request_AlipayMicropayOrderFreezeRequest {
 
 	/**
 	 * 在解冻转账的时候的支付方式:
-	NO_CONFIRM：不需要付款确认，调用接口直接扣款
-	PAY_PASSWORD:
-	在转账需要付款方用支付密码确认，才可以转账成功
+	 * NO_CONFIRM：不需要付款确认，调用接口直接扣款
+	 * PAY_PASSWORD:
+	 * 在转账需要付款方用支付密码确认，才可以转账成功
 	 **/
 	private $payConfirm;
 

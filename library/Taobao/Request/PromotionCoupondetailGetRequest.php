@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.promotion.coupondetail.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_PromotionCoupondetailGetRequest {
 	/**
@@ -23,7 +24,7 @@ class Taobao_Request_PromotionCoupondetailGetRequest {
 
 	/**
 	 * 这是一个扩展字段 供版本升级用
-	当前如果新版本的话 可以传入new字符串
+	 * 当前如果新版本的话 可以传入new字符串
 	 **/
 	private $extendParams;
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.simba.rpt.campaigneffect.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_SimbaRptCampaigneffectGetRequest {
 	/**
@@ -33,7 +34,7 @@ class Taobao_Request_SimbaRptCampaigneffectGetRequest {
 
 	/**
 	 * 报表类型（搜索：SEARCH,类目出价：CAT,
-	定向投放：NOSEARCH 全部：ALL）可以一次取多个例如：SEARCH,CAT
+	 * 定向投放：NOSEARCH 全部：ALL）可以一次取多个例如：SEARCH,CAT
 	 **/
 	private $searchType;
 

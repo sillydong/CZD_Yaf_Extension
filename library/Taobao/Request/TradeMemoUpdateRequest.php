@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.trade.memo.update request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TradeMemoUpdateRequest {
 	/**
@@ -18,8 +19,8 @@ class Taobao_Request_TradeMemoUpdateRequest {
 
 	/**
 	 * 是否对memo的值置空
-	若为true，则不管传入的memo字段的值是否为空，都将会对已有的memo值清空，慎用；
-	若用false，则会根据memo是否为空来修改memo的值：若memo为空则忽略对已有memo字段的修改，若memo非空，则使用新传入的memo覆盖已有的memo的值
+	 * 若为true，则不管传入的memo字段的值是否为空，都将会对已有的memo值清空，慎用；
+	 * 若用false，则会根据memo是否为空来修改memo的值：若memo为空则忽略对已有memo字段的修改，若memo非空，则使用新传入的memo覆盖已有的memo的值
 	 **/
 	private $reset;
 

@@ -35,8 +35,7 @@
  * @package    PHPExcel_Worksheet
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Worksheet_Row
-{
+class PHPExcel_Worksheet_Row {
 	/**
 	 * PHPExcel_Worksheet
 	 *
@@ -54,13 +53,13 @@ class PHPExcel_Worksheet_Row
 	/**
 	 * Create a new row
 	 *
-	 * @param PHPExcel_Worksheet 		$parent
-	 * @param int						$rowIndex
+	 * @param PHPExcel_Worksheet $parent
+	 * @param int                $rowIndex
 	 */
 	public function __construct(PHPExcel_Worksheet $parent = null, $rowIndex = 1) {
 		// Set parent and row index
-		$this->_parent 		= $parent;
-		$this->_rowIndex 	= $rowIndex;
+		$this->_parent = $parent;
+		$this->_rowIndex = $rowIndex;
 	}
 
 	/**

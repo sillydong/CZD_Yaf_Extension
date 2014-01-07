@@ -32,10 +32,12 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 	 * @return Yaf_Session
 	 */
 	public static function getInstance() {
-		if (null === self::$_instance) {
+		if (null === self::$_instance)
+		{
 			self::$_instance = new self();
 			self::start();
 		}
+
 		return self::$_instance;
 	}
 
@@ -44,10 +46,12 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 	 */
 	public static function start() {
 		$session = self::getInstance();
-		if ($session->started == true) {
+		if ($session->started == true)
+		{
 			return true;
 		}
-		else {
+		else
+		{
 			session_start();
 			$session->started = true;
 			$session->session = $_SESSION;
@@ -84,19 +88,24 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 	 * Magic function so that $obj->value will work.
 	 *
 	 * @param string $name
+	 *
 	 * @return mixed
 	 */
 	public function __get($name) {
 		$result = null;
-		if ($name == null) {
+		if ($name == null)
+		{
 			return null;
 		}
-		if (array_key_exists($name, $this->session)) {
+		if (array_key_exists($name, $this->session))
+		{
 			$result = $this->session[$name];
 		}
-		else if (array_key_exists($name, $_SESSION)) {
+		else if (array_key_exists($name, $_SESSION))
+		{
 			$result = $_SESSION[$name];
 		}
+
 		return $result;
 	}
 
@@ -105,16 +114,19 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 	 * Throw an exception if the name is not string.
 	 *
 	 * @param  string $name
-	 * @param  mixed $value
+	 * @param  mixed  $value
+	 *
 	 * @throws Yaf_Exception
 	 * @return void
 	 */
 	public function __set($name, $value) {
-		if (is_string($name)) {
+		if (is_string($name))
+		{
 			$this->session[$name] = $value;
 			$_SESSION[$name] = $value;
 		}
-		else {
+		else
+		{
 			throw new Exception('Expect a string key name');
 		}
 	}
@@ -127,6 +139,7 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 	 * Support isset() overloading on PHP 5.1
 	 *
 	 * @param string $name
+	 *
 	 * @return boolean
 	 */
 	public function __isset($name) {
@@ -154,6 +167,7 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 	 * Support isset() overloading on PHP 5.1
 	 *
 	 * @param string $name
+	 *
 	 * @return boolean
 	 */
 	public function offsetExists($name) {
@@ -162,7 +176,9 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 
 	/**
 	 * Return a session value specified by name
+	 *
 	 * @param  string $name
+	 *
 	 * @return mixed
 	 */
 	public function offsetGet($name) {
@@ -171,8 +187,10 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 
 	/**
 	 * Set a key of the session with value
+	 *
 	 * @param  string $name
 	 * @param  string $value
+	 *
 	 * @return void
 	 */
 	public function offsetSet($name, $value) {
@@ -183,6 +201,7 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 	 * Support unset() overloading on PHP 5.1
 	 *
 	 * @param  string $name
+	 *
 	 * @return void
 	 */
 	public function offsetUnset($name) {
@@ -202,6 +221,7 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 	 * Support unset() overloading on PHP 5.1
 	 *
 	 * @param  string $name
+	 *
 	 * @return void
 	 */
 	public function __unset($name) {
@@ -215,6 +235,7 @@ class Session implements \Iterator, \ArrayAccess, \Countable {
 	 */
 	public function valid() {
 		$key = key($this->session);
+
 		return ($key == null || $key == false) ? false : true;
 	}
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.crm.memberinfo.update request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_CrmMemberinfoUpdateRequest {
 	/**
@@ -28,8 +29,8 @@ class Taobao_Request_CrmMemberinfoUpdateRequest {
 
 	/**
 	 * 会员等级，1：普通客户，2：高级会员，3：高级会员 ，4：至尊vip
-
-	只有正常会员才给予升级，对于status 为delete或者blacklist的会员 升级无效
+	 *
+	 * 只有正常会员才给予升级，对于status 为delete或者blacklist的会员 升级无效
 	 **/
 	private $grade;
 

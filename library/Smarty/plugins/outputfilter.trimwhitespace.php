@@ -2,7 +2,7 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsFilter
  */
 
@@ -12,10 +12,12 @@
  * Trim unnecessary whitespace from HTML markup.
  *
  * @author   Rodney Rehm
- * @param string $source input string
+ *
+ * @param string                   $source input string
  * @param Smarty_Internal_Template $smarty Smarty object
+ *
  * @return string filtered output
- * @todo substr_replace() is not overloaded by mbstring.func_overload - so this function might fail!
+ * @todo     substr_replace() is not overloaded by mbstring.func_overload - so this function might fail!
  */
 function smarty_outputfilter_trimwhitespace($source, Smarty_Internal_Template $smarty) {
 	$store = array();
@@ -26,8 +28,10 @@ function smarty_outputfilter_trimwhitespace($source, Smarty_Internal_Template $s
 	$source = preg_replace("/\015\012|\015|\012/", "\n", $source);
 
 	// capture Internet Explorer Conditional Comments
-	if (preg_match_all('#<!--\[[^\]]+\]>.*?<!\[[^\]]+\]-->#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
-		foreach ($matches as $match) {
+	if (preg_match_all('#<!--\[[^\]]+\]>.*?<!\[[^\]]+\]-->#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER))
+	{
+		foreach ($matches as $match)
+		{
 			$store[] = $match[0][0];
 			$_length = strlen($match[0][0]);
 			$replace = '@!@SMARTY:' . $_store . ':SMARTY@!@';
@@ -44,8 +48,10 @@ function smarty_outputfilter_trimwhitespace($source, Smarty_Internal_Template $s
 
 	// capture html elements not to be messed with
 	$_offset = 0;
-	if (preg_match_all('#<(script|pre|textarea)[^>]*>.*?</\\1>#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
-		foreach ($matches as $match) {
+	if (preg_match_all('#<(script|pre|textarea)[^>]*>.*?</\\1>#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER))
+	{
+		foreach ($matches as $match)
+		{
 			$store[] = $match[0][0];
 			$_length = strlen($match[0][0]);
 			$replace = '@!@SMARTY:' . $_store . ':SMARTY@!@';
@@ -75,8 +81,10 @@ function smarty_outputfilter_trimwhitespace($source, Smarty_Internal_Template $s
 
 	// capture html elements not to be messed with
 	$_offset = 0;
-	if (preg_match_all('#@!@SMARTY:([0-9]+):SMARTY@!@#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
-		foreach ($matches as $match) {
+	if (preg_match_all('#@!@SMARTY:([0-9]+):SMARTY@!@#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER))
+	{
+		foreach ($matches as $match)
+		{
 			$store[] = $match[0][0];
 			$_length = strlen($match[0][0]);
 			$replace = array_shift($store);

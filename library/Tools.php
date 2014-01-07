@@ -414,39 +414,42 @@ class Tools {
 						   '/[\x{00D9}\x{00DA}\x{00DB}\x{00DC}\x{016E}]/u',
 						   '/[\x{017B}\x{0179}\x{017D}]/u',
 						   '/[\x{00C6}]/u',
-						   '/[\x{0152}]/u');
+						   '/[\x{0152}]/u'
+		);
 
-		$replacements = array('a',
-							  'c',
-							  'd',
-							  'e',
-							  'i',
-							  'l',
-							  'n',
-							  'o',
-							  'r',
-							  's',
-							  'ss',
-							  't',
-							  'u',
-							  'y',
-							  'z',
-							  'ae',
-							  'oe',
-							  'A',
-							  'C',
-							  'D',
-							  'E',
-							  'L',
-							  'N',
-							  'O',
-							  'R',
-							  'S',
-							  'T',
-							  'U',
-							  'Z',
-							  'AE',
-							  'OE');
+		$replacements = array(
+				'a',
+				'c',
+				'd',
+				'e',
+				'i',
+				'l',
+				'n',
+				'o',
+				'r',
+				's',
+				'ss',
+				't',
+				'u',
+				'y',
+				'z',
+				'ae',
+				'oe',
+				'A',
+				'C',
+				'D',
+				'E',
+				'L',
+				'N',
+				'O',
+				'R',
+				'S',
+				'T',
+				'U',
+				'Z',
+				'AE',
+				'OE'
+		);
 
 		return preg_replace($patterns, $replacements, $str);
 	}
@@ -1098,7 +1101,7 @@ class Tools {
 		ob_end_flush();
 		exit;
 	}
-	
+
 	/**
 	 * 遍历数组
 	 *
@@ -1285,28 +1288,30 @@ class Tools {
 			$str = preg_replace('/&lt;\/' . $val . '&gt;/is', '</' . $val . ">", $str);
 		}
 		// 清理js
-		$tags = Array('javascript',
-					  'vbscript',
-					  'expression',
-					  'applet',
-					  'meta',
-					  'xml',
-					  'behaviour',
-					  'blink',
-					  'link',
-					  'style',
-					  'script',
-					  'embed',
-					  'object',
-					  'iframe',
-					  'frame',
-					  'frameset',
-					  'ilayer',
-					  'layer',
-					  'bgsound',
-					  'title',
-					  'base',
-					  'font');
+		$tags = Array(
+				'javascript',
+				'vbscript',
+				'expression',
+				'applet',
+				'meta',
+				'xml',
+				'behaviour',
+				'blink',
+				'link',
+				'style',
+				'script',
+				'embed',
+				'object',
+				'iframe',
+				'frame',
+				'frameset',
+				'ilayer',
+				'layer',
+				'bgsound',
+				'title',
+				'base',
+				'font'
+		);
 
 		foreach ($tags as $tag)
 		{

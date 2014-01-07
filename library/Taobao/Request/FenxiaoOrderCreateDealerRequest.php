@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.fenxiao.order.create.dealer request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_FenxiaoOrderCreateDealerRequest {
 	/**
@@ -68,8 +69,8 @@ class Taobao_Request_FenxiaoOrderCreateDealerRequest {
 
 	/**
 	 * 子单信息,子单内部以‘,’隔开，多个子单以‘;’隔开.
-	例(分销产品id,skuid,购买数量,单价;分销产品id:,skuid,购买数量,单价)
-	单价的单位位分
+	 * 例(分销产品id,skuid,购买数量,单价;分销产品id:,skuid,购买数量,单价)
+	 * 单价的单位位分
 	 **/
 	private $subOrderDetail;
 

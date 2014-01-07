@@ -1,14 +1,15 @@
 <?php
+
 /**
  * TOP API: taobao.fenxiao.cooperation.audit request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_FenxiaoCooperationAuditRequest {
 	/**
 	 * 1:审批通过，审批通过后要加入授权产品线列表；
-	2:审批拒绝
+	 * 2:审批拒绝
 	 **/
 	private $auditResult;
 

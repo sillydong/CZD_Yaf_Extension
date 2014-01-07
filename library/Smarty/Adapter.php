@@ -1,9 +1,9 @@
 <?php
+
 /**
  * chenzhidong
  * 2013-4-25
  */
-
 class Smarty_Adapter implements Yaf_View_Interface {
 
 	public $_smarty;
@@ -20,14 +20,17 @@ class Smarty_Adapter implements Yaf_View_Interface {
 
 		$this->_smarty = new Smarty;
 
-		if ($tplPath !== null) {
+		if ($tplPath !== null)
+		{
 			$this->setScriptPath($tplPath);
 		}
 
-		if ($extraParams != null) {
-			foreach ($extraParams as $key => $value) {
-				if($key=='plugins_dir')
-					$this->_smarty->$key=array_merge($this->_smarty->$key,array($value));
+		if ($extraParams != null)
+		{
+			foreach ($extraParams as $key => $value)
+			{
+				if ($key == 'plugins_dir')
+					$this->_smarty->$key = array_merge($this->_smarty->$key, array($value));
 				else
 					$this->_smarty->$key = $value;
 			}
@@ -39,10 +42,12 @@ class Smarty_Adapter implements Yaf_View_Interface {
 	}
 
 	public function setScriptPath($path) {
-		if (is_readable($path)) {
+		if (is_readable($path))
+		{
 			$this->_smarty->template_dir = $path;
 		}
-		else {
+		else
+		{
 			throw new Exception('Invalid path provided');
 		}
 	}
@@ -72,11 +77,13 @@ class Smarty_Adapter implements Yaf_View_Interface {
 	}
 
 	public function cleanCache($name) {
-		if (!empty($name)) {
+		if (!empty($name))
+		{
 			$this->_smarty->clearCache($name);
 			$this->_smarty->clearCompiledTemplate($name);
 		}
-		else {
+		else
+		{
 			$this->_smarty->clearAllCache();
 			$this->_smarty->clearCompiledTemplate();
 		}
@@ -84,15 +91,18 @@ class Smarty_Adapter implements Yaf_View_Interface {
 
 	public function display($name, $tpl_vars = array()) {
 		//die(var_dump($name));
-		if (!empty($tpl_vars)) {
+		if (!empty($tpl_vars))
+		{
 			$this->assign($tpl_vars);
 		}
 		echo $this->_smarty->display($name);
 	}
 
 	public function assign($spec, $value = null) {
-		if (is_array($spec)) {
+		if (is_array($spec))
+		{
 			$this->_smarty->assign($spec);
+
 			return;
 		}
 
@@ -100,9 +110,11 @@ class Smarty_Adapter implements Yaf_View_Interface {
 	}
 
 	public function render($name, $tpl_vars = array()) {
-		if (!empty($tpl_vars)) {
+		if (!empty($tpl_vars))
+		{
 			$this->assign($tpl_vars);
 		}
+
 		return $this->_smarty->fetch($name);
 	}
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.hanoi.datatemplate.detail.query request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HanoiDatatemplateDetailQueryRequest {
 	/**
@@ -13,13 +14,13 @@ class Taobao_Request_HanoiDatatemplateDetailQueryRequest {
 
 	/**
 	 * attrId(Long):AttributeVO的唯一标识<br/>
-	templateId(Long):数据模板的唯一标识<br/>
-	name(String):数据模板详情的名称<br/>
-	id(Long):根据模板唯一标识去查询<br/>
-	pageSize:分页大小（最大值30）<br/>
-	currentPage:当前页码<br/>
-	needRetPage(Boolean 默认False):是否返回总条数<br/>
-	justQueryParamNotInput（Boolean 默认False）:是否只查询每天如PK的详情列表<br/>
+	 * templateId(Long):数据模板的唯一标识<br/>
+	 * name(String):数据模板详情的名称<br/>
+	 * id(Long):根据模板唯一标识去查询<br/>
+	 * pageSize:分页大小（最大值30）<br/>
+	 * currentPage:当前页码<br/>
+	 * needRetPage(Boolean 默认False):是否返回总条数<br/>
+	 * justQueryParamNotInput（Boolean 默认False）:是否只查询每天如PK的详情列表<br/>
 	 **/
 	private $parameter;
 

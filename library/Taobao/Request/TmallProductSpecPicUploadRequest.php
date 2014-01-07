@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: tmall.product.spec.pic.upload request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TmallProductSpecPicUploadRequest {
 	/**
@@ -13,13 +14,13 @@ class Taobao_Request_TmallProductSpecPicUploadRequest {
 
 	/**
 	 * 上传的认证图片的认证类型<br>
-	1：代表产品包装正面图<br>
-	2：代表完整产品资质<br>
-	3：代表产品包装反面图<br>
-	4：代表产品包装侧面图<br>
-	5：代表产品包装条形码特写<br>
-	6：代表特殊用途化妆品批准文号<br>
-	7：代表3C认证图标<br>
+	 * 1：代表产品包装正面图<br>
+	 * 2：代表完整产品资质<br>
+	 * 3：代表产品包装反面图<br>
+	 * 4：代表产品包装侧面图<br>
+	 * 5：代表产品包装条形码特写<br>
+	 * 6：代表特殊用途化妆品批准文号<br>
+	 * 7：代表3C认证图标<br>
 	 **/
 	private $certifyType;
 

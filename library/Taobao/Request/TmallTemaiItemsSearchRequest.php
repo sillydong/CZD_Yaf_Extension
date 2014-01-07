@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: tmall.temai.items.search request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TmallTemaiItemsSearchRequest {
 	/**
@@ -18,10 +19,10 @@ class Taobao_Request_TmallTemaiItemsSearchRequest {
 
 	/**
 	 * 表示查询起始位置:
-	start=0:返回第1条记录到第48条记录（即第一页）；
-	start=48:返回第48条记录到第96条记录（即第二页）；
-	start=96，start=144，start=192......
-	依此类推，每次加start值加48(每页返回记录数固定为48条)
+	 * start=0:返回第1条记录到第48条记录（即第一页）；
+	 * start=48:返回第48条记录到第96条记录（即第二页）；
+	 * start=96，start=144，start=192......
+	 * 依此类推，每次加start值加48(每页返回记录数固定为48条)
 	 **/
 	private $start;
 

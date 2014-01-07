@@ -1,4 +1,5 @@
 <?php
+
 class Cookie {
 	protected $_content;
 
@@ -22,7 +23,7 @@ class Cookie {
 
 	public function __construct($name, $path = '', $expire = null, $shared_urls = null) {
 		$this->_content = array();
-		$this->_expire = is_null($expire) ? $_SERVER['REQUEST_TIME'] + 1728000 : (int) $expire;
+		$this->_expire = is_null($expire) ? $_SERVER['REQUEST_TIME'] + 1728000 : (int)$expire;
 		$this->_name = md5($name);
 		$this->_path = trim('/' . $path, '/\\') . '/';
 		if ($this->_path{0} != '/')
@@ -57,11 +58,14 @@ class Cookie {
 			return false;
 
 		$domain = false;
-		if ($shared_urls !== null) {
-			foreach ($shared_urls as $shared_url) {
+		if ($shared_urls !== null)
+		{
+			foreach ($shared_urls as $shared_url)
+			{
 				if ($shared_url != $out[4])
 					continue;
-				if (preg_match('/^(?:.*\.)?([^.]*(?:.{2,3})?\..{2,3})$/Ui', $shared_url, $res)) {
+				if (preg_match('/^(?:.*\.)?([^.]*(?:.{2,3})?\..{2,3})$/Ui', $shared_url, $res))
+				{
 					$domain = '.' . $res[1];
 					break;
 				}
@@ -74,7 +78,7 @@ class Cookie {
 	}
 
 	public function setExpire($expire) {
-		$this->_expire = (int) ($expire);
+		$this->_expire = (int)($expire);
 	}
 
 	public function __get($key) {
@@ -102,11 +106,14 @@ class Cookie {
 	}
 
 	public function login($data) {
-		if (!isset($this->ip)) {
+		if (!isset($this->ip))
+		{
 			$this->ip = Tools::getRemoteAddr();
 		}
-		if (is_array($data) && !empty($data)) {
-			foreach ($data as $key => $value) {
+		if (is_array($data) && !empty($data))
+		{
+			foreach ($data as $key => $value)
+			{
 				$this->{$key} = $value;
 			}
 		}
@@ -116,19 +123,25 @@ class Cookie {
 
 	public function checkCookie($data) {
 		$result = true;
-		if (is_array($data) && !empty($data)) {
-			foreach ($data as $key => $value) {
+		if (is_array($data) && !empty($data))
+		{
+			foreach ($data as $key => $value)
+			{
 				$result &= ($this->{$key} == $value);
 			}
+
 			return $result;
 		}
+
 		return false;
 	}
 
 	public function isLogin() {
-		if (isset($this->loginstate) && $this->loginstate == true && isset($this->id_user) && Validate::isUnsignedId($this->id_user)) {
+		if (isset($this->loginstate) && $this->loginstate == true && isset($this->id_user) && Validate::isUnsignedId($this->id_user))
+		{
 			return true;
 		}
+
 		return false;
 	}
 
@@ -140,26 +153,31 @@ class Cookie {
 	}
 
 	public function update($nullValues = false) {
-		if (isset($_COOKIE[$this->_name])) {
+		if (isset($_COOKIE[$this->_name]))
+		{
 			$content = $this->_cipherTool->decrypt($_COOKIE[$this->_name]);
 
 			$checksum = crc32($this->_iv . substr($content, 0, strrpos($content, '¤') + 2));
 
 			$tmpTab = explode('¤', $content);
-			foreach ($tmpTab as $keyAndValue) {
+			foreach ($tmpTab as $keyAndValue)
+			{
 				$tmpTab2 = explode('|', $keyAndValue);
 				if (count($tmpTab2) == 2)
 					$this->_content[$tmpTab2[0]] = $tmpTab2[1];
 			}
 			if (isset($this->_content['checksum']))
-				$this->_content['checksum'] = (int) ($this->_content['checksum']);
-			if (!isset($this->_content['checksum']) || $this->_content['checksum'] != $checksum) {
+				$this->_content['checksum'] = (int)($this->_content['checksum']);
+			if (!isset($this->_content['checksum']) || $this->_content['checksum'] != $checksum)
+			{
 				$this->logout();
 			}
-			if (isset($this->_content['ip']) && $this->_content['ip'] != Tools::getRemoteAddr()) {
+			if (isset($this->_content['ip']) && $this->_content['ip'] != Tools::getRemoteAddr())
+			{
 				$this->logout();
 			}
-			else {
+			else
+			{
 				$this->ip = Tools::getRemoteAddr();
 			}
 
@@ -171,16 +189,18 @@ class Cookie {
 	}
 
 	protected function _setcookie($cookie = null) {
-		if ($cookie) {
+		if ($cookie)
+		{
 			$content = $this->_cipherTool->encrypt($cookie);
 			$time = $this->_expire;
 		}
-		else {
+		else
+		{
 			$content = 0;
 			$time = 1;
 		}
 		if (PHP_VERSION_ID <= 50200) /* PHP version > 5.2.0 */
-		return setcookie($this->_name, $content, $time, $this->_path, $this->_domain, 0);
+			return setcookie($this->_name, $content, $time, $this->_path, $this->_domain, 0);
 		else
 			return setcookie($this->_name, $content, $time, $this->_path, $this->_domain, 0, true);
 	}
@@ -190,7 +210,8 @@ class Cookie {
 	}
 
 	public function write() {
-		if (!$this->_modified || headers_sent() || !$this->_allow_writing) {
+		if (!$this->_modified || headers_sent() || !$this->_allow_writing)
+		{
 			return;
 		}
 
@@ -202,6 +223,7 @@ class Cookie {
 
 		$cookie .= 'checksum|' . crc32($this->_iv . $cookie);
 		$this->_modified = false;
+
 		return $this->_setcookie($cookie);
 	}
 
@@ -212,6 +234,7 @@ class Cookie {
 		foreach ($this->_content as $key => $value)
 			if (strncmp($key, $origin, strlen($origin)) == 0)
 				$result[$key] = $value;
+
 		return $result;
 	}
 

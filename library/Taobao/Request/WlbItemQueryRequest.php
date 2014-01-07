@@ -1,14 +1,15 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.item.query request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbItemQueryRequest {
 	/**
 	 * 是否是最小库存单元，只有最小库存单元的商品才可以有库存,值只能给"true","false"来表示;
-	若值不在范围内，则按true处理
+	 * 若值不在范围内，则按true处理
 	 **/
 	private $isSku;
 
@@ -19,10 +20,10 @@ class Taobao_Request_WlbItemQueryRequest {
 
 	/**
 	 * ITEM类型(只允许输入以下英文或空)
-	NORMAL  0:普通商品;
-	COMBINE  1:是否是组合商品
-	DISTRIBUTION  2:是否是分销商品(货主是别人)
-	若值不在范围内，则按NORMAL处理
+	 * NORMAL  0:普通商品;
+	 * COMBINE  1:是否是组合商品
+	 * DISTRIBUTION  2:是否是分销商品(货主是别人)
+	 * 若值不在范围内，则按NORMAL处理
 	 **/
 	private $itemType;
 
@@ -48,9 +49,9 @@ class Taobao_Request_WlbItemQueryRequest {
 
 	/**
 	 * 只能输入以下值或空：
-	ITEM_STATUS_VALID -- 1 表示 有效；
-	ITEM_STATUS_LOCK  -- 2 表示锁住。
-	若值不在范围内，按ITEM_STATUS_VALID处理
+	 * ITEM_STATUS_VALID -- 1 表示 有效；
+	 * ITEM_STATUS_LOCK  -- 2 表示锁住。
+	 * 若值不在范围内，按ITEM_STATUS_VALID处理
 	 **/
 	private $status;
 

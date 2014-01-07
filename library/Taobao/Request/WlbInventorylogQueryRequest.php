@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.inventorylog.query request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbInventorylogQueryRequest {
 	/**
@@ -23,13 +24,13 @@ class Taobao_Request_WlbInventorylogQueryRequest {
 
 	/**
 	 * 库存操作作类型(可以为空)
-	CHU_KU 1-出库
-	RU_KU 2-入库
-	FREEZE 3-冻结
-	THAW 4-解冻
-	CHECK_FREEZE 5-冻结确认
-	CHANGE_KU 6-库存类型变更
-	若值不在范围内，则按CHU_KU处理
+	 * CHU_KU 1-出库
+	 * RU_KU 2-入库
+	 * FREEZE 3-冻结
+	 * THAW 4-解冻
+	 * CHECK_FREEZE 5-冻结确认
+	 * CHANGE_KU 6-库存类型变更
+	 * 若值不在范围内，则按CHU_KU处理
 	 **/
 	private $opType;
 

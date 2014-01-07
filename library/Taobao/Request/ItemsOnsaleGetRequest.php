@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.items.onsale.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_ItemsOnsaleGetRequest {
 	/**
@@ -18,8 +19,8 @@ class Taobao_Request_ItemsOnsaleGetRequest {
 
 	/**
 	 * 需返回的字段列表。可选值：Item商品结构体中的以下字段：
-	approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru,list_time,price,has_discount,has_invoice,has_warranty,has_showcase,modified,delist_time,postage_id,seller_cids,outer_id；字段之间用“,”分隔。
-	不支持其他字段，如果需要获取其他字段数据，调用taobao.item.get。
+	 * approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru,list_time,price,has_discount,has_invoice,has_warranty,has_showcase,modified,delist_time,postage_id,seller_cids,outer_id；字段之间用“,”分隔。
+	 * 不支持其他字段，如果需要获取其他字段数据，调用taobao.item.get。
 	 **/
 	private $fields;
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.logistics.orders.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_LogisticsOrdersGetRequest {
 	/**
@@ -18,7 +19,7 @@ class Taobao_Request_LogisticsOrdersGetRequest {
 
 	/**
 	 * 需返回的字段列表.可选值:Shipping 物流数据结构中的以下字段: <br>
-	tid,order_code,seller_nick,buyer_nick,delivery_start, delivery_end,out_sid,item_title,receiver_name, created,modified,status,type,freight_payer,seller_confirm,company_name,sub_tids,is_spilt；<br>多个字段之间用","分隔。如tid,seller_nick,buyer_nick,delivery_start。
+	 * tid,order_code,seller_nick,buyer_nick,delivery_start, delivery_end,out_sid,item_title,receiver_name, created,modified,status,type,freight_payer,seller_confirm,company_name,sub_tids,is_spilt；<br>多个字段之间用","分隔。如tid,seller_nick,buyer_nick,delivery_start。
 	 **/
 	private $fields;
 

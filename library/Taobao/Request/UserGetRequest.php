@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.user.get request
  *
  * @author auto create
- * @since 1.0, 2010-08-12 20:48:15.0
+ * @since  1.0, 2010-08-12 20:48:15.0
  */
 class Taobao_Request_UserGetRequest {
 

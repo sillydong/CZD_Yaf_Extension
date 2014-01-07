@@ -18,23 +18,22 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category	PHPExcel
- * @package		PHPExcel_Chart
- * @copyright	Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license		http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version		1.7.9, 2013-06-02
+ * @category       PHPExcel
+ * @package        PHPExcel_Chart
+ * @copyright      Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version        1.7.9, 2013-06-02
  */
 
 
 /**
  * PHPExcel_Chart_PlotArea
  *
- * @category	PHPExcel
- * @package		PHPExcel_Chart
- * @copyright	Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @category       PHPExcel
+ * @package        PHPExcel_Chart
+ * @copyright      Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Chart_PlotArea
-{
+class PHPExcel_Chart_PlotArea {
 	/**
 	 * PlotArea Layout
 	 *
@@ -52,8 +51,7 @@ class PHPExcel_Chart_PlotArea
 	/**
 	 * Create a new PHPExcel_Chart_PlotArea
 	 */
-	public function __construct(PHPExcel_Chart_Layout $layout = null, $plotSeries = array())
-	{
+	public function __construct(PHPExcel_Chart_Layout $layout = null, $plotSeries = array()) {
 		$this->_layout = $layout;
 		$this->_plotSeries = $plotSeries;
 	}
@@ -83,9 +81,11 @@ class PHPExcel_Chart_PlotArea
 	 */
 	public function getPlotSeriesCount() {
 		$seriesCount = 0;
-		foreach($this->_plotSeries as $plot) {
+		foreach ($this->_plotSeries as $plot)
+		{
 			$seriesCount += $plot->getPlotSeriesCount();
 		}
+
 		return $seriesCount;
 	}
 
@@ -117,7 +117,8 @@ class PHPExcel_Chart_PlotArea
 	}
 
 	public function refresh(PHPExcel_Worksheet $worksheet) {
-	    foreach($this->_plotSeries as $plotSeries) {
+		foreach ($this->_plotSeries as $plotSeries)
+		{
 			$plotSeries->refresh($worksheet);
 		}
 	}

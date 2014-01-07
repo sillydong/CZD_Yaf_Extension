@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.tradeorder.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbTradeorderGetRequest {
 	/**
@@ -13,9 +14,9 @@ class Taobao_Request_WlbTradeorderGetRequest {
 
 	/**
 	 * 交易类型:
-	TAOBAO--淘宝交易
-	PAIPAI--拍拍交易
-	YOUA--有啊交易
+	 * TAOBAO--淘宝交易
+	 * PAIPAI--拍拍交易
+	 * YOUA--有啊交易
 	 **/
 	private $tradeType;
 

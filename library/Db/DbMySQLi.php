@@ -2,7 +2,8 @@
 
 class DbMySQLi extends Db {
 	public function connect() {
-		if (strpos($this->server, ':') !== false) {
+		if (strpos($this->server, ':') !== false)
+		{
 			list($server, $port) = explode(':', $this->server);
 			$this->link = @new mysqli($server, $this->user, $this->password, $this->database, $port);
 		}
@@ -27,6 +28,7 @@ class DbMySQLi extends Db {
 	public function nextRow($result = false) {
 		if (!$result)
 			$result = $this->result;
+
 		return $result->fetch_assoc();
 	}
 
@@ -65,7 +67,8 @@ class DbMySQLi extends Db {
 
 		$sql = 'SHOW TABLES LIKE \'' . $prefix . '%\'';
 		$result = $link->query($sql);
-		return (bool) $result->fetch_assoc();
+
+		return (bool)$result->fetch_assoc();
 	}
 
 	public static function tryToConnect($server, $user, $pwd, $db, $newDbLink = true, $engine = null, $timeout = 5) {
@@ -79,7 +82,8 @@ class DbMySQLi extends Db {
 		if (!$link->real_connect($server, $user, $pwd, $db))
 			return (mysqli_connect_errno() == 1049) ? 2 : 1;
 
-		if (strtolower($engine) == 'innodb') {
+		if (strtolower($engine) == 'innodb')
+		{
 			$sql = 'SHOW VARIABLES WHERE Variable_name = \'have_innodb\'';
 			$result = $link->query($sql);
 			if (!$result)
@@ -89,6 +93,7 @@ class DbMySQLi extends Db {
 				return 4;
 		}
 		$link->close();
+
 		return 0;
 	}
 
@@ -107,6 +112,7 @@ class DbMySQLi extends Db {
 			return $link->error;
 
 		$link->query('DROP TABLE `' . $prefix . 'test`');
+
 		return true;
 	}
 
@@ -114,22 +120,28 @@ class DbMySQLi extends Db {
 		$link = @new mysqli($server, $user, $pwd, $db);
 		$ret = $link->query("SET NAMES 'UTF8'");
 		$link->close();
+
 		return $ret;
 	}
 
 	public function ping() {
-		if (!mysqli_ping($this->link)) {
+		if (!mysqli_ping($this->link))
+		{
 			$this->disconnect();
+
 			return false;
 		}
+
 		return true;
 	}
 
 	protected function _query($sql) {
 		if ($this->ping())
 			return $this->link->query($sql);
-		else {
-			if ($this->connect()) {
+		else
+		{
+			if ($this->connect())
+			{
 				return $this->link->query($sql);
 			}
 			else

@@ -1,4 +1,5 @@
 <?php
+
 class CacheXcache extends Cache {
 	public function __construct() {
 		$this->keys = xcache_get(CACHE_KEY_PREFIX . self::KEYS_NAME);
@@ -28,6 +29,7 @@ class CacheXcache extends Cache {
 
 	public function flush() {
 		$this->delete('*');
+
 		return true;
 	}
 }

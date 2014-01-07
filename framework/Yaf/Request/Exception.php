@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Yaf Request Exception
  */

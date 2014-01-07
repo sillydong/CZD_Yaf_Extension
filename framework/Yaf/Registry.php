@@ -1,18 +1,22 @@
 <?php
+
 /**
  * Yaf Registry
  */
 class Yaf_Registry {
 	/**
 	 * the data array
+	 *
 	 * @var array
 	 */
 	private static $_entrys = array();
 
 	/**
 	 * @set undefined data
+	 *
 	 * @param string $index
-	 * @param mixed $value
+	 * @param mixed  $value
+	 *
 	 * @return void
 	 */
 	static public function set($name, $value) {
@@ -21,21 +25,27 @@ class Yaf_Registry {
 
 	/**
 	 * @get variables
+	 *
 	 * @param mixed $index
+	 *
 	 * @return mixed
 	 */
 	static public function get($name) {
-		if (self::has($name)) {
+		if (self::has($name))
+		{
 			return self::$_entrys[$name];
 		}
-		else {
+		else
+		{
 			return null;
 		}
 	}
 
 	/**
 	 * check if the variable is in the registry
+	 *
 	 * @param mixed $index
+	 *
 	 * @return mixed
 	 */
 	static public function has($name) {
@@ -44,11 +54,14 @@ class Yaf_Registry {
 
 	/**
 	 * @del variables
+	 *
 	 * @param mixed $index
+	 *
 	 * @return mixed
 	 */
 	static public function del($name) {
-		if (isset(self::$_entrys[$name])) {
+		if (isset(self::$_entrys[$name]))
+		{
 			unset(self::$_entrys[$name]);
 		}
 	}

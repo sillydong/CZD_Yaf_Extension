@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.fenxiao.product.update request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_FenxiaoProductUpdateRequest {
 	/**
@@ -63,8 +64,8 @@ class Taobao_Request_FenxiaoProductUpdateRequest {
 
 	/**
 	 * 产品是否需要授权isAuthz:yes|no
-	yes:需要授权
-	no:不需要授权
+	 * yes:需要授权
+	 * no:不需要授权
 	 **/
 	private $isAuthz;
 
@@ -165,7 +166,7 @@ class Taobao_Request_FenxiaoProductUpdateRequest {
 
 	/**
 	 * sku属性。格式:pid:vid;pid:vid,表示一组属性如:1627207:3232483;1630696:3284570,表示一组:机身颜色:军绿色;手机套餐:一电一充。多组之间用逗号“,”区分。(属性的pid调用taobao.itemprops.get取得，属性值的vid用taobao.itempropvalues.get取得vid)
-	通过此字段可新增和更新sku。若传入此值将忽略sku_ids字段。sku其他字段与此值保持一致。
+	 * 通过此字段可新增和更新sku。若传入此值将忽略sku_ids字段。sku其他字段与此值保持一致。
 	 **/
 	private $skuProperties;
 

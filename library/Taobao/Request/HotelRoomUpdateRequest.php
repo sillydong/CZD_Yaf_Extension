@@ -1,20 +1,21 @@
 <?php
+
 /**
  * TOP API: taobao.hotel.room.update request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HotelRoomUpdateRequest {
 	/**
 	 * 面积。可选值：A,B,C,D。分别代表：
-	A：15平米以下，B：16－30平米，C：31－50平米，D：50平米以上
+	 * A：15平米以下，B：16－30平米，C：31－50平米，D：50平米以上
 	 **/
 	private $area;
 
 	/**
 	 * 宽带服务。A,B,C,D。分别代表：
-	A：无宽带，B：免费宽带，C：收费宽带，D：部分收费宽带
+	 * A：无宽带，B：免费宽带，C：收费宽带，D：部分收费宽带
 	 **/
 	private $bbn;
 
@@ -25,7 +26,7 @@ class Taobao_Request_HotelRoomUpdateRequest {
 
 	/**
 	 * 早餐。A,B,C,D,E。分别代表：
-	A：无早，B：单早，C：双早，D：三早，E：多早
+	 * A：无早，B：单早，C：双早，D：三早，E：多早
 	 **/
 	private $breakfast;
 
@@ -66,13 +67,13 @@ class Taobao_Request_HotelRoomUpdateRequest {
 
 	/**
 	 * 支付类型。可选值：A,B,C,D,E。分别代表：
-	A：全额支付，B：手续费，C：订金，D：手续费/间夜，E：前台面付
+	 * A：全额支付，B：手续费，C：订金，D：手续费/间夜，E：前台面付
 	 **/
 	private $paymentType;
 
 	/**
 	 * 酒店商品图片。类型:JPG,GIF;最大长度:500K。支持的文件类型：gif,jpg,jpeg,png。更新的时候只能更新一张图片，此图片覆盖原有所有图片。如果不传则使用原有所有图片。
-	如需再发图片，需要调用商品图片上传接口，1个商品最多5张图片。
+	 * 如需再发图片，需要调用商品图片上传接口，1个商品最多5张图片。
 	 **/
 	private $pic;
 
@@ -108,20 +109,20 @@ class Taobao_Request_HotelRoomUpdateRequest {
 
 	/**
 	 * 房态信息。可以传今天开始90天内的房态信息。日期必须连续。JSON格式传递。
-	date：代表房态日期，格式为YYYY-MM-DD，
-	price：代表当天房价，0～99999999，存储的单位是分,
-	num：代表当天可售间数，0～999。
-	如：
-	[{"date":2011-01-28,"price":10000, "num":10},{"date":2011-01-29,"price":12000,"num":10}]
+	 * date：代表房态日期，格式为YYYY-MM-DD，
+	 * price：代表当天房价，0～99999999，存储的单位是分,
+	 * num：代表当天可售间数，0～999。
+	 * 如：
+	 * [{"date":2011-01-28,"price":10000, "num":10},{"date":2011-01-29,"price":12000,"num":10}]
 	 **/
 	private $roomQuotas;
 
 	/**
 	 * 设施服务。JSON格式。
-	value值true有此服务，false没有。
-	bar：吧台，catv：有线电视，ddd：国内长途电话，idd：国际长途电话，toilet：独立卫生间，pubtoliet：公共卫生间。
-	如：
-	{"bar":false,"catv":false,"ddd":false,"idd":false,"pubtoilet":false,"toilet":false}
+	 * value值true有此服务，false没有。
+	 * bar：吧台，catv：有线电视，ddd：国内长途电话，idd：国际长途电话，toilet：独立卫生间，pubtoliet：公共卫生间。
+	 * 如：
+	 * {"bar":false,"catv":false,"ddd":false,"idd":false,"pubtoilet":false,"toilet":false}
 	 **/
 	private $service;
 

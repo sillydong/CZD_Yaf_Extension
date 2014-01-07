@@ -2,7 +2,7 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
 
@@ -14,24 +14,31 @@
  * Purpose:  unescape html entities
  *
  * @author Rodney Rehm
+ *
  * @param array $params parameters
+ *
  * @return string with compiled code
  */
 function smarty_modifiercompiler_unescape($params, $compiler) {
-	if (!isset($params[1])) {
+	if (!isset($params[1]))
+	{
 		$params[1] = 'html';
 	}
-	if (!isset($params[2])) {
+	if (!isset($params[2]))
+	{
 		$params[2] = '\'' . addslashes(Smarty::$_CHARSET) . '\'';
 	}
-	else {
+	else
+	{
 		$params[2] = "'" . $params[2] . "'";
 	}
 
-	switch (trim($params[1], '"\'')) {
+	switch (trim($params[1], '"\''))
+	{
 		case 'entity':
 		case 'htmlall':
-			if (Smarty::$_MBSTRING) {
+			if (Smarty::$_MBSTRING)
+			{
 				return 'mb_convert_encoding(' . $params[0] . ', ' . $params[2] . ', \'HTML-ENTITIES\')';
 			}
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Yaf_Router is the standard framework router.
  */
@@ -25,10 +26,12 @@ class Yaf_Router {
 
 	public function __construct() {
 		$defaultRoute = Yaf_G::get('default_route');
-		if ($defaultRoute != null) {
+		if ($defaultRoute != null)
+		{
 			$this->addRoute('_default', $this->_getRouteFromArray($defaultRoute));
 		}
-		else {
+		else
+		{
 			$this->addRoute('_default', new Yaf_Route_Static());
 		}
 	}
@@ -36,12 +39,14 @@ class Yaf_Router {
 	/**
 	 * Add route to the route chain
 	 *
-	 * @param  string $name Name of the route
+	 * @param  string              $name  Name of the route
 	 * @param  Yaf_Route_Interface $route Instance of the route
+	 *
 	 * @return Yaf_Router
 	 */
 	public function addRoute($name, Yaf_Route_Interface $route) {
 		$this->_routes[$name] = $route;
+
 		return $this;
 	}
 
@@ -60,36 +65,47 @@ class Yaf_Router {
 	 * $router = new Yaf_Router();
 	 * $router->addConfig($config);
 	 *
-	 * @param  array|Yaf_Config $config  Configuration object
+	 * @param  array|Yaf_Config $config Configuration object
+	 *
 	 * @throws Yaf_Router_Exception
 	 * @return Yaf_Router
 	 */
 	public function addConfig($config) {
-		if (is_array($config)) {
+		if (is_array($config))
+		{
 			//$config = new Yaf_Config_Simple($config);
 		}
-		else if ($config instanceof Yaf_Config_Abstract) {
+		else if ($config instanceof Yaf_Config_Abstract)
+		{
 			$config = $config->toArray();
 		}
-		else {
+		else
+		{
 			throw new Yaf_Exception_RouterFailed('Expecting Array or Yaf_Config_Abstract instance');
 		}
 		$name = key($config);
-		foreach ($config as $entry) {
+		foreach ($config as $entry)
+		{
 			$route = $this->_getRouteFromArray($entry);
-			if ($route != null) {
-				if ($route instanceof Yaf_Route_Interface) {
+			if ($route != null)
+			{
+				if ($route instanceof Yaf_Route_Interface)
+				{
 					$this->addRoute($name, $route);
 				}
-				else {
+				else
+				{
 					$this->addRoute($name, $route);
 				}
 			}
-			else {
-				if (is_string($name)) {
+			else
+			{
+				if (is_string($name))
+				{
 					throw new Yaf_Exception_RouterFailed('Unable to initialize route named ' . $name);
 				}
-				else {
+				else
+				{
 					throw new Yaf_Exception_RouterFailed('Unable to initialize route at index ' . $name);
 				}
 			}
@@ -131,16 +147,19 @@ class Yaf_Router {
 	 * Retrieve a named route
 	 *
 	 * @param string $name Name of the route
+	 *
 	 * @throws Yaf_Exception_RouterFailed
 	 * @return Yaf_Route_Interface Route object
 	 */
 	public function getRoute($name) {
-		if (!isset($this->_routes[$name])) {
+		if (!isset($this->_routes[$name]))
+		{
 			return null;
 			/* throw new Yaf_Exception_RouterFailed(
 				"Route $name is not defined"
 			); */
 		}
+
 		return $this->_routes[$name];
 	}
 
@@ -163,21 +182,27 @@ class Yaf_Router {
 		// Find the matching route
 		$routeMatched = false;
 
-		foreach (array_reverse($this->_routes, true) as $name => $route) {
-			if (($ret = $route->route($request)) != false) {
+		foreach (array_reverse($this->_routes, true) as $name => $route)
+		{
+			if (($ret = $route->route($request)) != false)
+			{
 				$this->_current = $name;
 				$routeMatched = true;
 				break;
 			}
 		}
 
-		if (!$routeMatched) {
+		if (!$routeMatched)
+		{
 			return false;
 		}
-		else {
+		else
+		{
 			$request->setRouted(true);
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -185,21 +210,27 @@ class Yaf_Router {
 	 * Get a route from a config instance
 	 *
 	 * @param  Yaf_Config_Abstract $info
+	 *
 	 * @return Yaf_Route_Interface
 	 */
 	protected function _getRouteFromConfig(Yaf_Config_Abstract $info) {
 		$useNamespace = Yaf_G::iniGet('yaf.use_namespace');
-		if ($useNamespace) {
+		if ($useNamespace)
+		{
 			$class = (isset($info['type'])) ? '\\Yaf\\Route\\' . ucfirst($info['type']) : '\\Yaf\\Route\\Static';
 		}
-		else {
+		else
+		{
 			$class = (isset($info['type'])) ? 'Yaf_Route_' . ucfirst($info['type']) : 'Yaf_Route_Static';
 		}
-		try {
+		try
+		{
 			$route = call_user_func(array($class, 'getInstance'), $info);
-		} catch (Exception $e) {
+		} catch (Exception $e)
+		{
 			return null;
 		}
+
 		return $route;
 	}
 
@@ -207,21 +238,27 @@ class Yaf_Router {
 	 * Get a route from an array
 	 *
 	 * @param  array $info
+	 *
 	 * @return Yaf_Route_Interface
 	 */
 	protected function _getRouteFromArray(array $info) {
 		$useNamespace = Yaf_G::iniGet('yaf.use_namespace');
-		if ($useNamespace) {
+		if ($useNamespace)
+		{
 			$class = (isset($info['type'])) ? '\\Yaf\\Route\\' . ucfirst($info['type']) : '\\Yaf\\Route\\Static';
 		}
-		else {
+		else
+		{
 			$class = (isset($info['type'])) ? 'Yaf_Route_' . ucfirst($info['type']) : 'Yaf_Route_Static';
 		}
-		try {
+		try
+		{
 			$route = call_user_func(array($class, 'getInstance'), $info);
-		} catch (Exception $e) {
+		} catch (Exception $e)
+		{
 			return null;
 		}
+
 		return $route;
 	}
 }

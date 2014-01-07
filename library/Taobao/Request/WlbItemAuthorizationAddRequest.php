@@ -1,14 +1,15 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.item.authorization.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbItemAuthorizationAddRequest {
 	/**
 	 * 授权类型：1=全量授权，0=部分授权
-	当部分授权时，需要指定授权数量quantity
+	 * 当部分授权时，需要指定授权数量quantity
 	 **/
 	private $authType;
 

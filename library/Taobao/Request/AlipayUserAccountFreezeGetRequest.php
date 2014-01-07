@@ -1,21 +1,22 @@
 <?php
+
 /**
  * TOP API: alipay.user.account.freeze.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_AlipayUserAccountFreezeGetRequest {
 	/**
 	 * 冻结类型，多个用,分隔。不传返回所有类型的冻结金额。
-	DEPOSIT_FREEZE,充值冻结
-	WITHDRAW_FREEZE,提现冻结
-	PAYMENT_FREEZE,支付冻结
-	BAIL_FREEZE,保证金冻结
-	CHARGE_FREEZE,收费冻结
-	PRE_DEPOSIT_FREEZE,预存款冻结
-	LOAN_FREEZE,贷款冻结
-	OTHER_FREEZE,其它
+	 * DEPOSIT_FREEZE,充值冻结
+	 * WITHDRAW_FREEZE,提现冻结
+	 * PAYMENT_FREEZE,支付冻结
+	 * BAIL_FREEZE,保证金冻结
+	 * CHARGE_FREEZE,收费冻结
+	 * PRE_DEPOSIT_FREEZE,预存款冻结
+	 * LOAN_FREEZE,贷款冻结
+	 * OTHER_FREEZE,其它
 	 **/
 	private $freezeType;
 

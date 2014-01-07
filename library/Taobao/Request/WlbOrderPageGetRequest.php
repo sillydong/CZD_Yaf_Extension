@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.order.page.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbOrderPageGetRequest {
 	/**
@@ -23,21 +24,21 @@ class Taobao_Request_WlbOrderPageGetRequest {
 
 	/**
 	 * 订单子类型：
-	（1）OTHER： 其他
-	（2）TAOBAO_TRADE： 淘宝交易
-	（3）OTHER_TRADE：其他交易
-	（4）ALLCOATE： 调拨
-	（5）CHECK:  盘点单
-	（6）PURCHASE: 采购单
+	 * （1）OTHER： 其他
+	 * （2）TAOBAO_TRADE： 淘宝交易
+	 * （3）OTHER_TRADE：其他交易
+	 * （4）ALLCOATE： 调拨
+	 * （5）CHECK:  盘点单
+	 * （6）PURCHASE: 采购单
 	 **/
 	private $orderSubType;
 
 	/**
 	 * 订单类型:
-	（1）NORMAL_OUT ：正常出库
-	（2）NORMAL_IN：正常入库
-	（3）RETURN_IN：退货入库
-	（4）EXCHANGE_OUT：换货出库
+	 * （1）NORMAL_OUT ：正常出库
+	 * （2）NORMAL_IN：正常入库
+	 * （3）RETURN_IN：退货入库
+	 * （4）EXCHANGE_OUT：换货出库
 	 **/
 	private $orderType;
 

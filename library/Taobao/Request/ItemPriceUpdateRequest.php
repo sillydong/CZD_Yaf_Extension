@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.item.price.update request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_ItemPriceUpdateRequest {
 	/**
@@ -23,9 +24,9 @@ class Taobao_Request_ItemPriceUpdateRequest {
 
 	/**
 	 * 代充商品类型。只有少数类目下的商品可以标记上此字段，具体哪些类目可以上传可以通过taobao.itemcat.features.get获得。在代充商品的类目下，不传表示不标记商品类型（交易搜索中就不能通过标记搜到相关的交易了）。可选类型：
-	no_mark(不做类型标记)
-	time_card(点卡软件代充)
-	fee_card(话费软件代充)
+	 * no_mark(不做类型标记)
+	 * time_card(点卡软件代充)
+	 * fee_card(话费软件代充)
 	 **/
 	private $autoFill;
 

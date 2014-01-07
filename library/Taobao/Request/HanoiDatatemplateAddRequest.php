@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.hanoi.datatemplate.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HanoiDatatemplateAddRequest {
 	/**
@@ -13,7 +14,7 @@ class Taobao_Request_HanoiDatatemplateAddRequest {
 
 	/**
 	 * name:String类型，数据模板的名称
-	opened:int类型，标识此数据模板是否对其他人可见
+	 * opened:int类型，标识此数据模板是否对其他人可见
 	 **/
 	private $parameter;
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.caipiao.shop.info.input request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_CaipiaoShopInfoInputRequest {
 	/**

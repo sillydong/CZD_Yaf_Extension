@@ -1,10 +1,10 @@
 <?php
 /**
- *	@package JAMA
+ * @package JAMA
  *
- *	Error handling
- *	@author Michael Bommarito
- *	@version 01292005
+ *    Error handling
+ * @author  Michael Bommarito
+ * @version 01292005
  */
 
 //Language constant
@@ -23,8 +23,7 @@ Feel free to correct anything that looks amiss to you.
 
 define('PolymorphicArgumentException', -1);
 $error['EN'][PolymorphicArgumentException] = "Invalid argument pattern for polymorphic function.";
-$error['FR'][PolymorphicArgumentException] = "Modèle inadmissible d'argument pour la fonction polymorphe.".
-$error['DE'][PolymorphicArgumentException] = "Unzulässiges Argumentmuster für polymorphe Funktion.";
+$error['FR'][PolymorphicArgumentException] = "Modèle inadmissible d'argument pour la fonction polymorphe." . $error['DE'][PolymorphicArgumentException] = "Unzulässiges Argumentmuster für polymorphe Funktion.";
 
 define('ArgumentTypeException', -2);
 $error['EN'][ArgumentTypeException] = "Invalid argument type.";
@@ -64,19 +63,26 @@ define('RowLengthException', -10);
 $error['EN'][RowLengthException] = "All rows must have the same length.";
 
 /**
- *	Custom error handler
- *	@param int $num Error number
+ *    Custom error handler
+ *
+ * @param int $num Error number
  */
 function JAMAError($errorNumber = null) {
 	global $error;
 
-	if (isset($errorNumber)) {
-		if (isset($error[JAMALANG][$errorNumber])) {
+	if (isset($errorNumber))
+	{
+		if (isset($error[JAMALANG][$errorNumber]))
+		{
 			return $error[JAMALANG][$errorNumber];
-		} else {
+		}
+		else
+		{
 			return $error['EN'][$errorNumber];
 		}
-	} else {
+	}
+	else
+	{
 		return ("Invalid argument to JAMAError()");
 	}
 }

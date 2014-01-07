@@ -10,6 +10,7 @@
 /* Built with inspiration by
 /" http://stackoverflow.com/questions/1463480/how-can-i-use-php-to-dynamically-publish-an-ical-file-to-be-read-by-google-calend/1464355#1464355
 /* ------------------------------------------------------------------------ */
+
 /* History:
 /* 2010/12/17 - Manuel Reinhard - when it all started
 /* ------------------------------------------------------------------------ */
@@ -22,6 +23,7 @@ class EasyPeasyICS {
 
 	/**
 	 * Constructor
+	 *
 	 * @param string $calendarName
 	 */
 	public function __construct($calendarName = "") {
@@ -33,15 +35,16 @@ class EasyPeasyICS {
 
 	/**
 	 * Add event to calendar
+	 *
 	 * @param string $calendarName
 	 */
 	public function addEvent($start, $end, $summary = "", $description = "", $url = "") {
 		$this->events[] = array(
-			"start" => $start,
-			"end" => $end,
-			"summary" => $summary,
-			"description" => $description,
-			"url" => $url
+				"start" => $start,
+				"end" => $end,
+				"summary" => $summary,
+				"description" => $description,
+				"url" => $url
 		);
 	}
 
@@ -61,7 +64,8 @@ X-WR-CALNAME:" . $this->calendarName . "
 PRODID:-//hacksw/handcal//NONSGML v1.0//EN";
 
 		//Add events
-		foreach ($this->events as $event) {
+		foreach ($this->events as $event)
+		{
 			$ics .= "
 BEGIN:VEVENT
 UID:" . md5(uniqid(mt_rand(), true)) . "@EasyPeasyICS.php
@@ -81,13 +85,15 @@ END:VEVENT";
 END:VCALENDAR";
 
 
-		if ($output) {
+		if ($output)
+		{
 			//Output
 			header('Content-type: text/calendar; charset=utf-8');
 			header('Content-Disposition: inline; filename=' . $this->calendarName . '.ics');
 			echo $ics;
 		}
-		else {
+		else
+		{
 			return $ics;
 		}
 

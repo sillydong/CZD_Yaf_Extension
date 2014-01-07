@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.taobaoke.mobile.items.coupon.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TaobaokeMobileItemsCouponGetRequest {
 	/**
@@ -88,13 +89,13 @@ class Taobao_Request_TaobaokeMobileItemsCouponGetRequest {
 
 	/**
 	 * default(默认排序),
-	price_desc(折扣价格从高到低),
-	price_asc(折扣价格从低到高),
-	credit_desc(信用等级从高到低),
-	credit_asc(信用等级从低到高),
-	commissionRate_desc(佣金比率从高到低),
-	commissionRate_asc(佣金比率从低到高),
-	volume_desc(成交量成高到低), volume_asc(成交量从低到高)
+	 * price_desc(折扣价格从高到低),
+	 * price_asc(折扣价格从低到高),
+	 * credit_desc(信用等级从高到低),
+	 * credit_asc(信用等级从低到高),
+	 * commissionRate_desc(佣金比率从高到低),
+	 * commissionRate_asc(佣金比率从低到高),
+	 * volume_desc(成交量成高到低), volume_asc(成交量从低到高)
 	 **/
 	private $sort;
 

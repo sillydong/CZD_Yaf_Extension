@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: tmall.eai.order.refund.good.return.check request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TmallEaiOrderRefundGoodReturnCheckRequest {
 	/**
@@ -13,7 +14,7 @@ class Taobao_Request_TmallEaiOrderRefundGoodReturnCheckRequest {
 
 	/**
 	 * 1.验货通过
-	2.验货不通过
+	 * 2.验货不通过
 	 **/
 	private $confirmResult;
 
@@ -34,7 +35,7 @@ class Taobao_Request_TmallEaiOrderRefundGoodReturnCheckRequest {
 
 	/**
 	 * 售中：onsale
-	售后：aftersale
+	 * 售后：aftersale
 	 **/
 	private $refundPhase;
 

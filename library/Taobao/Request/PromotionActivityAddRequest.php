@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.promotion.activity.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_PromotionActivityAddRequest {
 	/**
@@ -23,8 +24,8 @@ class Taobao_Request_PromotionActivityAddRequest {
 
 	/**
 	 * 是否将该活动优惠券同步到淘券市场
-	1（不同步）
-	2（同步）
+	 * 1（不同步）
+	 * 2（同步）
 	 **/
 	private $uploadToTaoquan;
 

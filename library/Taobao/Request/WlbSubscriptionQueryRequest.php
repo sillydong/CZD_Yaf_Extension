@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.subscription.query request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbSubscriptionQueryRequest {
 	/**
@@ -18,12 +19,12 @@ class Taobao_Request_WlbSubscriptionQueryRequest {
 
 	/**
 	 * 状态
-	AUDITING 1-待审核;
-	CANCEL 2-撤销 ;
-	CHECKED 3-审核通过 ;
-	FAILED 4-审核未通过 ;
-	SYNCHRONIZING 5-同步中;
-	只允许输入上面指定的值，且可以为空，为空时查询所有状态。若输错了，则按AUDITING处理。
+	 * AUDITING 1-待审核;
+	 * CANCEL 2-撤销 ;
+	 * CHECKED 3-审核通过 ;
+	 * FAILED 4-审核未通过 ;
+	 * SYNCHRONIZING 5-同步中;
+	 * 只允许输入上面指定的值，且可以为空，为空时查询所有状态。若输错了，则按AUDITING处理。
 	 **/
 	private $status;
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.taobaoke.mobile.shops.convert request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TaobaokeMobileShopsConvertRequest {
 	/**
@@ -18,13 +19,13 @@ class Taobao_Request_TaobaokeMobileShopsConvertRequest {
 
 	/**
 	 * 卖家昵称串.最大输入10个.格式如:"value1,value2,value3" 用" , "号分隔。
-	注意：sids和seller_nicks两个参数任意必须输入一个，如果同时输入，则以seller_nicks为准
+	 * 注意：sids和seller_nicks两个参数任意必须输入一个，如果同时输入，则以seller_nicks为准
 	 **/
 	private $sellerNicks;
 
 	/**
 	 * 店铺id串.最大输入10个.格式如:"value1,value2,value3" 用" , "号分隔店铺id.
-	注意：sids和seller_nicks两个参数任意必须输入一个，如果同时输入，则以seller_nicks为准
+	 * 注意：sids和seller_nicks两个参数任意必须输入一个，如果同时输入，则以seller_nicks为准
 	 **/
 	private $sids;
 

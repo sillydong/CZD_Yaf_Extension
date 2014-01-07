@@ -2,10 +2,10 @@
 /**
  * Smarty Internal Plugin Resource Eval
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage TemplateResources
- * @author Uwe Tews
- * @author Rodney Rehm
+ * @author     Uwe Tews
+ * @author     Rodney Rehm
  */
 
 /**
@@ -15,7 +15,7 @@
  *
  * {@internal unlike string-resources the compiled state of eval-resources is NOT saved for subsequent access}}
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage TemplateResources
  */
 class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled {
@@ -23,8 +23,9 @@ class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled {
 	/**
 	 * populate Source Object with meta data from Resource
 	 *
-	 * @param Smarty_Template_Source $source    source object
+	 * @param Smarty_Template_Source   $source    source object
 	 * @param Smarty_Internal_Template $_template template object
+	 *
 	 * @return void
 	 */
 	public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null) {
@@ -37,7 +38,9 @@ class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled {
 	 * Load template's source from $resource_name into current template object
 	 *
 	 * @uses decode() to decode base64 and urlencoded template_resources
+	 *
 	 * @param Smarty_Template_Source $source source object
+	 *
 	 * @return string template source
 	 */
 	public function getContent(Smarty_Template_Source $source) {
@@ -48,15 +51,19 @@ class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled {
 	 * decode base64 and urlencode
 	 *
 	 * @param string $string template_resource to decode
+	 *
 	 * @return string decoded template_resource
 	 */
 	protected function decode($string) {
 		// decode if specified
-		if (($pos = strpos($string, ':')) !== false) {
-			if (!strncmp($string, 'base64', 6)) {
+		if (($pos = strpos($string, ':')) !== false)
+		{
+			if (!strncmp($string, 'base64', 6))
+			{
 				return base64_decode(substr($string, 7));
 			}
-			elseif (!strncmp($string, 'urlencode', 9)) {
+			elseif (!strncmp($string, 'urlencode', 9))
+			{
 				return urldecode(substr($string, 10));
 			}
 		}
@@ -69,6 +76,7 @@ class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled {
 	 *
 	 * @param Smarty $smarty        Smarty instance
 	 * @param string $resource_name resource_name to make unique
+	 *
 	 * @return string unique resource name
 	 */
 	protected function buildUniqueResourceName(Smarty $smarty, $resource_name) {
@@ -79,6 +87,7 @@ class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled {
 	 * Determine basename for compiled filename
 	 *
 	 * @param Smarty_Template_Source $source source object
+	 *
 	 * @return string resource's basename
 	 */
 	protected function getBasename(Smarty_Template_Source $source) {

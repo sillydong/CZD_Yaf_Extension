@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 命令行controller示例
  *
@@ -7,10 +8,11 @@
  * Date: 13-12-5
  * Time: 下午12:10
  */
-class CrontabController extends CControllerModel{
+class CrontabController extends CControllerModel {
 
-	public function indexAction(){
+	public function indexAction() {
 		var_dump($this->getRequest());
+
 		return false;
 	}
 }

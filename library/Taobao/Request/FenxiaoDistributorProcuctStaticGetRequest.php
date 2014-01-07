@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.fenxiao.distributor.procuct.static.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_FenxiaoDistributorProcuctStaticGetRequest {
 	/**
@@ -13,7 +14,7 @@ class Taobao_Request_FenxiaoDistributorProcuctStaticGetRequest {
 
 	/**
 	 * 供应商商品id，一次可以传多个，每次最多40个。
-	以,(英文)作为分隔符。
+	 * 以,(英文)作为分隔符。
 	 **/
 	private $productIdArray;
 

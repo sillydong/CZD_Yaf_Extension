@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.ump.range.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_UmpRangeAddRequest {
 	/**
@@ -18,7 +19,7 @@ class Taobao_Request_UmpRangeAddRequest {
 
 	/**
 	 * 范围的类型，比如是全店，商品，类目
-	见：MarketingConstants.PARTICIPATE_TYPE_*
+	 * 见：MarketingConstants.PARTICIPATE_TYPE_*
 	 **/
 	private $type;
 

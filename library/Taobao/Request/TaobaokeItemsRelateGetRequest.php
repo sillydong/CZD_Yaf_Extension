@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.taobaoke.items.relate.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TaobaokeItemsRelateGetRequest {
 	/**
@@ -53,19 +54,19 @@ class Taobao_Request_TaobaokeItemsRelateGetRequest {
 
 	/**
 	 * <p>推荐类型.</p>
-	<p>1:同类商品推荐;此时必须得输入num_iid</p>
-	<p>2:异类商品推荐;此时必须得输入num_iid</p>
-	<p>3:同店商品推荐;此时必须得输入num_iid</p>
-	<p>4:店铺热门推荐;此时必须得输入seller_id，这里的seller_id得通过<a href="http://api.taobao.com/apidoc/api.htm?path=cid:38-apiId:10449">taobao.taobaoke.shops.get</a>
-	跟<a href="http://api.taobao.com/apidoc/api.htm?path=cid:38-apiId:21419">taobao.taobaoke.widget.shops.convert</a>这两个接口去获取user_id字段</p>
-	<p>5:类目热门推荐;此时必须得输入cid</p>
+	 * <p>1:同类商品推荐;此时必须得输入num_iid</p>
+	 * <p>2:异类商品推荐;此时必须得输入num_iid</p>
+	 * <p>3:同店商品推荐;此时必须得输入num_iid</p>
+	 * <p>4:店铺热门推荐;此时必须得输入seller_id，这里的seller_id得通过<a href="http://api.taobao.com/apidoc/api.htm?path=cid:38-apiId:10449">taobao.taobaoke.shops.get</a>
+	 * 跟<a href="http://api.taobao.com/apidoc/api.htm?path=cid:38-apiId:21419">taobao.taobaoke.widget.shops.convert</a>这两个接口去获取user_id字段</p>
+	 * <p>5:类目热门推荐;此时必须得输入cid</p>
 	 **/
 	private $relateType;
 
 	/**
 	 * 卖家的用户id，这里的seller_id得通过<a href="http://api.taobao.com/apidoc/api.htm?path=cid:38-apiId:10449">taobao.taobaoke.shops.get</a>
-	跟<a href="http://api.taobao.com/apidoc/api.htm?path=cid:38-apiId:21419">taobao.taobaoke.widget.shops.convert</a>这两个接口去获取user_id字段。
-	注：推荐类型为4时seller_id不能为空
+	 * 跟<a href="http://api.taobao.com/apidoc/api.htm?path=cid:38-apiId:21419">taobao.taobaoke.widget.shops.convert</a>这两个接口去获取user_id字段。
+	 * 注：推荐类型为4时seller_id不能为空
 	 **/
 	private $sellerId;
 

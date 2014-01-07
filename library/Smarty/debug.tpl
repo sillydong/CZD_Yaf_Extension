@@ -5,7 +5,8 @@
 		<title>Smarty Debug Console</title>
 		<style type="text/css">
 			{literal}
-			body, h1, h2, td, th, p {
+			body, h1, h2, td, th, p
+			{
 				font-family: sans-serif;
 				font-weight: normal;
 				font-size: 0.9em;
@@ -13,7 +14,8 @@
 				padding: 0;
 			}
 
-			h1 {
+			h1
+			{
 				margin: 0;
 				text-align: left;
 				padding: 2px;
@@ -23,7 +25,8 @@
 				font-size: 1.2em;
 			}
 
-			h2 {
+			h2
+			{
 				background-color: #9B410E;
 				color: white;
 				text-align: left;
@@ -32,53 +35,64 @@
 				border-top: 1px solid black;
 			}
 
-			body {
+			body
+			{
 				background: black;
 			}
 
-			p, table, div {
+			p, table, div
+			{
 				background: #f0ead8;
 			}
 
-			p {
+			p
+			{
 				margin: 0;
 				font-style: italic;
 				text-align: center;
 			}
 
-			table {
+			table
+			{
 				width: 100%;
 			}
 
-			th, td {
+			th, td
+			{
 				font-family: monospace;
 				vertical-align: top;
 				text-align: left;
 				width: 50%;
 			}
 
-			td {
+			td
+			{
 				color: green;
 			}
 
-			.odd {
+			.odd
+			{
 				background-color: #eeeeee;
 			}
 
-			.even {
+			.even
+			{
 				background-color: #fafafa;
 			}
 
-			.exectime {
+			.exectime
+			{
 				font-size: 0.8em;
 				font-style: italic;
 			}
 
-			#table_assigned_vars th {
+			#table_assigned_vars th
+			{
 				color: blue;
 			}
 
-			#table_config_vars th {
+			#table_config_vars th
+			{
 				color: maroon;
 			}
 

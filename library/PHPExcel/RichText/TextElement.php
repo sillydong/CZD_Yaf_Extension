@@ -31,8 +31,7 @@
  * @package    PHPExcel_RichText
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_RichText_TextElement implements PHPExcel_RichText_ITextElement
-{
+class PHPExcel_RichText_TextElement implements PHPExcel_RichText_ITextElement {
 	/**
 	 * Text
 	 *
@@ -40,21 +39,20 @@ class PHPExcel_RichText_TextElement implements PHPExcel_RichText_ITextElement
 	 */
 	private $_text;
 
-    /**
-     * Create a new PHPExcel_RichText_TextElement instance
-     *
-     * @param 	string		$pText		Text
-     */
-    public function __construct($pText = '')
-    {
-    	// Initialise variables
-    	$this->_text = $pText;
-    }
+	/**
+	 * Create a new PHPExcel_RichText_TextElement instance
+	 *
+	 * @param    string $pText Text
+	 */
+	public function __construct($pText = '') {
+		// Initialise variables
+		$this->_text = $pText;
+	}
 
 	/**
 	 * Get text
 	 *
-	 * @return string	Text
+	 * @return string    Text
 	 */
 	public function getText() {
 		return $this->_text;
@@ -63,11 +61,13 @@ class PHPExcel_RichText_TextElement implements PHPExcel_RichText_ITextElement
 	/**
 	 * Set text
 	 *
-	 * @param 	$pText string	Text
+	 * @param    $pText string    Text
+	 *
 	 * @return PHPExcel_RichText_ITextElement
 	 */
 	public function setText($pText = '') {
 		$this->_text = $pText;
+
 		return $this;
 	}
 
@@ -83,24 +83,25 @@ class PHPExcel_RichText_TextElement implements PHPExcel_RichText_ITextElement
 	/**
 	 * Get hash code
 	 *
-	 * @return string	Hash code
+	 * @return string    Hash code
 	 */
 	public function getHashCode() {
-    	return md5(
-    		  $this->_text
-    		. __CLASS__
-    	);
-    }
+		return md5($this->_text . __CLASS__);
+	}
 
 	/**
 	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
 	 */
 	public function __clone() {
 		$vars = get_object_vars($this);
-		foreach ($vars as $key => $value) {
-			if (is_object($value)) {
+		foreach ($vars as $key => $value)
+		{
+			if (is_object($value))
+			{
 				$this->$key = clone $value;
-			} else {
+			}
+			else
+			{
 				$this->$key = $value;
 			}
 		}

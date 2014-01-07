@@ -1,23 +1,27 @@
 <?php
+
 class DbPDO extends Db {
 	public static function hasTableWithSamePrefix($server, $user, $pwd, $db, $prefix) {
-		try {
+		try
+		{
 			$link = DbPDO::_getPDO($server, $user, $pwd, $db, 5);
-		}
-		catch (PDOException $e) {
+		} catch (PDOException $e)
+		{
 			return false;
 		}
 
 		$sql = 'SHOW TABLES LIKE \'' . $prefix . '%\'';
 		$result = $link->query($sql);
-		return (bool) $result->fetch();
+
+		return (bool)$result->fetch();
 	}
 
 	public function connect() {
-		try {
+		try
+		{
 			$this->link = $this->_getPDO($this->server, $this->user, $this->password, $this->database, 5);
-		}
-		catch (PDOException $e) {
+		} catch (PDOException $e)
+		{
 			die(sprintf(Tools::displayError('Link to database cannot be established: %s'), $e->getMessage()));
 		}
 
@@ -35,6 +39,7 @@ class DbPDO extends Db {
 	public function nextRow($result = false) {
 		if (!$result)
 			$result = $this->result;
+
 		return $result->fetch(PDO::FETCH_ASSOC);
 	}
 
@@ -48,11 +53,13 @@ class DbPDO extends Db {
 
 	public function getMsgError($query = false) {
 		$error = $this->link->errorInfo();
+
 		return ($error[0] == '00000') ? '' : $error[2];
 	}
 
 	public function getNumberError() {
 		$error = $this->link->errorInfo();
+
 		return isset($error[1]) ? $error[1] : 0;
 	}
 
@@ -63,6 +70,7 @@ class DbPDO extends Db {
 	public function _escape($str) {
 		$search = array("\\", "\0", "\n", "\r", "\x1a", "'", '"');
 		$replace = array("\\\\", "\\0", "\\n", "\\r", "\Z", "\'", '\"');
+
 		return str_replace($search, $replace, $str);
 	}
 
@@ -73,7 +81,8 @@ class DbPDO extends Db {
 	protected function _query($sql) {
 		if ($this->ping())
 			return $this->link->query($sql);
-		else {
+		else
+		{
 			if ($this->connect())
 				return $this->link->query($sql);
 			else
@@ -90,10 +99,11 @@ class DbPDO extends Db {
 	}
 
 	public static function checkCreatePrivilege($server, $user, $pwd, $db, $prefix, $engine) {
-		try {
+		try
+		{
 			$link = DbPDO::_getPDO($server, $user, $pwd, $db, 5);
-		}
-		catch (PDOException $e) {
+		} catch (PDOException $e)
+		{
 			return false;
 		}
 
@@ -102,23 +112,28 @@ class DbPDO extends Db {
 		`test` tinyint(1) unsigned NOT NULL
 		) ENGINE=MyISAM';
 		$result = $link->query($sql);
-		if (!$result) {
+		if (!$result)
+		{
 			$error = $link->errorInfo();
+
 			return $error[2];
 		}
 		$link->query('DROP TABLE `' . $prefix . 'test`');
+
 		return true;
 	}
 
 	public static function tryToConnect($server, $user, $pwd, $db, $newDbLink = true, $engine = null, $timeout = 5) {
-		try {
+		try
+		{
 			$link = DbPDO::_getPDO($server, $user, $pwd, $db, $timeout);
-		}
-		catch (PDOException $e) {
+		} catch (PDOException $e)
+		{
 			return ($e->getCode() == 1049) ? 2 : 1;
 		}
 
-		if (strtolower($engine) == 'innodb') {
+		if (strtolower($engine) == 'innodb')
+		{
 			$sql = 'SHOW VARIABLES WHERE Variable_name = \'have_innodb\'';
 			$result = $link->query($sql);
 			if (!$result)
@@ -128,14 +143,16 @@ class DbPDO extends Db {
 				return 4;
 		}
 		unset($link);
+
 		return 0;
 	}
 
 	public static function tryUTF8($server, $user, $pwd) {
-		try {
+		try
+		{
 			$link = DbPDO::_getPDO($server, $user, $pwd, false, 5);
-		}
-		catch (PDOException $e) {
+		} catch (PDOException $e)
+		{
 			return false;
 		}
 		$result = $link->exec('SET NAMES \'utf8\'');

@@ -26,11 +26,11 @@ class Validate {
 	}
 
 	public static function isFloat($float) {
-		return strval((float) $float) == strval($float);
+		return strval((float)$float) == strval($float);
 	}
 
 	public static function isUnsignedFloat($float) {
-		return strval((float) $float) == strval($float) && $float >= 0;
+		return strval((float)$float) == strval($float) && $float >= 0;
 	}
 
 	public static function isOptFloat($float) {
@@ -73,6 +73,7 @@ class Validate {
 		$events .= '|ondragleave|ondragover|ondragstart|ondrop|onerrorupdate|onfilterchange|onfinish|onfocusin|onfocusout|onhashchange|onhelp|oninput|onlosecapture|onmessage|onmouseup|onmovestart';
 		$events .= '|onoffline|ononline|onpaste|onpropertychange|onreadystatechange|onresizeend|onresizestart|onrowenter|onrowexit|onrowsdelete|onrowsinserted|onscroll|onsearch|onselectionchange';
 		$events .= '|onselectstart|onstart|onstop';
+
 		return (!preg_match('/<[ \t\n]*script/ims', $html) && !preg_match('/(' . $events . ')[ \t\n]*=/ims', $html) && !preg_match('/.*script\:/ims', $html) && !preg_match('/<[ \t\n]*i?frame/ims', $html));
 	}
 
@@ -81,28 +82,32 @@ class Validate {
 	}
 
 	public static function isDateFormat($date) {
-		return (bool) preg_match('/^([0-9]{4})-((0?[0-9])|(1[0-2]))-((0?[0-9])|([1-2][0-9])|(3[01]))( [0-9]{2}:[0-9]{2}:[0-9]{2})?$/', $date);
+		return (bool)preg_match('/^([0-9]{4})-((0?[0-9])|(1[0-2]))-((0?[0-9])|([1-2][0-9])|(3[01]))( [0-9]{2}:[0-9]{2}:[0-9]{2})?$/', $date);
 	}
 
 	public static function isDate($date) {
 		if (!preg_match('/^([0-9]{4})-((0?[1-9])|(1[0-2]))-((0?[1-9])|([1-2][0-9])|(3[01]))( [0-9]{2}:[0-9]{2}:[0-9]{2})?$/ui', $date, $matches))
 			return false;
+
 		return checkdate(intval($matches[2]), intval($matches[5]), intval($matches[0]));
 	}
 
 	public static function isTimestamp($time) {
 		//return ctype_digit($time) && $time <= 2147483647;
-		return (int) $time > 0 && strtotime(date('Y-m-d H:i:s', $time)) === (int) $time;
+		return (int)$time > 0 && strtotime(date('Y-m-d H:i:s', $time)) === (int)$time;
 	}
 
 	public static function isBirthDate($date) {
 		if (empty($date) || $date == '0000-00-00')
 			return true;
-		if (preg_match('/^([0-9]{4})-((?:0?[1-9])|(?:1[0-2]))-((?:0?[1-9])|(?:[1-2][0-9])|(?:3[01]))([0-9]{2}:[0-9]{2}:[0-9]{2})?$/', $date, $birth_date)) {
+		if (preg_match('/^([0-9]{4})-((?:0?[1-9])|(?:1[0-2]))-((?:0?[1-9])|(?:[1-2][0-9])|(?:3[01]))([0-9]{2}:[0-9]{2}:[0-9]{2})?$/', $date, $birth_date))
+		{
 			if ($birth_date[1] > date('Y') && $birth_date[2] > date('m') && $birth_date[3] > date('d'))
 				return false;
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -115,11 +120,11 @@ class Validate {
 	}
 
 	public static function isInt($value) {
-		return ((string) (int) $value === (string) $value || $value === false);
+		return ((string)(int)$value === (string)$value || $value === false);
 	}
 
 	public static function isUnsignedInt($value) {
-		return (preg_match('#^[0-9]+$#', (string) $value) && $value < 4294967296 && $value >= 0);
+		return (preg_match('#^[0-9]+$#', (string)$value) && $value < 4294967296 && $value >= 0);
 	}
 
 	public static function isPercentage($value) {
@@ -208,9 +213,11 @@ class Validate {
 	}
 
 	public static function isOptNickname($data) {
-		if ($data == null || self::isNickname($data)) {
+		if ($data == null || self::isNickname($data))
+		{
 			return true;
 		}
+
 		return false;
 	}
 

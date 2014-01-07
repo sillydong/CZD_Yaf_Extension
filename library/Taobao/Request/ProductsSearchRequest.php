@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.products.search request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_ProductsSearchRequest {
 	/**
@@ -23,7 +24,7 @@ class Taobao_Request_ProductsSearchRequest {
 
 	/**
 	 * 市场ID，1为取C2C市场的产品信息， 2为取B2C市场的产品信息。
-	不填写此值则默认取C2C的产品信息。
+	 * 不填写此值则默认取C2C的产品信息。
 	 **/
 	private $marketId;
 
@@ -39,7 +40,7 @@ class Taobao_Request_ProductsSearchRequest {
 
 	/**
 	 * 属性,属性值的组合.格式:pid:vid;pid:vid;调用taobao.itemprops.get获取类目属性pid
-	,再用taobao.itempropvalues.get取得vid.
+	 * ,再用taobao.itempropvalues.get取得vid.
 	 **/
 	private $props;
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.notify.message.page.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbNotifyMessagePageGetRequest {
 	/**
@@ -13,12 +14,12 @@ class Taobao_Request_WlbNotifyMessagePageGetRequest {
 
 	/**
 	 * 通知消息编码：
-	STOCK_IN_NOT_CONSISTENT---入库单不一致
-	CANCEL_ORDER_SUCCESS---取消订单成功
-	INVENTORY_CHECK---盘点
-	CANCEL_ORDER_FAILURE---取消订单失败
-	ORDER_REJECT--wms拒单
-	ORDER_CONFIRMED--订单处理成功
+	 * STOCK_IN_NOT_CONSISTENT---入库单不一致
+	 * CANCEL_ORDER_SUCCESS---取消订单成功
+	 * INVENTORY_CHECK---盘点
+	 * CANCEL_ORDER_FAILURE---取消订单失败
+	 * ORDER_REJECT--wms拒单
+	 * ORDER_CONFIRMED--订单处理成功
 	 **/
 	private $msgCode;
 
@@ -39,9 +40,9 @@ class Taobao_Request_WlbNotifyMessagePageGetRequest {
 
 	/**
 	 * 消息状态：
-	不需要确认：NO_NEED_CONFIRM
-	已确认：CONFIRMED
-	待确认：TO_BE_CONFIRM
+	 * 不需要确认：NO_NEED_CONFIRM
+	 * 已确认：CONFIRMED
+	 * 待确认：TO_BE_CONFIRM
 	 **/
 	private $status;
 

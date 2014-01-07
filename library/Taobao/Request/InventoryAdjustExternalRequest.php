@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.inventory.adjust.external request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_InventoryAdjustExternalRequest {
 	/**
@@ -18,7 +19,7 @@ class Taobao_Request_InventoryAdjustExternalRequest {
 
 	/**
 	 * 商品初始库存信息： [{"scItemId":"商品后端ID，如果有传scItemCode,参数可以为0","scItemCode":"商品商家编码","inventoryType":"库存类型  1：正常,”direction”: 1: 盘盈 -1: 盘亏,参数可选,"quantity":"数量"}]
-	 **/
+     **/
 	private $items;
 
 	/**
@@ -38,7 +39,7 @@ class Taobao_Request_InventoryAdjustExternalRequest {
 
 	/**
 	 * 出库时库存扣减类型，operate_type为OUTBOUND时有效。
-	AUTO_CALCULATE:自动计算可供扣减，如果库存不够返回失败 ClIENT_FORCE：强制要求最大化扣减，有多少扣多少
+	 * AUTO_CALCULATE:自动计算可供扣减，如果库存不够返回失败 ClIENT_FORCE：强制要求最大化扣减，有多少扣多少
 	 **/
 	private $reduceType;
 

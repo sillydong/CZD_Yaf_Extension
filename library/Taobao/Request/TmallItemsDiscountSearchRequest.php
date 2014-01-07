@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: tmall.items.discount.search request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TmallItemsDiscountSearchRequest {
 	/**
@@ -38,12 +39,12 @@ class Taobao_Request_TmallItemsDiscountSearchRequest {
 
 	/**
 	 * 排序类型。类型包括：
-	s: 人气排序
-	p: 价格从低到高;
-	pd: 价格从高到低;
-	d: 月销量从高到低;
-	td: 总销量从高到低;
-	pt: 按发布时间排序.
+	 * s: 人气排序
+	 * p: 价格从低到高;
+	 * pd: 价格从高到低;
+	 * d: 月销量从高到低;
+	 * td: 总销量从高到低;
+	 * pt: 按发布时间排序.
 	 **/
 	private $sort;
 

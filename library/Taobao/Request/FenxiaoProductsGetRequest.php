@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.fenxiao.products.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_FenxiaoProductsGetRequest {
 	/**
@@ -18,8 +19,8 @@ class Taobao_Request_FenxiaoProductsGetRequest {
 
 	/**
 	 * 查询产品列表时，查询入参“是否需要授权”
-	yes:需要授权
-	no:不需要授权
+	 * yes:需要授权
+	 * no:不需要授权
 	 **/
 	private $isAuthz;
 

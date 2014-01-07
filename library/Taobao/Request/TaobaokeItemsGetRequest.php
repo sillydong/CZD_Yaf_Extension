@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.taobaoke.items.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TaobaokeItemsGetRequest {
 	/**
@@ -58,7 +59,7 @@ class Taobao_Request_TaobaokeItemsGetRequest {
 
 	/**
 	 * 需返回的字段列表.可选值:num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume
-	;字段之间用","分隔
+	 * ;字段之间用","分隔
 	 **/
 	private $fields;
 
@@ -84,7 +85,7 @@ class Taobao_Request_TaobaokeItemsGetRequest {
 
 	/**
 	 * 淘宝用户昵称，注：指的是淘宝的会员登录名.如果昵称错误,那么客户就收不到佣金.每个淘宝昵称都对应于一个pid，在这里输入要结算佣金的淘宝昵称，当推广的商品成功后，佣金会打入此输入的淘宝昵称的账户。具体的信息可以登入阿里妈妈的网站查看.
-	<font color="red">注意nick和pid至少需要传递一个,如果2个都传了,将以pid为准</font>
+	 * <font color="red">注意nick和pid至少需要传递一个,如果2个都传了,将以pid为准</font>
 	 **/
 	private $nick;
 
@@ -115,7 +116,7 @@ class Taobao_Request_TaobaokeItemsGetRequest {
 
 	/**
 	 * 用户的pid,必须是mm_xxxx_0_0这种格式中间的"xxxx".
-	<font color="red">注意nick和pid至少需要传递一个,如果2个都传了,将以pid为准,且pid的最大长度是20</font>。第一次调用接口的用户，推荐该入参不要填写，使用nick=（淘宝账号）的方式去获取，以免出错。
+	 * <font color="red">注意nick和pid至少需要传递一个,如果2个都传了,将以pid为准,且pid的最大长度是20</font>。第一次调用接口的用户，推荐该入参不要填写，使用nick=（淘宝账号）的方式去获取，以免出错。
 	 **/
 	private $pid;
 
@@ -136,18 +137,18 @@ class Taobao_Request_TaobaokeItemsGetRequest {
 
 	/**
 	 * 默认排序:default
-
-	price_desc(价格从高到低)
-	price_asc(价格从低到高)
-	credit_desc(信用等级从高到低)
-	commissionRate_desc(佣金比率从高到低)
-	commissionRate_asc(佣金比率从低到高)
-	commissionNum_desc(成交量成高到低)
-	commissionNum_asc(成交量从低到高)
-	commissionVolume_desc(总支出佣金从高到低)
-	commissionVolume_asc(总支出佣金从低到高)
-	delistTime_desc(商品下架时间从高到低)
-	delistTime_asc(商品下架时间从低到高)
+	 *
+	 * price_desc(价格从高到低)
+	 * price_asc(价格从低到高)
+	 * credit_desc(信用等级从高到低)
+	 * commissionRate_desc(佣金比率从高到低)
+	 * commissionRate_asc(佣金比率从低到高)
+	 * commissionNum_desc(成交量成高到低)
+	 * commissionNum_asc(成交量从低到高)
+	 * commissionVolume_desc(总支出佣金从高到低)
+	 * commissionVolume_asc(总支出佣金从低到高)
+	 * delistTime_desc(商品下架时间从高到低)
+	 * delistTime_asc(商品下架时间从低到高)
 	 **/
 	private $sort;
 
@@ -163,27 +164,27 @@ class Taobao_Request_TaobaokeItemsGetRequest {
 
 	/**
 	 * 卖家信用:
-
-	1heart(一心)
-	2heart (两心)
-	3heart(三心)
-	4heart(四心)
-	5heart(五心)
-	1diamond(一钻)
-	2diamond(两钻)
-	3diamond(三钻)
-	4diamond(四钻)
-	5diamond(五钻)
-	1crown(一冠)
-	2crown(两冠)
-	3crown(三冠)
-	4crown(四冠)
-	5crown(五冠)
-	1goldencrown(一黄冠)
-	2goldencrown(二黄冠)
-	3goldencrown(三黄冠)
-	4goldencrown(四黄冠)
-	5goldencrown(五黄冠)
+	 *
+	 * 1heart(一心)
+	 * 2heart (两心)
+	 * 3heart(三心)
+	 * 4heart(四心)
+	 * 5heart(五心)
+	 * 1diamond(一钻)
+	 * 2diamond(两钻)
+	 * 3diamond(三钻)
+	 * 4diamond(四钻)
+	 * 5diamond(五钻)
+	 * 1crown(一冠)
+	 * 2crown(两冠)
+	 * 3crown(三冠)
+	 * 4crown(四冠)
+	 * 5crown(五冠)
+	 * 1goldencrown(一黄冠)
+	 * 2goldencrown(二黄冠)
+	 * 3goldencrown(三黄冠)
+	 * 4goldencrown(四黄冠)
+	 * 5goldencrown(五黄冠)
 	 **/
 	private $startCredit;
 

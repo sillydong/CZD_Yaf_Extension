@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.hotel.order.booking.feedback request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HotelOrderBookingFeedbackRequest {
 	/**
@@ -33,8 +34,8 @@ class Taobao_Request_HotelOrderBookingFeedbackRequest {
 
 	/**
 	 * 预订结果
-	S:成功
-	F:失败
+	 * S:成功
+	 * F:失败
 	 **/
 	private $result;
 

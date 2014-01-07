@@ -19,10 +19,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package	PHPExcel_Worksheet
+ * @package    PHPExcel_Worksheet
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version	1.7.9, 2013-06-02
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    1.7.9, 2013-06-02
  */
 
 
@@ -32,11 +32,10 @@
  * Used to iterate rows in a PHPExcel_Worksheet
  *
  * @category   PHPExcel
- * @package	PHPExcel_Worksheet
+ * @package    PHPExcel_Worksheet
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Worksheet_RowIterator implements Iterator
-{
+class PHPExcel_Worksheet_RowIterator implements Iterator {
 	/**
 	 * PHPExcel_Worksheet to iterate
 	 *
@@ -62,8 +61,8 @@ class PHPExcel_Worksheet_RowIterator implements Iterator
 	/**
 	 * Create a new row iterator
 	 *
-	 * @param	PHPExcel_Worksheet	$subject	The worksheet to iterate over
-	 * @param	integer				$startRow	The row number at which to start iterating
+	 * @param    PHPExcel_Worksheet $subject  The worksheet to iterate over
+	 * @param    integer            $startRow The row number at which to start iterating
 	 */
 	public function __construct(PHPExcel_Worksheet $subject = null, $startRow = 1) {
 		// Set subject
@@ -81,7 +80,7 @@ class PHPExcel_Worksheet_RowIterator implements Iterator
 	/**
 	 * (Re)Set the start row and the current row pointer
 	 *
-	 * @param integer	$startRow	The row number at which to start iterating
+	 * @param integer $startRow The row number at which to start iterating
 	 */
 	public function resetStart($startRow = 1) {
 		$this->_startRow = $startRow;
@@ -91,7 +90,7 @@ class PHPExcel_Worksheet_RowIterator implements Iterator
 	/**
 	 * Set the row pointer to the selected row
 	 *
-	 * @param integer	$row	The row number to set the current pointer at
+	 * @param integer $row The row number to set the current pointer at
 	 */
 	public function seek($row = 1) {
 		$this->_position = $row;

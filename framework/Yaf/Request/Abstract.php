@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Handle request object ...
@@ -7,51 +8,61 @@
 abstract class Yaf_Request_Abstract {
 	/**
 	 * Module
+	 *
 	 * @var string
 	 */
 	public $module;
 	/**
 	 * Controller
+	 *
 	 * @var string
 	 */
 	public $controller;
 	/**
 	 * Action
+	 *
 	 * @var string
 	 */
 	public $action;
 	/**
 	 * Method
+	 *
 	 * @var string
 	 */
 	public $method;
 	/**
 	 * Has the action been dispatched?
+	 *
 	 * @var boolean
 	 */
 	protected $dispatched = false;
 	/**
 	 * Request parameters
+	 *
 	 * @var array
 	 */
 	protected $params = array();
 	/**
 	 * request_uri
+	 *
 	 * @var string
 	 */
 	protected $language;
 	/**
 	 * routed
+	 *
 	 * @var string
 	 */
 	protected $routed;
 	/**
 	 * base_uri
+	 *
 	 * @var string
 	 */
 	protected $_baseUri;
 	/**
 	 * exception
+	 *
 	 * @var string
 	 */
 	protected $_exception;
@@ -86,18 +97,22 @@ abstract class Yaf_Request_Abstract {
 	 * If no $key is passed, returns the entire $_ENV array.
 	 *
 	 * @param string $name
-	 * @param mixed $default Default value to use if key not found
+	 * @param mixed  $default Default value to use if key not found
+	 *
 	 * @return mixed Returns null if key does not exist
 	 */
 	public function getEnv($name = null, $default = null) {
-		if (null === $name) {
+		if (null === $name)
+		{
 			return $_ENV;
 		}
+
 		return (isset($_ENV[$name])) ? $_ENV[$name] : $default;
 	}
 
 	/**
 	 * Retrieve the exception
+	 *
 	 * @todo check if this is OK
 	 * @return string
 	 */
@@ -107,36 +122,46 @@ abstract class Yaf_Request_Abstract {
 
 	/**
 	 * Retrieve the language
+	 *
 	 * @return string
 	 */
 	public function getLanguage() {
-		if (null === $this->language) {
+		if (null === $this->language)
+		{
 			$this->language = $this->getEnv('HTTP_ACCEPT_LANGUAGE');
 		}
+
 		return $this->language;
 	}
 
 	/**
 	 * Retrieve the method
+	 *
 	 * @return string
 	 */
 	public function getMethod() {
-		if (null === $this->method) {
+		if (null === $this->method)
+		{
 			$method = $this->getServer('REQUEST_METHOD');
-			if ($method) {
+			if ($method)
+			{
 				$this->method = $method;
 			}
-			else {
+			else
+			{
 				$sapiType = php_sapi_name();
 				if (strtolower($sapiType) == 'cli' || substr($sapiType, 0, 3) == 'cgi'
-				) {
+				)
+				{
 					$this->method = 'CLI';
 				}
-				else {
+				else
+				{
 					$this->method = 'Unknown';
 				}
 			}
 		}
+
 		return $this->method;
 	}
 
@@ -148,14 +173,17 @@ abstract class Yaf_Request_Abstract {
 	 * Get an action parameter
 	 *
 	 * @param string $key
-	 * @param mixed $default Default value to use if key not found
+	 * @param mixed  $default Default value to use if key not found
+	 *
 	 * @return mixed
 	 */
 	public function getParam($name, $default = null) {
-		$name = (string) $name;
-		if (isset($this->params[$name])) {
+		$name = (string)$name;
+		if (isset($this->params[$name]))
+		{
 			return $this->params[$name];
 		}
+
 		return $default;
 	}
 
@@ -177,20 +205,25 @@ abstract class Yaf_Request_Abstract {
 	 * If no $key is passed, returns the entire $_SERVER array.
 	 *
 	 * @param string $key
-	 * @param mixed $default Default value to use if key not found
+	 * @param mixed  $default Default value to use if key not found
+	 *
 	 * @return mixed Returns null if key does not exist
 	 */
 	public function getServer($name = null, $default = null) {
-		if (null === $name) {
+		if (null === $name)
+		{
 			return $_SERVER;
 		}
+
 		return (isset($_SERVER[$name])) ? $_SERVER[$name] : $default;
 	}
 
 	public function isCli() {
-		if ('CLI' == $this->getMethod()) {
+		if ('CLI' == $this->getMethod())
+		{
 			return true;
 		}
+
 		return false;
 	}
 
@@ -209,9 +242,11 @@ abstract class Yaf_Request_Abstract {
 	 * @return boolean
 	 */
 	public function isGet() {
-		if ('GET' == $this->getMethod()) {
+		if ('GET' == $this->getMethod())
+		{
 			return true;
 		}
+
 		return false;
 	}
 
@@ -221,9 +256,11 @@ abstract class Yaf_Request_Abstract {
 	 * @return boolean
 	 */
 	public function isHead() {
-		if ('HEAD' == $this->getMethod()) {
+		if ('HEAD' == $this->getMethod())
+		{
 			return true;
 		}
+
 		return false;
 	}
 
@@ -233,7 +270,8 @@ abstract class Yaf_Request_Abstract {
 	 * @return boolean
 	 */
 	public function isOptions() {
-		if ('OPTIONS' == $this->getMethod()) {
+		if ('OPTIONS' == $this->getMethod())
+		{
 			return true;
 		}
 
@@ -246,7 +284,8 @@ abstract class Yaf_Request_Abstract {
 	 * @return boolean
 	 */
 	public function isPost() {
-		if ('POST' == $this->getMethod()) {
+		if ('POST' == $this->getMethod())
+		{
 			return true;
 		}
 
@@ -259,7 +298,8 @@ abstract class Yaf_Request_Abstract {
 	 * @return boolean
 	 */
 	public function isPut() {
-		if ('PUT' == $this->getMethod()) {
+		if ('PUT' == $this->getMethod())
+		{
 			return true;
 		}
 
@@ -272,7 +312,8 @@ abstract class Yaf_Request_Abstract {
 	 * @return boolean
 	 */
 	public function isDelete() {
-		if ('DELETE' == $this->getMethod()) {
+		if ('DELETE' == $this->getMethod())
+		{
 			return true;
 		}
 
@@ -303,16 +344,20 @@ abstract class Yaf_Request_Abstract {
 	 * Set the action name
 	 *
 	 * @param string $value
+	 *
 	 * @return Yaf_Request_Abstract
 	 */
 	public function setActionName($action) {
-		if (!is_string($action)) {
+		if (!is_string($action))
+		{
 			throw new Yaf_Request_Exception('Expect a string action name');
 		}
 		$this->action = $action;
-		if (null === $action) {
+		if (null === $action)
+		{
 			$this->setParam('action', $action);
 		}
+
 		return $this;
 	}
 
@@ -320,13 +365,16 @@ abstract class Yaf_Request_Abstract {
 	 * Set the controller name to use
 	 *
 	 * @param string $value
+	 *
 	 * @return Yaf_Request_Abstract
 	 */
 	public function setControllerName($controller) {
-		if (!is_string($controller)) {
+		if (!is_string($controller))
+		{
 			throw new Yaf_Request_Exception('Expect a string controller name');
 		}
 		$this->controller = $controller;
+
 		return $this;
 	}
 
@@ -338,13 +386,16 @@ abstract class Yaf_Request_Abstract {
 	 * Set the module name to use
 	 *
 	 * @param string $value
+	 *
 	 * @return Yaf_Request_Abstract
 	 */
 	public function setModuleName($module) {
-		if (!is_string($module)) {
+		if (!is_string($module))
+		{
 			throw new Yaf_Request_Exception('Expect a string module name');
 		}
 		$this->module = $module;
+
 		return $this;
 	}
 
@@ -354,12 +405,14 @@ abstract class Yaf_Request_Abstract {
 	 * A $value of null will unset the $key if it exists
 	 *
 	 * @param string $key
-	 * @param mixed $value
+	 * @param mixed  $value
+	 *
 	 * @return Yaf_Request_Abstract
 	 */
 	public function setParam($name, $value = null) {
-		if (is_array($name)) {
-			$this->params = $this->params + (array) $name;
+		if (is_array($name))
+		{
+			$this->params = $this->params + (array)$name;
 
 			/*foreach ($name as $key => $value) {
 				if (null === $value) {
@@ -367,8 +420,9 @@ abstract class Yaf_Request_Abstract {
 				}
 			}*/
 		}
-		else {
-			$name = (string) $name;
+		else
+		{
+			$name = (string)$name;
 
 			/*if ((null === $value) && isset($this->_params[$name])) {
 				unset($this->_params[$name]);
@@ -377,6 +431,7 @@ abstract class Yaf_Request_Abstract {
 			}*/
 			$this->params[$name] = $value;
 		}
+
 		return $this;
 	}
 
@@ -387,6 +442,7 @@ abstract class Yaf_Request_Abstract {
 	 */
 	public function clearParams() {
 		$this->params = array();
+
 		return $this;
 	}
 
@@ -397,10 +453,12 @@ abstract class Yaf_Request_Abstract {
 	 * Set flag indicating whether or not request has been dispatched
 	 *
 	 * @param boolean $flag
+	 *
 	 * @return Yaf_Request_Abstract
 	 */
 	public function setRouted($flag = true) {
 		$this->routed = $flag ? true : false;
+
 		return $this;
 	}
 }

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.refunds.apply.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_RefundsApplyGetRequest {
 	/**
@@ -28,30 +29,30 @@ class Taobao_Request_RefundsApplyGetRequest {
 
 	/**
 	 * 退款状态，默认查询所有退款状态的数据，除了默认值外每次只能查询一种状态。
-	WAIT_SELLER_AGREE(买家已经申请退款，等待卖家同意)
-	WAIT_BUYER_RETURN_GOODS(卖家已经同意退款，等待买家退货)
-	WAIT_SELLER_CONFIRM_GOODS(买家已经退货，等待卖家确认收货)
-	SELLER_REFUSE_BUYER(卖家拒绝退款)
-	CLOSED(退款关闭)
-	SUCCESS(退款成功)
+	 * WAIT_SELLER_AGREE(买家已经申请退款，等待卖家同意)
+	 * WAIT_BUYER_RETURN_GOODS(卖家已经同意退款，等待买家退货)
+	 * WAIT_SELLER_CONFIRM_GOODS(买家已经退货，等待卖家确认收货)
+	 * SELLER_REFUSE_BUYER(卖家拒绝退款)
+	 * CLOSED(退款关闭)
+	 * SUCCESS(退款成功)
 	 **/
 	private $status;
 
 	/**
 	 * 交易类型列表，一次查询多种类型可用半角逗号分隔，默认同时查询guarantee_trade, auto_delivery的2种类型的数据。
-	fixed(一口价)
-	auction(拍卖)
-	guarantee_trade(一口价、拍卖)
-	independent_simple_trade(旺店入门版交易)
-	independent_shop_trade(旺店标准版交易)
-	auto_delivery(自动发货)
-	ec(直冲)
-	cod(货到付款)
-	fenxiao(分销)
-	game_equipment(游戏装备)
-	shopex_trade(ShopEX交易)
-	netcn_trade(万网交易)
-	external_trade(统一外部交易)
+	 * fixed(一口价)
+	 * auction(拍卖)
+	 * guarantee_trade(一口价、拍卖)
+	 * independent_simple_trade(旺店入门版交易)
+	 * independent_shop_trade(旺店标准版交易)
+	 * auto_delivery(自动发货)
+	 * ec(直冲)
+	 * cod(货到付款)
+	 * fenxiao(分销)
+	 * game_equipment(游戏装备)
+	 * shopex_trade(ShopEX交易)
+	 * netcn_trade(万网交易)
+	 * external_trade(统一外部交易)
 	 **/
 	private $type;
 

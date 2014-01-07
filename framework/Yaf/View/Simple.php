@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple view class to help enforce private constructs.
  *
@@ -7,11 +8,13 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	/**
 	 * List of Variables which will be replaced in the
 	 * template
+	 *
 	 * @var array
 	 */
 	protected $_tpl_vars = array();
 	/**
 	 * Directory where the templates exists
+	 *
 	 * @var string
 	 */
 	protected $_tpl_dir = '';
@@ -38,28 +41,35 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * names (with the corresponding array values).
 	 *
 	 * @see    __set()
-	 * @param  string|array The assignment strategy to use.
-	 * @param  mixed (Optional) If assigning a named variable, use this
-	 * as the value.
+	 *
+	 * @param  string|array     The assignment strategy to use.
+	 * @param  mixed (Optional) If  assigning a named variable, use this
+	 *                              as the value.
+	 *
 	 * @return Yaf_View_Simple
 	 * @throws Yaf_Exception_LoadFailed_View if $name is
 	 * neither a string nor an array,
 	 */
 	public function assign($name, $value = null) {
 		// which strategy to use?
-		if (is_string($name)) {
+		if (is_string($name))
+		{
 			// assign by name and value
 			$this->_tpl_vars[$name] = $value;
 		}
-		elseif (is_array($name)) {
+		elseif (is_array($name))
+		{
 			// assign from associative array
-			foreach ($name as $key => $val) {
+			foreach ($name as $key => $val)
+			{
 				$this->_tpl_vars[$key] = $val;
 			}
 		}
-		else {
+		else
+		{
 			throw new Yaf_Exception('assign() expects a string or array, received ' . gettype($name));
 		}
+
 		return $this;
 	}
 
@@ -67,19 +77,23 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * Assigns by reference a variable to the view script.
 	 *
 	 * @param  string The name of the variable to be used in the template .
-	 * @param  mixed the variable value
+	 * @param  mixed  the variable value
+	 *
 	 * @return Yaf_View_Simple
 	 * @throws Yaf_Exception_LoadFailed_View if $name is not a string,
 	 */
 	public function assignRef($name, &$value) {
 		// which strategy to use?
-		if (is_string($name)) {
+		if (is_string($name))
+		{
 			// assign by name and value
 			$this->_tpl_vars[$name] = $value;
 		}
-		else {
+		else
+		{
 			throw new Yaf_Exception('assign() expects a string, received ' . gettype($name));
 		}
+
 		return $this;
 	}
 
@@ -87,12 +101,15 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * Set the path to find the view script used by render()
 	 *
 	 * @param string The directory to set as the path.
+	 *
 	 * @return void
 	 */
 	public function setScriptPath($templateDir) {
-		if (is_string($templateDir) && Yaf_G::isAbsolutePath($templateDir)) {
+		if (is_string($templateDir) && Yaf_G::isAbsolutePath($templateDir))
+		{
 			$this->_tpl_dir = $templateDir;
 		}
+
 		return $this;
 	}
 
@@ -106,12 +123,15 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	}
 
 	public function clear($name = '') {
-		if ($name != '') {
-			if (isset($this->_tpl_vars[$name])) {
+		if ($name != '')
+		{
+			if (isset($this->_tpl_vars[$name]))
+			{
 				unset($this->_tpl_vars[$name]);
 			}
 		}
-		else {
+		else
+		{
 			//clear all variables
 			$this->_tpl_vars = array();
 		}
@@ -120,31 +140,37 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	/**
 	 * Processes a view script and displays the output.
 	 *
-	 * @param string $tpl The script name to process.
+	 * @param string $tpl      The script name to process.
 	 * @param string $tpl_vars The variables to use in the view.
+	 *
 	 * @return string The script output.
 	 */
 	public function display($tpl, $tplVars = array()) {
-		if (!is_string($tpl) || $tpl == null) {
+		if (!is_string($tpl) || $tpl == null)
+		{
 			return false;
 		}
 		// find the script file name using the private method
 		$template = $this->_script($tpl);
 		echo $this->_run($template, $tplVars);
+
 		return true;
 	}
 
 	/**
 	 * Processes a view script and returns the output.
 	 *
-	 * @param string $tpl The script name to process.
+	 * @param string $tpl      The script name to process.
 	 * @param string $tpl_vars The variables to use in the view.
+	 *
 	 * @return string The script output.
 	 */
 	public function evaluate($tpl_content, $vars = array()) {
-		if (!is_string($tpl_content) || $tpl_content == null) {
+		if (!is_string($tpl_content) || $tpl_content == null)
+		{
 			return false;
 		}
+
 		return $this->_run($tpl_content, $vars, true);
 	}
 
@@ -152,17 +178,22 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * return the assigned template variable
 	 *
 	 * @param  string $name
+	 *
 	 * @return null
 	 */
 	public function get($name = '') {
-		if ($name != '') {
-			if (isset($this->_tpl_vars[$name])) {
+		if ($name != '')
+		{
+			if (isset($this->_tpl_vars[$name]))
+			{
 				return $this->_tpl_vars[$name];
 			}
 		}
-		else {
+		else
+		{
 			return $this->_tpl_vars;
 		}
+
 		return null;
 	}
 
@@ -170,6 +201,7 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * return the assigned template variable
 	 *
 	 * @param  string $name
+	 *
 	 * @return null
 	 */
 	public function __get($name) {
@@ -178,10 +210,12 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 
 	/**
 	 * Assigns a variable or an associative array to the view script.
+	 *
 	 * @see assign()
 	 *
-	 * @param string $name The variable name or array.
-	 * @param mixed $value The variable value.
+	 * @param string $name  The variable name or array.
+	 * @param mixed  $value The variable value.
+	 *
 	 * @return void
 	 */
 	public function __set($name, $value) {
@@ -193,6 +227,7 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * templates.
 	 *
 	 * @param  string $key
+	 *
 	 * @return boolean
 	 */
 	public function __isset($name) {
@@ -203,10 +238,12 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * Allows unset() on object properties to work
 	 *
 	 * @param string $key
+	 *
 	 * @return void
 	 */
 	public function __unset($name) {
-		if (isset($this->_tpl_vars[$name])) {
+		if (isset($this->_tpl_vars[$name]))
+		{
 			unset($this->_tpl_vars[$name]);
 		}
 	}
@@ -214,16 +251,19 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	/**
 	 * Processes a view script and returns the output.
 	 *
-	 * @param string $tpl The script name to process.
+	 * @param string $tpl      The script name to process.
 	 * @param string $tpl_vars The variables to use in the view.
+	 *
 	 * @return string The script output.
 	 */
 	public function render($tpl, $tplVars = array()) {
-		if (!is_string($tpl) || $tpl == null) {
+		if (!is_string($tpl) || $tpl == null)
+		{
 			return false;
 		}
 		// find the script file name using the private method
 		$template = $this->_script($tpl);
+
 		return $this->_run($template, $tplVars);
 	}
 
@@ -231,42 +271,53 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * Finds a view script from the available directory.
 	 *
 	 * @param string $name The base name of the script.
+	 *
 	 * @return void
 	 */
 	protected function _script($name) {
-		if (preg_match('#\.\.[\\\/]#', $name)) {
+		if (preg_match('#\.\.[\\\/]#', $name))
+		{
 			throw new Yaf_Exception('Requested scripts may not include parent ' . 'directory traversal ("../", "..\\" notation)');
 		}
-		if ($this->_tpl_dir == '') {
+		if ($this->_tpl_dir == '')
+		{
 			throw new Yaf_Exception_LoadFailed_View('Could not determine the view script path, ' . 'you should call Yaf_View_Simple::setScriptPath to specific it');
 		}
-		if (Yaf_G::isAbsolutePath($name) && is_readable($name)) {
+		if (Yaf_G::isAbsolutePath($name) && is_readable($name))
+		{
 			return $name;
 		}
-		else if (is_readable($this->_tpl_dir . DIRECTORY_SEPARATOR . $name)) {
+		else if (is_readable($this->_tpl_dir . DIRECTORY_SEPARATOR . $name))
+		{
 			return $this->_tpl_dir . DIRECTORY_SEPARATOR . $name;
 		}
 		throw new Yaf_Exception_LoadFailed_View("Unable to find template " . $this->_tpl_dir . DIRECTORY_SEPARATOR . $name);
 	}
 
 	protected function _run($template, $vars, $useEval = false) {
-		if ($vars == null && count($this->_tpl_vars) > 0) {
+		if ($vars == null && count($this->_tpl_vars) > 0)
+		{
 			$vars = $this->_tpl_vars;
 		}
-		else {
+		else
+		{
 			$vars = array_merge($vars, $this->_tpl_vars);
 		}
-		if ($vars != null) {
+		if ($vars != null)
+		{
 			extract($vars);
 		}
 		ob_start();
-		if ($useEval == true) {
+		if ($useEval == true)
+		{
 			eval('?>' . $template . '<?');
 		}
-		else {
+		else
+		{
 			include($template);
 		}
 		$content = ob_get_clean();
+
 		return $content;
 	}
 

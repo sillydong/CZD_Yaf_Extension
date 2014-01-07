@@ -31,19 +31,19 @@
  * @package    PHPExcel_RichText
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-interface PHPExcel_RichText_ITextElement
-{
+interface PHPExcel_RichText_ITextElement {
 	/**
 	 * Get text
 	 *
-	 * @return string	Text
+	 * @return string    Text
 	 */
 	public function getText();
 
 	/**
 	 * Set text
 	 *
-	 * @param 	$pText string	Text
+	 * @param    $pText string    Text
+	 *
 	 * @return PHPExcel_RichText_ITextElement
 	 */
 	public function setText($pText = '');
@@ -58,7 +58,7 @@ interface PHPExcel_RichText_ITextElement
 	/**
 	 * Get hash code
 	 *
-	 * @return string	Hash code
+	 * @return string    Hash code
 	 */
 	public function getHashCode();
 }

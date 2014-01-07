@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.item.bseller.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_ItemBsellerAddRequest {
 	/**
@@ -66,22 +67,22 @@ class Taobao_Request_ItemBsellerAddRequest {
 
 	/**
 	 * 宝贝特征值，格式为：
-	【key1:value1;key2:value2;key3:value3;】，key和value用【:】分隔，key&value之间用【;】分隔，只有在Top支持的特征值才能保存到宝贝上，目前支持的Key列表为：mysize_tp
+	 * 【key1:value1;key2:value2;key3:value3;】，key和value用【:】分隔，key&value之间用【;】分隔，只有在Top支持的特征值才能保存到宝贝上，目前支持的Key列表为：mysize_tp
 	 **/
 	private $features;
 
 	/**
 	 * 运费承担方式。可选值:seller（卖家承担）,buyer(买家承担);默认值:seller。卖家承担不用设置邮费和postage_id.买家承担的时候，必填邮费和postage_id
-	如果用户设置了运费模板会优先使用运费模板，否则要同步设置邮费（post_fee,express_fee,ems_fee
+	 * 如果用户设置了运费模板会优先使用运费模板，否则要同步设置邮费（post_fee,express_fee,ems_fee
 	 **/
 	private $freightPayer;
 
 	/**
 	 * 针对全球购卖家的库存类型业务，
-	有两种库存类型：现货和代购
-	参数值为1时代表现货，值为2时代表代购
-	如果传值为这两个值之外的值，会报错;
-	如果不是全球购卖家，这两个值即使设置也不会处理
+	 * 有两种库存类型：现货和代购
+	 * 参数值为1时代表现货，值为2时代表代购
+	 * 如果传值为这两个值之外的值，会报错;
+	 * 如果不是全球购卖家，这两个值即使设置也不会处理
 	 **/
 	private $globalStockType;
 
@@ -182,9 +183,9 @@ class Taobao_Request_ItemBsellerAddRequest {
 
 	/**
 	 * 本地生活电子交易凭证业务，目前此字段只涉及到的信息为有效期;
-	如果有效期为起止日期类型，此值为2012-08-06,2012-08-16
-	如果有效期为【购买成功日 至】类型则格式为2012-08-16
-	如果有效期为天数类型则格式为15
+	 * 如果有效期为起止日期类型，此值为2012-08-06,2012-08-16
+	 * 如果有效期为【购买成功日 至】类型则格式为2012-08-16
+	 * 如果有效期为天数类型则格式为15
 	 **/
 	private $localityLifeExpirydate;
 
@@ -205,13 +206,13 @@ class Taobao_Request_ItemBsellerAddRequest {
 
 	/**
 	 * 退款比例，
-	百分比%前的数字,1-100的正整数值
+	 * 百分比%前的数字,1-100的正整数值
 	 **/
 	private $localityLifeRefundRatio;
 
 	/**
 	 * 核销打款
-	1代表核销打款 0代表非核销打款
+	 * 1代表核销打款 0代表非核销打款
 	 **/
 	private $localityLifeVerification;
 
@@ -277,9 +278,9 @@ class Taobao_Request_ItemBsellerAddRequest {
 
 	/**
 	 * 秒杀商品类型。暂时不能使用。打上秒杀标记的商品，用户只能下架并不能再上架，其他任何编辑或删除操作都不能进行。如果用户想取消秒杀标记，需要联系小二进行操作。如果秒杀结束需要自由编辑请联系活动负责人（小二）去掉秒杀标记。可选类型
-	web_only(只能通过web网络秒杀)
-	wap_only(只能通过wap网络秒杀)
-	web_and_wap(既能通过web秒杀也能通过wap秒杀)
+	 * web_only(只能通过web网络秒杀)
+	 * wap_only(只能通过wap网络秒杀)
+	 * web_and_wap(既能通过web秒杀也能通过wap秒杀)
 	 **/
 	private $secondKill;
 
@@ -320,7 +321,7 @@ class Taobao_Request_ItemBsellerAddRequest {
 
 	/**
 	 * 新旧程度。可选值：new(新)，second(二手)，unused(闲置)。B商家不能发布二手商品。
-	如果是二手商品，特定类目下属性里面必填新旧成色属性
+	 * 如果是二手商品，特定类目下属性里面必填新旧成色属性
 	 **/
 	private $stuffStatus;
 

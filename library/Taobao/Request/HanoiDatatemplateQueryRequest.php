@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.hanoi.datatemplate.query request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HanoiDatatemplateQueryRequest {
 	/**
@@ -13,9 +14,9 @@ class Taobao_Request_HanoiDatatemplateQueryRequest {
 
 	/**
 	 * templateName:String 根据模板的名字查找
-	isNeedDetail：Boolean 是否返回模板详情
-	opened:int 开放策略
-	owner:创建者，填入appkey
+	 * isNeedDetail：Boolean 是否返回模板详情
+	 * opened:int 开放策略
+	 * owner:创建者，填入appkey
 	 **/
 	private $parameter;
 

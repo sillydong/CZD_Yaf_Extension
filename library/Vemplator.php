@@ -1,4 +1,5 @@
 <?php
+
 /*
  Vemplator 0.6.1 - Making MVC (Model/Vemplator/Controller) a reality
 Copyright (C) 2005-2008  Alan Szlosek
@@ -45,6 +46,7 @@ class Vemplator {
 		$path = trim($path);
 		if (substr($path, strlen($path) - 1, 1) != DIRECTORY_SEPARATOR)
 			$path .= DIRECTORY_SEPARATOR;
+
 		return $path;
 	}
 
@@ -59,28 +61,33 @@ class Vemplator {
 	 * This can be a single key and value pair, or an associate array of key=>value pairs
 	 */
 	public function assign($key, $value = '') {
-		if (is_array($key)) {
+		if (is_array($key))
+		{
 			foreach ($key as $n => $v)
 				$this->data->$n = $v;
 		}
-		elseif (is_object($key)) {
+		elseif (is_object($key))
+		{
 			foreach (get_object_vars($key) as $n => $v)
 				$this->data->$n = $v;
 		}
-		else {
+		else
+		{
 			$this->data->$key = $value;
 		}
 	}
 
 	public function append($key, $value = '') {
-		if (!property_exists($this->data, $key)) {
+		if (!property_exists($this->data, $key))
+		{
 			$this->data->$key = '';
 		}
 		$this->data->$key .= $value;
 	}
 
 	public function push($key, $value = null) {
-		if (!property_exists($this->data, $key)) {
+		if (!property_exists($this->data, $key))
+		{
 			$this->data->$key = array();
 		}
 		$data = $this->data->$key;
@@ -101,12 +108,15 @@ class Vemplator {
 	public function output($template) {
 		$out = '';
 		$foundTemplate = false;
-		if (file_exists($this->baseDirectory . $template)) {
+		if (file_exists($this->baseDirectory . $template))
+		{
 			$out = $this->bufferedOutput($this->baseDirectory, $template);
 		}
-		else {
+		else
+		{
 			throw new Exception('Tempate file: ' . $this->baseDirectory . $template . ' not found');
 		}
+
 		return $out;
 	}
 
@@ -119,6 +129,7 @@ class Vemplator {
 		ob_start();
 		include($this->compileDirectory . $template);
 		$out = ob_get_clean();
+
 		return $out;
 	}
 
@@ -142,10 +153,13 @@ class Vemplator {
 		$lines = file($templateFile);
 		$newLines = array();
 		$matches = null;
-		foreach ($lines as $line) {
+		foreach ($lines as $line)
+		{
 			$num = preg_match_all('/\{([^{}]+)\}/', $line, &$matches);
-			if ($num > 0) {
-				for ($i = 0; $i < $num; $i++) {
+			if ($num > 0)
+			{
+				for ($i = 0; $i < $num; $i++)
+				{
 					$match = $matches[0][$i];
 					$new = $this->transformSyntax($matches[1][$i]);
 					$line = str_replace($match, $new, $line);
@@ -171,15 +185,16 @@ class Vemplator {
 			'/\./',
 		);
 		$to = array(
-			'$1$this->data->$2$3',
-			'$1$this->data->$2$3',
-			'->'
+				'$1$this->data->$2$3',
+				'$1$this->data->$2$3',
+				'->'
 		);
 
 		$parts = explode(':', $input);
 
 		$string = '<?php ';
-		switch ($parts[0]) { // check for a template statement
+		switch ($parts[0])
+		{ // check for a template statement
 			case 'if':
 			case 'switch':
 				$string .= $parts[0] . '(' . preg_replace($from, $to, $parts[1]) . ') { ' . ($parts[0] == 'switch' ? 'default: ' : '');
@@ -189,7 +204,7 @@ class Vemplator {
 				$string .= 'foreach(' . preg_replace($from, $to, $pieces[0]) . ' as ';
 				$string .= preg_replace($from, $to, $pieces[1]);
 				if (sizeof($pieces) == 3) // prepares the $value portion of foreach($var as $key=>$value)
-				$string .= '=>' . preg_replace($from, $to, $pieces[2]);
+					$string .= '=>' . preg_replace($from, $to, $pieces[2]);
 				$string .= ') { ';
 				break;
 			case 'end':
@@ -210,6 +225,7 @@ class Vemplator {
 				break;
 		}
 		$string .= ' ?>';
+
 		return $string;
 	}
 }

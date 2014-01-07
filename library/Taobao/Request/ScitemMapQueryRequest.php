@@ -1,20 +1,21 @@
 <?php
+
 /**
  * TOP API: taobao.scitem.map.query request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_ScitemMapQueryRequest {
 	/**
 	 * map_type为1：前台ic商品id
-	map_type为2：分销productid
+	 * map_type为2：分销productid
 	 **/
 	private $itemId;
 
 	/**
 	 * map_type为1：前台ic商品skuid
-	map_type为2：分销商品的skuid
+	 * map_type为2：分销商品的skuid
 	 **/
 	private $skuId;
 

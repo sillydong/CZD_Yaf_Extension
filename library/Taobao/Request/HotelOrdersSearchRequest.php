@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.hotel.orders.search request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HotelOrdersSearchRequest {
 	/**
@@ -58,7 +59,7 @@ class Taobao_Request_HotelOrdersSearchRequest {
 
 	/**
 	 * 酒店订单oids列表，多个oid用英文逗号隔开，一次不超过20个。oids，tids，hids，rids，gids，（checkin_date_start，checkin_date_end），（checkout_date_start，checkout_date_end），（created_start，created_end）必须传入一项，括号表示需同时存在才做为查询条件。
-	oids，tids，hids，rids，gids同时出现时，优先级按此顺序由高到低只取一项。其他同时出现时，并列使用。
+	 * oids，tids，hids，rids，gids同时出现时，优先级按此顺序由高到低只取一项。其他同时出现时，并列使用。
 	 **/
 	private $oids;
 

@@ -32,8 +32,7 @@
  * @package    PHPExcel_Shared_Escher
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Shared_Escher_DggContainer
-{
+class PHPExcel_Shared_Escher_DggContainer {
 	/**
 	 * Maximum shape index of all shapes in all drawings increased by one
 	 *
@@ -81,8 +80,7 @@ class PHPExcel_Shared_Escher_DggContainer
 	 *
 	 * @return int
 	 */
-	public function getSpIdMax()
-	{
+	public function getSpIdMax() {
 		return $this->_spIdMax;
 	}
 
@@ -91,8 +89,7 @@ class PHPExcel_Shared_Escher_DggContainer
 	 *
 	 * @param int
 	 */
-	public function setSpIdMax($value)
-	{
+	public function setSpIdMax($value) {
 		$this->_spIdMax = $value;
 	}
 
@@ -101,8 +98,7 @@ class PHPExcel_Shared_Escher_DggContainer
 	 *
 	 * @return int
 	 */
-	public function getCDgSaved()
-	{
+	public function getCDgSaved() {
 		return $this->_cDgSaved;
 	}
 
@@ -111,8 +107,7 @@ class PHPExcel_Shared_Escher_DggContainer
 	 *
 	 * @param int
 	 */
-	public function setCDgSaved($value)
-	{
+	public function setCDgSaved($value) {
 		$this->_cDgSaved = $value;
 	}
 
@@ -121,8 +116,7 @@ class PHPExcel_Shared_Escher_DggContainer
 	 *
 	 * @return int
 	 */
-	public function getCSpSaved()
-	{
+	public function getCSpSaved() {
 		return $this->_cSpSaved;
 	}
 
@@ -131,8 +125,7 @@ class PHPExcel_Shared_Escher_DggContainer
 	 *
 	 * @param int
 	 */
-	public function setCSpSaved($value)
-	{
+	public function setCSpSaved($value) {
 		$this->_cSpSaved = $value;
 	}
 
@@ -141,8 +134,7 @@ class PHPExcel_Shared_Escher_DggContainer
 	 *
 	 * @return PHPExcel_Shared_Escher_DggContainer_BstoreContainer
 	 */
-	public function getBstoreContainer()
-	{
+	public function getBstoreContainer() {
 		return $this->_bstoreContainer;
 	}
 
@@ -151,19 +143,17 @@ class PHPExcel_Shared_Escher_DggContainer
 	 *
 	 * @param PHPExcel_Shared_Escher_DggContainer_BstoreContainer $bstoreContainer
 	 */
-	public function setBstoreContainer($bstoreContainer)
-	{
+	public function setBstoreContainer($bstoreContainer) {
 		$this->_bstoreContainer = $bstoreContainer;
 	}
 
 	/**
 	 * Set an option for the drawing group
 	 *
-	 * @param int $property The number specifies the option
+	 * @param int   $property The number specifies the option
 	 * @param mixed $value
 	 */
-	public function setOPT($property, $value)
-	{
+	public function setOPT($property, $value) {
 		$this->_OPT[$property] = $value;
 	}
 
@@ -171,13 +161,15 @@ class PHPExcel_Shared_Escher_DggContainer
 	 * Get an option for the drawing group
 	 *
 	 * @param int $property The number specifies the option
+	 *
 	 * @return mixed
 	 */
-	public function getOPT($property)
-	{
-		if (isset($this->_OPT[$property])) {
+	public function getOPT($property) {
+		if (isset($this->_OPT[$property]))
+		{
 			return $this->_OPT[$property];
 		}
+
 		return null;
 	}
 
@@ -186,8 +178,7 @@ class PHPExcel_Shared_Escher_DggContainer
 	 *
 	 * @return array
 	 */
-	public function getIDCLs()
-	{
+	public function getIDCLs() {
 		return $this->_IDCLs;
 	}
 
@@ -196,8 +187,7 @@ class PHPExcel_Shared_Escher_DggContainer
 	 *
 	 * @param array $pValue
 	 */
-	public function setIDCLs($pValue)
-	{
+	public function setIDCLs($pValue) {
 		$this->_IDCLs = $pValue;
 	}
 }

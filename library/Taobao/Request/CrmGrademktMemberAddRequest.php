@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.crm.grademkt.member.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_CrmGrademktMemberAddRequest {
 	/**
@@ -18,7 +19,7 @@ class Taobao_Request_CrmGrademktMemberAddRequest {
 
 	/**
 	 * 会员属性-json format
-	生成方法见http://open.taobao.com/doc/detail.htm?id=101281
+	 * 生成方法见http://open.taobao.com/doc/detail.htm?id=101281
 	 **/
 	private $parameter;
 

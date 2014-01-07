@@ -1,9 +1,9 @@
 <?php
+
 /**
  * chenzhidong
  * 2013-5-3
  */
-
 class PSCWS {
 	private static $instance = null;
 	private $scws = null;
@@ -24,54 +24,70 @@ class PSCWS {
 	}
 
 	public static function getInstance() {
-		if (extension_loaded('scws')) {
-			if (self::$instance == null) {
+		if (extension_loaded('scws'))
+		{
+			if (self::$instance == null)
+			{
 				self::$instance = new PSCWS();
 			}
+
 			return self::$instance;
 		}
-		else {
+		else
+		{
 			throw new Exception('extension SCWS not loaded');
 		}
 	}
 
 	/**
 	 * 获取分词结果
-	 * @param $string
+	 *
+	 * @param      $string
 	 * @param bool $doclean
-	 * @param int $multi
+	 * @param int  $multi
+	 *
 	 * @return array
 	 */
 	public function getWords($string, $doclean = true, $multi = self::MULTI_DOUBLE) {
 		$this->scws->set_multi($multi);
 		$this->scws->send_text($string);
 		$words = array();
-		while ($res = $this->scws->get_result()) {
+		while ($res = $this->scws->get_result())
+		{
 			//$words = array_merge($words, $res);
-			foreach ($res as $word) {
-				if ($word['idf'] > 0) {
+			foreach ($res as $word)
+			{
+				if ($word['idf'] > 0)
+				{
 					$words[] = array('word' => $word['word'], 'idf' => $word['idf'], 'attr' => $word['attr']);
 				}
 			}
 		}
+
 		return $doclean ? self::cleanWords($words) : $words;
 	}
 
 	/**
 	 * 保留'n','v','vn','a','nz','nr'词性的词
+	 *
 	 * @param $words
+	 *
 	 * @return array
 	 */
 	public static function cleanWords($words) {
-		if (!empty($words) && is_array($words)) {
-			foreach ($words as $key => $word) {
-				if ($word['idf'] < 4 || !in_array($word['attr'], array('n', 'v', 'vn', 'a', 'nz', 'nr'))) {
+		if (!empty($words) && is_array($words))
+		{
+			foreach ($words as $key => $word)
+			{
+				if ($word['idf'] < 4 || !in_array($word['attr'], array('n', 'v', 'vn', 'a', 'nz', 'nr')))
+				{
 					unset($words[$key]);
 				}
 			}
 			$words = Tools::arrayUnique2d($words);
 			uasort($words, array('Tools', 'cmpWord'));
 		}
+
 		return $words;
 	}
 

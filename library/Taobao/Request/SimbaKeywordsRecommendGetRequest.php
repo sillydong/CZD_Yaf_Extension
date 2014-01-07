@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.simba.keywords.recommend.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_SimbaKeywordsRecommendGetRequest {
 	/**
@@ -18,11 +19,11 @@ class Taobao_Request_SimbaKeywordsRecommendGetRequest {
 
 	/**
 	 * 排序方式:
-	搜索量 search_volume
-	市场平均价格 average_price
-	相关度 relevance
-	不排序 non
-	默认为 non
+	 * 搜索量 search_volume
+	 * 市场平均价格 average_price
+	 * 相关度 relevance
+	 * 不排序 non
+	 * 默认为 non
 	 **/
 	private $orderBy;
 

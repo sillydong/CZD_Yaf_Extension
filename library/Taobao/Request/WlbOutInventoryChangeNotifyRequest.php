@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.out.inventory.change.notify request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbOutInventoryChangeNotifyRequest {
 	/**
@@ -18,7 +19,7 @@ class Taobao_Request_WlbOutInventoryChangeNotifyRequest {
 
 	/**
 	 * OUT--出库
-	IN--入库
+	 * IN--入库
 	 **/
 	private $opType;
 
@@ -39,11 +40,11 @@ class Taobao_Request_WlbOutInventoryChangeNotifyRequest {
 
 	/**
 	 * （1）OTHER： 其他
-	（2）TAOBAO_TRADE： 淘宝交易
-	（3）OTHER_TRADE：其他交易
-	（4）ALLCOATE： 调拨
-	（5）CHECK:盘点
-	（6）PURCHASE:采购
+	 * （2）TAOBAO_TRADE： 淘宝交易
+	 * （3）OTHER_TRADE：其他交易
+	 * （4）ALLCOATE： 调拨
+	 * （5）CHECK:盘点
+	 * （6）PURCHASE:采购
 	 **/
 	private $source;
 
@@ -54,8 +55,8 @@ class Taobao_Request_WlbOutInventoryChangeNotifyRequest {
 
 	/**
 	 * WLB_ITEM--物流宝商品
-	IC_ITEM--淘宝商品
-	IC_SKU--淘宝sku
+	 * IC_ITEM--淘宝商品
+	 * IC_SKU--淘宝sku
 	 **/
 	private $type;
 

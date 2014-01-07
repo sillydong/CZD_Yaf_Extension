@@ -28,14 +28,17 @@ class Http extends \Yaf\Response_Abstract {
 	 * Set HTTP response code to use with headers
 	 *
 	 * @param int $code
+	 *
 	 * @return Yaf_Response_Http
 	 */
 	public function setResponseCode($code) {
-		if (!is_int($code) || (100 > $code) || (599 < $code)) {
+		if (!is_int($code) || (100 > $code) || (599 < $code))
+		{
 			throw new Exception('Invalid HTTP response code');
 		}
 
 		$this->_responseCode = $code;
+
 		return $this;
 	}
 
@@ -45,10 +48,12 @@ class Http extends \Yaf\Response_Abstract {
 	 * Sets Location header. Forces replacement of any prior redirects.
 	 *
 	 * @param string $url
+	 *
 	 * @return Yaf_Response_Abstract
 	 */
 	public function setRedirect($url) {
 		$this->setHeader('Location', $url, true)->setResponseCode(302);
+
 		return $this;
 	}
 
@@ -64,12 +69,15 @@ class Http extends \Yaf\Response_Abstract {
 	protected function sendHeaders() {
 		$httpCodeSent = false;
 
-		foreach ($this->_headers as $header) {
-			if (!$httpCodeSent && $this->_responseCode) {
+		foreach ($this->_headers as $header)
+		{
+			if (!$httpCodeSent && $this->_responseCode)
+			{
 				header($header['name'] . ': ' . $header['value'], $header['replace'], $this->_responseCode);
 				$httpCodeSent = true;
 			}
-			else {
+			else
+			{
 				header($header['name'] . ': ' . $header['value'], $header['replace']);
 			}
 		}

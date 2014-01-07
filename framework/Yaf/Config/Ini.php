@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Yaf Config Ini
  */
@@ -29,45 +30,57 @@ class Yaf_Config_Ini extends Yaf_Config_Simple {
 	 *      $data->hostname === "staging"
 	 *      $data->db->connection === "database"
 	 *
-	 * @param  string $filename
-	 * @param  mixed $section
+	 * @param  string  $filename
+	 * @param  mixed   $section
 	 * @param  boolean $readonly
+	 *
 	 * @throws Yaf_Config_Exception
 	 * @return void
 	 */
 	public function __construct($filename, $section = null) {
-		if (empty($filename)) {
+		if (empty($filename))
+		{
 			Yaf_Exception::trigger_error('Unable to find config file ' . $filename, E_USER_ERROR);
 			//throw new Yaf_Config_Exception('Filename is not set');
 		}
-		if (is_array($filename)) {
+		if (is_array($filename))
+		{
 			$this->_config = $filename;
 		}
-		elseif (is_string($filename)) {
+		elseif (is_string($filename))
+		{
 
 			$iniArray = $this->_loadIniFile($filename);
 
-			if (null === $section) {
+			if (null === $section)
+			{
 				// Load entire file
 				$dataArray = array();
-				foreach ($iniArray as $sectionName => $sectionData) {
-					if (!is_array($sectionData)) {
+				foreach ($iniArray as $sectionName => $sectionData)
+				{
+					if (!is_array($sectionData))
+					{
 						$dataArray = $this->_arrayMergeRecursive($dataArray, $this->_processKey(array(), $sectionName, $sectionData));
 					}
-					else {
+					else
+					{
 						$dataArray[$sectionName] = $this->_processSection($iniArray, $sectionName);
 					}
 				}
 				parent::__construct($dataArray, true);
 			}
-			else {
+			else
+			{
 				// Load one or more sections
-				if (!is_array($section)) {
+				if (!is_array($section))
+				{
 					$section = array($section);
 				}
 				$dataArray = array();
-				foreach ($section as $sectionName) {
-					if (!isset($iniArray[$sectionName])) {
+				foreach ($section as $sectionName)
+				{
+					if (!isset($iniArray[$sectionName]))
+					{
 						throw new Yaf_Config_Exception("There is no section '$sectionName' in '$filename'");
 					}
 					$dataArray = $this->_arrayMergeRecursive($this->_processSection($iniArray, $sectionName), $dataArray);
@@ -75,7 +88,8 @@ class Yaf_Config_Ini extends Yaf_Config_Simple {
 				parent::__construct($dataArray, true);
 			}
 		}
-		else {
+		else
+		{
 			throw new Yaf_Exception_TypeError('Invalid parameters provided, must be path of ini file');
 		}
 	}
@@ -84,26 +98,33 @@ class Yaf_Config_Ini extends Yaf_Config_Simple {
 	 * Retrieve a value and return null if there is no element set.
 	 *
 	 * @param string $name
-	 * @param mixed $default
+	 * @param mixed  $default
+	 *
 	 * @return mixed
 	 */
 	public function get($name) {
-		if ($name == null) {
+		if ($name == null)
+		{
 			return false;
 		}
 		$result = null;
-		if (array_key_exists($name, $this->_config)) {
+		if (array_key_exists($name, $this->_config))
+		{
 			$result = $this->_config[$name];
 		}
-		if (is_array($result)) {
+		if (is_array($result))
+		{
 			$result = new self($result, $this->readonly());
 		}
+
 		return $result;
 	}
 
 	/**
 	 * Load the INI file from disk using parse_ini_file().
+	 *
 	 * @param string $filename
+	 *
 	 * @return array
 	 */
 	protected function _parseIniFile($filename) {
@@ -128,16 +149,19 @@ class Yaf_Config_Ini extends Yaf_Config_Simple {
 	 * parse_ini_file().
 	 *
 	 * @param string $filename
+	 *
 	 * @throws Yaf_Config_Exception
 	 * @return array
 	 */
 	protected function _loadIniFile($filename) {
 		$loaded = $this->_parseIniFile($filename);
 		$iniArray = array();
-		foreach ($loaded as $key => $data) {
+		foreach ($loaded as $key => $data)
+		{
 			$pieces = explode(':', $key);
 			$thisSection = trim($pieces[0]);
-			switch (count($pieces)) {
+			switch (count($pieces))
+			{
 				case 1:
 					$iniArray[$thisSection] = $data;
 					break;
@@ -160,29 +184,37 @@ class Yaf_Config_Ini extends Yaf_Config_Simple {
 	 * key. Passes control to _processKey() to handle the nest separator
 	 * sub-property syntax that may be used within the key name.
 	 *
-	 * @param  array $iniArray
+	 * @param  array  $iniArray
 	 * @param  string $section
-	 * @param  array $config
+	 * @param  array  $config
+	 *
 	 * @throws Yaf_Config_Exception
 	 * @return array
 	 */
 	protected function _processSection($iniArray, $section, $config = array()) {
 		$thisSection = $iniArray[$section];
-		if (is_array($thisSection)) {
-			foreach ($thisSection as $key => $value) {
-				if (strtolower($key) == ';extends') {
-					if (isset($iniArray[$value])) {
+		if (is_array($thisSection))
+		{
+			foreach ($thisSection as $key => $value)
+			{
+				if (strtolower($key) == ';extends')
+				{
+					if (isset($iniArray[$value]))
+					{
 						$config = $this->_processSection($iniArray, $value, $config);
 					}
-					else {
+					else
+					{
 						throw new Yaf_Config_Exception("Parent section '$value' cannot be found");
 					}
 				}
-				else {
+				else
+				{
 					$config = $this->_processKey($config, $key, $value);
 				}
 			}
 		}
+
 		return $config;
 	}
 
@@ -190,37 +222,47 @@ class Yaf_Config_Ini extends Yaf_Config_Simple {
 	 * Assign the key's value to the property list. Handles the
 	 * nest separator for sub-properties.
 	 *
-	 * @param  array $config
+	 * @param  array  $config
 	 * @param  string $key
 	 * @param  string $value
+	 *
 	 * @throws Yaf_Config_Exception
 	 * @return array
 	 */
 	protected function _processKey($config, $key, $value) {
-		if (strpos($key, '.') !== false) {
+		if (strpos($key, '.') !== false)
+		{
 			$pieces = explode('.', $key, 2);
-			if (strlen($pieces[0]) && strlen($pieces[1])) {
-				if (!isset($config[$pieces[0]])) {
-					if ($pieces[0] === '0' && !empty($config)) {
+			if (strlen($pieces[0]) && strlen($pieces[1]))
+			{
+				if (!isset($config[$pieces[0]]))
+				{
+					if ($pieces[0] === '0' && !empty($config))
+					{
 						// convert the current values in $config into an array
 						$config = array($pieces[0] => $config);
 					}
-					else {
+					else
+					{
 						$config[$pieces[0]] = array();
 					}
 				}
-				elseif (!is_array($config[$pieces[0]])) {
+				elseif (!is_array($config[$pieces[0]]))
+				{
 					throw new Yaf_Config_Exception("Cannot create sub-key for '{$pieces[0]}' " . "as key already exists");
 				}
 				$config[$pieces[0]] = $this->_processKey($config[$pieces[0]], $pieces[1], $value);
 			}
-			else {
+			else
+			{
 				throw new Yaf_Config_Exception("Invalid key '$key'");
 			}
 		}
-		else {
+		else
+		{
 			$config[$key] = $value;
 		}
+
 		return $config;
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 /**
  * Class MinifyHTML
+ *
  * @package Minify
  */
 
@@ -14,13 +15,14 @@
  * A test suite is available.
  *
  * @package Minify
- * @author Stephen Clay <steve@mrclay.org>
+ * @author  Stephen Clay <steve@mrclay.org>
  */
 class MinifyHTML {
 
 	/**
 	 * Defines which class to call as part of callbacks, change this
 	 * if you extend MinifyHTML
+	 *
 	 * @var string
 	 */
 	protected static $className = 'MinifyHTML';
@@ -30,7 +32,7 @@ class MinifyHTML {
 	 *
 	 * @param string $html
 	 *
-	 * @param array $options
+	 * @param array  $options
 	 *
 	 * 'cssMinifier' : (optional) callback function to process content of STYLE
 	 * elements.
@@ -49,16 +51,18 @@ class MinifyHTML {
 	 */
 	public static function minify($html, $options = array()) {
 
-		if (isset($options['cssMinifier'])) {
+		if (isset($options['cssMinifier']))
+		{
 			self::$_cssMinifier = $options['cssMinifier'];
 		}
-		if (isset($options['jsMinifier'])) {
+		if (isset($options['jsMinifier']))
+		{
 			self::$_jsMinifier = $options['jsMinifier'];
 		}
 
 		$html = str_replace("\r\n", "\n", trim($html));
 
-		self::$_isXhtml = (isset($options['xhtml']) ? (bool) $options['xhtml'] : (false !== strpos($html, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML')));
+		self::$_isXhtml = (isset($options['xhtml']) ? (bool)$options['xhtml'] : (false !== strpos($html, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML')));
 
 		self::$_replacementHash = 'MINIFYHTML' . md5(time());
 		self::$_placeholders = array();
@@ -96,6 +100,7 @@ class MinifyHTML {
 		self::$_placeholders = array();
 
 		self::$_cssMinifier = self::$_jsMinifier = null;
+
 		return $html;
 	}
 
@@ -106,6 +111,7 @@ class MinifyHTML {
 	protected static function _reservePlace($content) {
 		$placeholder = '%' . self::$_replacementHash . count(self::$_placeholders) . '%';
 		self::$_placeholders[$placeholder] = $content;
+
 		return $placeholder;
 	}
 

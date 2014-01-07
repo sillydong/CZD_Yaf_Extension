@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: tmall.eai.order.refund.examine request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TmallEaiOrderRefundExamineRequest {
 	/**
@@ -23,7 +24,7 @@ class Taobao_Request_TmallEaiOrderRefundExamineRequest {
 
 	/**
 	 * 售中：onsale
-	售后：aftersale
+	 * 售后：aftersale
 	 **/
 	private $refundPhase;
 

@@ -4,15 +4,15 @@
  *
  * Compiles the {config load} tag
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Config Load Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
@@ -42,8 +42,9 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
 	/**
 	 * Compiles code for the {config_load} tag
 	 *
-	 * @param array $args     array with attributes from parser
+	 * @param array  $args     array with attributes from parser
 	 * @param object $compiler compiler object
+	 *
 	 * @return string compiled code
 	 */
 	public function compile($args, $compiler) {
@@ -51,33 +52,40 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 
-		if ($_attr['nocache'] === true) {
+		if ($_attr['nocache'] === true)
+		{
 			$compiler->trigger_template_error('nocache option not allowed', $compiler->lex->taglineno);
 		}
 
 
 		// save posible attributes
 		$conf_file = $_attr['file'];
-		if (isset($_attr['section'])) {
+		if (isset($_attr['section']))
+		{
 			$section = $_attr['section'];
 		}
-		else {
+		else
+		{
 			$section = 'null';
 		}
 		$scope = 'local';
 		// scope setup
-		if (isset($_attr['scope'])) {
+		if (isset($_attr['scope']))
+		{
 			$_attr['scope'] = trim($_attr['scope'], "'\"");
-			if (isset($_is_legal_scope[$_attr['scope']])) {
+			if (isset($_is_legal_scope[$_attr['scope']]))
+			{
 				$scope = $_attr['scope'];
 			}
-			else {
+			else
+			{
 				$compiler->trigger_template_error('illegal value for "scope" attribute', $compiler->lex->taglineno);
 			}
 		}
 		// create config object
 		$_output = "<?php  \$_config = new Smarty_Internal_Config($conf_file, \$_smarty_tpl->smarty, \$_smarty_tpl);";
 		$_output .= "\$_config->loadConfigVars($section, '$scope'); ?>";
+
 		return $_output;
 	}
 

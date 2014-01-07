@@ -1,4 +1,5 @@
 <?php
+
 class MySQL extends Db {
 
 	public function connect() {
@@ -25,7 +26,8 @@ class MySQL extends Db {
 	protected function _query($sql) {
 		if ($this->ping())
 			return mysql_query($sql, $this->link);
-		else {
+		else
+		{
 			if ($this->connect())
 				return mysql_query($sql, $this->link);
 			else
@@ -34,10 +36,13 @@ class MySQL extends Db {
 	}
 
 	public function ping() {
-		if (!mysql_ping($this->link)) {
+		if (!mysql_ping($this->link))
+		{
 			$this->disconnect();
+
 			return false;
 		}
+
 		return true;
 	}
 
@@ -47,6 +52,7 @@ class MySQL extends Db {
 			$return = mysql_fetch_assoc($result);
 		elseif (is_resource($this->_result) && $this->_result)
 			$return = mysql_fetch_assoc($this->_result);
+
 		return $return;
 	}
 
@@ -90,7 +96,8 @@ class MySQL extends Db {
 
 		$sql = 'SHOW TABLES LIKE \'' . $prefix . '%\'';
 		$result = mysql_query($sql);
-		return (bool) @mysql_fetch_assoc($result);
+
+		return (bool)@mysql_fetch_assoc($result);
 	}
 
 	public static function tryToConnect($server, $user, $pwd, $db, $newDbLink = true, $engine = null, $timeout = 5) {
@@ -100,7 +107,8 @@ class MySQL extends Db {
 		if (!@mysql_select_db($db, $link))
 			return 2;
 
-		if (strtolower($engine) == 'innodb') {
+		if (strtolower($engine) == 'innodb')
+		{
 			$sql = 'SHOW VARIABLES WHERE Variable_name = \'have_innodb\'';
 			$result = mysql_query($sql);
 			if (!$result)
@@ -110,6 +118,7 @@ class MySQL extends Db {
 				return 4;
 		}
 		@mysql_close($link);
+
 		return 0;
 	}
 
@@ -131,6 +140,7 @@ class MySQL extends Db {
 			return mysql_error($link);
 
 		mysql_query('DROP TABLE `' . $prefix . 'test`', $link);
+
 		return true;
 	}
 
@@ -141,6 +151,7 @@ class MySQL extends Db {
 		else
 			$ret = true;
 		@mysql_close($link);
+
 		return $ret;
 	}
 }

@@ -4,15 +4,15 @@
  *
  * Compiles the {include_php} tag
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Insert Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
@@ -42,12 +42,14 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
 	/**
 	 * Compiles code for the {include_php} tag
 	 *
-	 * @param array $args     array with attributes from parser
+	 * @param array  $args     array with attributes from parser
 	 * @param object $compiler compiler object
+	 *
 	 * @return string compiled code
 	 */
 	public function compile($args, $compiler) {
-		if (!($compiler->smarty instanceof SmartyBC)) {
+		if (!($compiler->smarty instanceof SmartyBC))
+		{
 			throw new SmartyException("{include_php} is deprecated, use SmartyBC class to enable");
 		}
 		// check and get attributes
@@ -58,49 +60,63 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
 		$_smarty_tpl = $compiler->template;
 		$_filepath = false;
 		eval('$_file = ' . $_attr['file'] . ';');
-		if (!isset($compiler->smarty->security_policy) && file_exists($_file)) {
+		if (!isset($compiler->smarty->security_policy) && file_exists($_file))
+		{
 			$_filepath = $_file;
 		}
-		else {
-			if (isset($compiler->smarty->security_policy)) {
+		else
+		{
+			if (isset($compiler->smarty->security_policy))
+			{
 				$_dir = $compiler->smarty->security_policy->trusted_dir;
 			}
-			else {
+			else
+			{
 				$_dir = $compiler->smarty->trusted_dir;
 			}
-			if (!empty($_dir)) {
-				foreach ((array) $_dir as $_script_dir) {
+			if (!empty($_dir))
+			{
+				foreach ((array)$_dir as $_script_dir)
+				{
 					$_script_dir = rtrim($_script_dir, '/\\') . DS;
-					if (file_exists($_script_dir . $_file)) {
+					if (file_exists($_script_dir . $_file))
+					{
 						$_filepath = $_script_dir . $_file;
 						break;
 					}
 				}
 			}
 		}
-		if ($_filepath == false) {
+		if ($_filepath == false)
+		{
 			$compiler->trigger_template_error("{include_php} file '{$_file}' is not readable", $compiler->lex->taglineno);
 		}
 
-		if (isset($compiler->smarty->security_policy)) {
+		if (isset($compiler->smarty->security_policy))
+		{
 			$compiler->smarty->security_policy->isTrustedPHPDir($_filepath);
 		}
 
-		if (isset($_attr['assign'])) {
+		if (isset($_attr['assign']))
+		{
 			// output will be stored in a smarty variable instead of being displayed
 			$_assign = $_attr['assign'];
 		}
 		$_once = '_once';
-		if (isset($_attr['once'])) {
-			if ($_attr['once'] == 'false') {
+		if (isset($_attr['once']))
+		{
+			if ($_attr['once'] == 'false')
+			{
 				$_once = '';
 			}
 		}
 
-		if (isset($_assign)) {
+		if (isset($_assign))
+		{
 			return "<?php ob_start(); include{$_once} ('{$_filepath}'); \$_smarty_tpl->assign({$_assign},ob_get_contents()); ob_end_clean();?>";
 		}
-		else {
+		else
+		{
 			return "<?php include{$_once} ('{$_filepath}');?>\n";
 		}
 	}

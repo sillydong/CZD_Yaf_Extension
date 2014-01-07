@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.picture.category.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_PictureCategoryGetRequest {
 	/**
@@ -13,8 +14,8 @@ class Taobao_Request_PictureCategoryGetRequest {
 
 	/**
 	 * 取二级分类时设置为对应父分类id
-	取一级分类时父分类id设为0
-	取全部分类的时候不设或设为-1
+	 * 取一级分类时父分类id设为0
+	 * 取全部分类的时候不设或设为-1
 	 **/
 	private $parentId;
 

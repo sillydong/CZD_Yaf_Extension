@@ -32,8 +32,7 @@
  * @package    PHPExcel_Shared_Escher
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
-{
+class PHPExcel_Shared_Escher_DgContainer_SpgrContainer {
 	/**
 	 * Parent Shape Group Container
 	 *
@@ -53,8 +52,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
 	 *
 	 * @param PHPExcel_Shared_Escher_DgContainer_SpgrContainer $parent
 	 */
-	public function setParent($parent)
-	{
+	public function setParent($parent) {
 		$this->_parent = $parent;
 	}
 
@@ -63,8 +61,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
 	 *
 	 * @return PHPExcel_Shared_Escher_DgContainer_SpgrContainer|null
 	 */
-	public function getParent()
-	{
+	public function getParent() {
 		return $this->_parent;
 	}
 
@@ -73,8 +70,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
 	 *
 	 * @param mixed $child
 	 */
-	public function addChild($child)
-	{
+	public function addChild($child) {
 		$this->_children[] = $child;
 		$child->setParent($this);
 	}
@@ -82,8 +78,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
 	/**
 	 * Get collection of Shape Containers
 	 */
-	public function getChildren()
-	{
+	public function getChildren() {
 		return $this->_children;
 	}
 
@@ -92,14 +87,17 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
 	 *
 	 * @return PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer[]
 	 */
-	public function getAllSpContainers()
-	{
+	public function getAllSpContainers() {
 		$allSpContainers = array();
 
-		foreach ($this->_children as $child) {
-			if ($child instanceof PHPExcel_Shared_Escher_DgContainer_SpgrContainer) {
+		foreach ($this->_children as $child)
+		{
+			if ($child instanceof PHPExcel_Shared_Escher_DgContainer_SpgrContainer)
+			{
 				$allSpContainers = array_merge($allSpContainers, $child->getAllSpContainers());
-			} else {
+			}
+			else
+			{
 				$allSpContainers[] = $child;
 			}
 		}

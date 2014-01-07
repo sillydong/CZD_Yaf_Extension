@@ -1,23 +1,24 @@
 <?php
+
 /**
  * TOP API: taobao.items.inventory.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_ItemsInventoryGetRequest {
 	/**
 	 * 分类字段。可选值:
-
-	regular_shelved(定时上架)<br>
-	never_on_shelf(从未上架)<br>
-	off_shelf(我下架的)<br>
-	for_shelved(等待所有上架)<br>
-
-	sold_out(全部卖完)<br>
-	violation_off_shelf(违规下架的)<br>
-	默认查询的是for_shelved(等待所有上架)这个状态的商品<br>
-	<font color='red'>注：for_shelved(等待所有上架)=regular_shelved(定时上架)+never_on_shelf(从未上架)+off_shelf(我下架的)</font>
+	 *
+	 * regular_shelved(定时上架)<br>
+	 * never_on_shelf(从未上架)<br>
+	 * off_shelf(我下架的)<br>
+	 * for_shelved(等待所有上架)<br>
+	 *
+	 * sold_out(全部卖完)<br>
+	 * violation_off_shelf(违规下架的)<br>
+	 * 默认查询的是for_shelved(等待所有上架)这个状态的商品<br>
+	 * <font color='red'>注：for_shelved(等待所有上架)=regular_shelved(定时上架)+never_on_shelf(从未上架)+off_shelf(我下架的)</font>
 	 **/
 	private $banner;
 
@@ -33,13 +34,13 @@ class Taobao_Request_ItemsInventoryGetRequest {
 
 	/**
 	 * 需返回的字段列表。可选值：Item商品结构体中的以下字段：
-	approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru,
-
-	list_time,price,has_discount,has_invoice,has_warranty,has_showcase,
-
-	modified,delist_time,postage_id,seller_cids,outer_id；字段之间用“,”分隔。
-
-	不支持其他字段，如果需要获取其他字段数据，调用taobao.item.get。
+	 * approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru,
+	 *
+	 * list_time,price,has_discount,has_invoice,has_warranty,has_showcase,
+	 *
+	 * modified,delist_time,postage_id,seller_cids,outer_id；字段之间用“,”分隔。
+	 *
+	 * 不支持其他字段，如果需要获取其他字段数据，调用taobao.item.get。
 	 **/
 	private $fields;
 

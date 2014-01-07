@@ -32,8 +32,7 @@
  * @package    PHPExcel_Shared_Escher
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Shared_Escher_DgContainer
-{
+class PHPExcel_Shared_Escher_DgContainer {
 	/**
 	 * Drawing index, 1-based.
 	 *
@@ -50,33 +49,27 @@ class PHPExcel_Shared_Escher_DgContainer
 
 	private $_spgrContainer = null;
 
-	public function getDgId()
-	{
+	public function getDgId() {
 		return $this->_dgId;
 	}
 
-	public function setDgId($value)
-	{
+	public function setDgId($value) {
 		$this->_dgId = $value;
 	}
 
-	public function getLastSpId()
-	{
+	public function getLastSpId() {
 		return $this->_lastSpId;
 	}
 
-	public function setLastSpId($value)
-	{
+	public function setLastSpId($value) {
 		$this->_lastSpId = $value;
 	}
 
-	public function getSpgrContainer()
-	{
+	public function getSpgrContainer() {
 		return $this->_spgrContainer;
 	}
 
-	public function setSpgrContainer($spgrContainer)
-	{
+	public function setSpgrContainer($spgrContainer) {
 		return $this->_spgrContainer = $spgrContainer;
 	}
 

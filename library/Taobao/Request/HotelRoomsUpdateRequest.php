@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.hotel.rooms.update request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HotelRoomsUpdateRequest {
 	/**
@@ -13,8 +14,8 @@ class Taobao_Request_HotelRoomsUpdateRequest {
 
 	/**
 	 * 为到店支付卖家特殊使用，可传入多种支付类型的房态信息。
-	该参数有值时，忽略gid_room_quota_map参数；
-	该参数无值时，使用gid_room_quota_map参数
+	 * 该参数有值时，忽略gid_room_quota_map参数；
+	 * 该参数无值时，使用gid_room_quota_map参数
 	 **/
 	private $multiRoomQuotas;
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.order.schedule.rule.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbOrderScheduleRuleAddRequest {
 	/**
@@ -18,9 +19,9 @@ class Taobao_Request_WlbOrderScheduleRuleAddRequest {
 
 	/**
 	 * 发货规则的额外规则设置：
-	REMARK_STOP--有订单留言不自动下发
-	COD_STOP--货到付款订单不自动下发
-	CHECK_WAREHOUSE_DELIVER--检查仓库的配送范围
+	 * REMARK_STOP--有订单留言不自动下发
+	 * COD_STOP--货到付款订单不自动下发
+	 * CHECK_WAREHOUSE_DELIVER--检查仓库的配送范围
 	 **/
 	private $option;
 

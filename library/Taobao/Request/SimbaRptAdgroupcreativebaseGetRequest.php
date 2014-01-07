@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.simba.rpt.adgroupcreativebase.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_SimbaRptAdgroupcreativebaseGetRequest {
 	/**

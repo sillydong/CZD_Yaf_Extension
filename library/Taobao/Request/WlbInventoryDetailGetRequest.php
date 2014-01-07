@@ -1,20 +1,21 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.inventory.detail.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbInventoryDetailGetRequest {
 	/**
 	 * 库存类型列表，值包括：
-	VENDIBLE--可销售库存
-	FREEZE--冻结库存
-	ONWAY--在途库存
-	DEFECT--残次品库存
-	ENGINE_DAMAGE--机损
-	BOX_DAMAGE--箱损
-	EXPIRATION--过保
+	 * VENDIBLE--可销售库存
+	 * FREEZE--冻结库存
+	 * ONWAY--在途库存
+	 * DEFECT--残次品库存
+	 * ENGINE_DAMAGE--机损
+	 * BOX_DAMAGE--箱损
+	 * EXPIRATION--过保
 	 **/
 	private $inventoryTypeList;
 

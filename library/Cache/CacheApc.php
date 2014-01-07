@@ -1,4 +1,5 @@
 <?php
+
 class CacheApc extends Cache {
 	public function __construct() {
 		$this->keys = array();

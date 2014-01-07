@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.simba.insight.catsanalysis.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_SimbaInsightCatsanalysisGetRequest {
 	/**
@@ -18,10 +19,10 @@ class Taobao_Request_SimbaInsightCatsanalysisGetRequest {
 
 	/**
 	 * 结果过滤。
-	AREA：返回地域占比；
-	SOURCE：返回来源占比；
-	HPRICE：返回竞价分布。
-	stu只能是AREA、SOURCE或HPRICE中的一个
+	 * AREA：返回地域占比；
+	 * SOURCE：返回来源占比；
+	 * HPRICE：返回竞价分布。
+	 * stu只能是AREA、SOURCE或HPRICE中的一个
 	 **/
 	private $stu;
 

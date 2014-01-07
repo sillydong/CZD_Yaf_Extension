@@ -1,20 +1,21 @@
 <?php
+
 /**
  * TOP API: taobao.hotel.room.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HotelRoomAddRequest {
 	/**
 	 * 面积。可选值：A,B,C,D。分别代表：
-	A：15平米以下，B：16－30平米，C：31－50平米，D：50平米以上
+	 * A：15平米以下，B：16－30平米，C：31－50平米，D：50平米以上
 	 **/
 	private $area;
 
 	/**
 	 * 宽带服务。A,B,C,D。分别代表：
-	A：无宽带，B：免费宽带，C：收费宽带，D：部分收费宽带
+	 * A：无宽带，B：免费宽带，C：收费宽带，D：部分收费宽带
 	 **/
 	private $bbn;
 
@@ -25,7 +26,7 @@ class Taobao_Request_HotelRoomAddRequest {
 
 	/**
 	 * 早餐。A,B,C,D,E。分别代表：
-	A：无早，B：单早，C：双早，D：三早，E：多早
+	 * A：无早，B：单早，C：双早，D：三早，E：多早
 	 **/
 	private $breakfast;
 
@@ -66,7 +67,7 @@ class Taobao_Request_HotelRoomAddRequest {
 
 	/**
 	 * 支付类型。可选值：A,B,C,D,E。分别代表：
-	A：全额支付，B：手续费，C：订金，D：手续费/间夜，E：前台面付
+	 * A：全额支付，B：手续费，C：订金，D：手续费/间夜，E：前台面付
 	 **/
 	private $paymentType;
 
@@ -102,8 +103,8 @@ class Taobao_Request_HotelRoomAddRequest {
 
 	/**
 	 * 1. 全额支付类型必填
-	2. t代表类别(1表示任意退;2表示不能退;3表示阶梯退)，p代表退款规则（数组）， d代表天数，r代表扣除手续费比率。示例代表的意思就是"阶梯退:提前3天内退订，收取订单总额10%的违约金;提前2天内退订，收取订单总额20%的违约金，提前1天内退订，收取订单总额30%的违约金"。
-	3. 任意退、不能退不能指定退款规则;阶梯退不能没有退款规则;阶梯退规则最多10条,且每条规则天数、费率不能相同;阶梯退遵循天数越短,违约金越大的业务规则;天数需为整数,且90>天数>=0;费率需为整数且100<=费率<=0;阶梯退规则只有一条时,费率不能设置为100%;阶梯退规则只有一条时,不能设定0天收取0%;
+	 * 2. t代表类别(1表示任意退;2表示不能退;3表示阶梯退)，p代表退款规则（数组）， d代表天数，r代表扣除手续费比率。示例代表的意思就是"阶梯退:提前3天内退订，收取订单总额10%的违约金;提前2天内退订，收取订单总额20%的违约金，提前1天内退订，收取订单总额30%的违约金"。
+	 * 3. 任意退、不能退不能指定退款规则;阶梯退不能没有退款规则;阶梯退规则最多10条,且每条规则天数、费率不能相同;阶梯退遵循天数越短,违约金越大的业务规则;天数需为整数,且90>天数>=0;费率需为整数且100<=费率<=0;阶梯退规则只有一条时,费率不能设置为100%;阶梯退规则只有一条时,不能设定0天收取0%;
 	 **/
 	private $refundPolicyInfo;
 
@@ -114,20 +115,20 @@ class Taobao_Request_HotelRoomAddRequest {
 
 	/**
 	 * 房态信息。可以传今天开始90天内的房态信息。日期必须连续。JSON格式传递。
-	date：代表房态日期，格式为YYYY-MM-DD，
-	price：代表当天房价，0～99999999，存储的单位是分，
-	num：代表当天可售间数，0～999。
-	如：
-	[{"date":2011-01-28,"price":10000, "num":10},{"date":2011-01-29,"price":12000,"num":10}]
+	 * date：代表房态日期，格式为YYYY-MM-DD，
+	 * price：代表当天房价，0～99999999，存储的单位是分，
+	 * num：代表当天可售间数，0～999。
+	 * 如：
+	 * [{"date":2011-01-28,"price":10000, "num":10},{"date":2011-01-29,"price":12000,"num":10}]
 	 **/
 	private $roomQuotas;
 
 	/**
 	 * 设施服务。JSON格式。
-	value值true有此服务，false没有。
-	bar：吧台，catv：有线电视，ddd：国内长途电话，idd：国际长途电话，toilet：独立卫生间，pubtoliet：公共卫生间。
-	如：
-	{"bar":false,"catv":false,"ddd":false,"idd":false,"pubtoilet":false,"toilet":false}
+	 * value值true有此服务，false没有。
+	 * bar：吧台，catv：有线电视，ddd：国内长途电话，idd：国际长途电话，toilet：独立卫生间，pubtoliet：公共卫生间。
+	 * 如：
+	 * {"bar":false,"catv":false,"ddd":false,"idd":false,"pubtoilet":false,"toilet":false}
 	 **/
 	private $service;
 

@@ -1,14 +1,15 @@
 <?php
+
 /**
  * TOP API: taobao.fenxiao.dealer.requisitionorder.query request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_FenxiaoDealerRequisitionorderQueryRequest {
 	/**
 	 * 经销采购单编号。
-	多个编号用英文符号的逗号隔开。最多支持50个经销采购单编号的查询。
+	 * 多个编号用英文符号的逗号隔开。最多支持50个经销采购单编号的查询。
 	 **/
 	private $dealerOrderIds;
 

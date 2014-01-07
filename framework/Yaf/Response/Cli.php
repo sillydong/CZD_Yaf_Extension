@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Yaf_Response_Cli
  *

@@ -1,14 +1,15 @@
 <?php
+
 /**
  * TOP API: taobao.taobaoke.mobile.items.convert request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TaobaokeMobileItemsConvertRequest {
 	/**
 	 * 需返回的字段列表.可选值:num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume
-	;字段之间用","分隔.
+	 * ;字段之间用","分隔.
 	 **/
 	private $fields;
 

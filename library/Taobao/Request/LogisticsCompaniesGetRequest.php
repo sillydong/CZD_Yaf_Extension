@@ -1,19 +1,20 @@
 <?php
+
 /**
  * TOP API: taobao.logistics.companies.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_LogisticsCompaniesGetRequest {
 	/**
 	 * 需返回的字段列表。可选值:LogisticCompany 结构中的所有字段;多个字段间用","逗号隔开.
-	如:id,code,name,reg_mail_no
-	<br><font color='red'>说明：</font>
-	<br>id：物流公司ID
-	<br>code：物流公司code
-	<br>name：物流公司名称
-	<br>reg_mail_no：物流公司对应的运单规则
+	 * 如:id,code,name,reg_mail_no
+	 * <br><font color='red'>说明：</font>
+	 * <br>id：物流公司ID
+	 * <br>code：物流公司code
+	 * <br>name：物流公司名称
+	 * <br>reg_mail_no：物流公司对应的运单规则
 	 **/
 	private $fields;
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.inventory.adjust.trade request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_InventoryAdjustTradeRequest {
 	/**
@@ -13,7 +14,7 @@ class Taobao_Request_InventoryAdjustTradeRequest {
 
 	/**
 	 * 商品初始库存信息： [{ "TBOrderCode”:”淘宝交易号”,"TBSubOrderCode ":"淘宝子交易单号,赠品可以不填","”isGift”:”TRUE或者FALSE,是否赠品”,storeCode":"商家仓库编码"," scItemId ":"商品后端ID","scItemCode":"商品商家编码"," originScItemId ":"原商品ID","inventoryType":"","quantity":"111","isComplete":"TRUE或者FALSE，是否全部确认出库"}]
-	 **/
+     **/
 	private $items;
 
 	/**

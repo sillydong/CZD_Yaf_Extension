@@ -1,26 +1,27 @@
 <?php
+
 /**
  * TOP API: taobao.hotel.name.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HotelNameGetRequest {
 	/**
 	 * 城市编码。参见：http://kezhan.trip.taobao.com/area.html。
-	domestic为true时，province,city,district不能同时为空或为0
+	 * domestic为true时，province,city,district不能同时为空或为0
 	 **/
 	private $city;
 
 	/**
 	 * domestic为true时，固定China；
-	domestic为false时，必须传定义的海外国家编码值，是必填项。参见：http://kezhan.trip.taobao.com/countrys.html
+	 * domestic为false时，必须传定义的海外国家编码值，是必填项。参见：http://kezhan.trip.taobao.com/countrys.html
 	 **/
 	private $country;
 
 	/**
 	 * 区域（县级市）编码。参见：http://kezhan.trip.taobao.com/area.html。
-	domestic为true时，province,city,district不能同时为空或为0
+	 * domestic为true时，province,city,district不能同时为空或为0
 	 **/
 	private $district;
 
@@ -36,7 +37,7 @@ class Taobao_Request_HotelNameGetRequest {
 
 	/**
 	 * 省份编码。参见：http://kezhan.trip.taobao.com/area.html。
-	domestic为true时，province,city,district不能同时为空或为0
+	 * domestic为true时，province,city,district不能同时为空或为0
 	 **/
 	private $province;
 

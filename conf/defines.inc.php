@@ -10,12 +10,12 @@ define('_COOKIE_IV_', '');
 define('_RIJNDAEL_KEY_', '');
 define('_RIJNDAEL_IV_', '');
 
-define('LOG_DIR',APPLICATION_PATH.'/log/');
+define('LOG_DIR', APPLICATION_PATH . '/log/');
 
-define('APP_KEY','');
-define('APP_SECRET','');
+define('APP_KEY', '');
+define('APP_SECRET', '');
 
-function pSQL($string, $htmlOK = false){
+function pSQL($string, $htmlOK = false) {
 	static $db = false;
 	if (!$db)
 		$db = Db::getInstance();
@@ -23,7 +23,7 @@ function pSQL($string, $htmlOK = false){
 	return $db->escape($string, $htmlOK);
 }
 
-function bqSQL($string){
+function bqSQL($string) {
 	return str_replace('`', '\`', pSQL($string));
 }
 

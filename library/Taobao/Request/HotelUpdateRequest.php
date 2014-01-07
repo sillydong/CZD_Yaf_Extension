@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.hotel.update request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_HotelUpdateRequest {
 	/**
@@ -18,7 +19,7 @@ class Taobao_Request_HotelUpdateRequest {
 
 	/**
 	 * domestic为true时，固定China；
-	domestic为false时，传海外国家编码。参见：http://kezhan.trip.taobao.com/countrys.html
+	 * domestic为false时，传海外国家编码。参见：http://kezhan.trip.taobao.com/countrys.html
 	 **/
 	private $country;
 
@@ -69,7 +70,7 @@ class Taobao_Request_HotelUpdateRequest {
 
 	/**
 	 * 酒店图片。类型:JPG,GIF;最大长度:500K。支持的文件类型：gif,jpg,jpeg,png。
-	图片没有传，则代表不更新图片，使用原来的图片
+	 * 图片没有传，则代表不更新图片，使用原来的图片
 	 **/
 	private $pic;
 
@@ -85,10 +86,10 @@ class Taobao_Request_HotelUpdateRequest {
 
 	/**
 	 * 交通距离与设施服务。JSON格式。cityCenterDistance、railwayDistance、airportDistance分别代表距离市中心、距离火车站、距离机场公里数，为不超过3位正整数，默认-1代表无数据。
-	其他key值true代表有此服务，false代表没有。
-	parking：停车场，airportShuttle：机场接送，rentCar：租车，meetingRoom：会议室，businessCenter：商务中心，swimmingPool：游泳池，fitnessClub：健身中心，laundry：洗衣服务，morningCall：叫早服务，bankCard：接受银行卡，creditCard：接受信用卡，chineseRestaurant：中餐厅，westernRestaurant：西餐厅，cafe：咖啡厅，bar：酒吧，ktv：KTV。
-	如：
-	{"airportShuttle":true,"parking":false,"fitnessClub":false,"chineseRestaurant":false,"rentCar":false,"laundry":false,"bankCard":false,"cityCenterDistance":-1,"creditCard":false,"westernRestaurant":false,"ktv":false,"railwayDistance":-1,"swimmingPool":false,"cafe":false,"businessCenter":false,"morningCall":false,"bar":false,"meetingRoom":false,"airportDistance":-1}
+	 * 其他key值true代表有此服务，false代表没有。
+	 * parking：停车场，airportShuttle：机场接送，rentCar：租车，meetingRoom：会议室，businessCenter：商务中心，swimmingPool：游泳池，fitnessClub：健身中心，laundry：洗衣服务，morningCall：叫早服务，bankCard：接受银行卡，creditCard：接受信用卡，chineseRestaurant：中餐厅，westernRestaurant：西餐厅，cafe：咖啡厅，bar：酒吧，ktv：KTV。
+	 * 如：
+	 * {"airportShuttle":true,"parking":false,"fitnessClub":false,"chineseRestaurant":false,"rentCar":false,"laundry":false,"bankCard":false,"cityCenterDistance":-1,"creditCard":false,"westernRestaurant":false,"ktv":false,"railwayDistance":-1,"swimmingPool":false,"cafe":false,"businessCenter":false,"morningCall":false,"bar":false,"meetingRoom":false,"airportDistance":-1}
 	 **/
 	private $service;
 

@@ -1,14 +1,15 @@
 <?php
+
 /**
  * TOP API: taobao.trade.contact.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TradeContactGetRequest {
 	/**
 	 * buyer_email,buyer_area,receiver_name,receiver_state,receiver_city,receiver_district,<br/>
-	receiver_address,receiver_zip,receiver_mobile,receiver_phone,seller_mobile,seller_phone,seller_name,seller_email
+	 * receiver_address,receiver_zip,receiver_mobile,receiver_phone,seller_mobile,seller_phone,seller_name,seller_email
 	 **/
 	private $fields;
 

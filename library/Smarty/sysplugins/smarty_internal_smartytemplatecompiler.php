@@ -4,9 +4,9 @@
  *
  * This file contains the basic classes and methodes for compiling Smarty templates with lexer/parser
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
@@ -17,7 +17,7 @@ include("smarty_internal_parsetree.php");
 /**
  * Class SmartyTemplateCompiler
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase {
@@ -83,6 +83,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
 	 * Methode to compile a Smarty template
 	 *
 	 * @param  mixed $_content template source
+	 *
 	 * @return bool true if compiling succeeded, false if it failed
 	 */
 	protected function doCompile($_content) {
@@ -95,21 +96,25 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
 		if ($this->smarty->_parserdebug)
 			$this->parser->PrintTrace();
 		// get tokens from lexer and parse them
-		while ($this->lex->yylex() && !$this->abort_and_recompile) {
-			if ($this->smarty->_parserdebug) {
+		while ($this->lex->yylex() && !$this->abort_and_recompile)
+		{
+			if ($this->smarty->_parserdebug)
+			{
 				echo "<pre>Line {$this->lex->line} Parsing  {$this->parser->yyTokenName[$this->lex->token]} Token " . htmlentities($this->lex->value) . "</pre>";
 			}
 			$this->parser->doParse($this->lex->token, $this->lex->value);
 		}
 
-		if ($this->abort_and_recompile) {
+		if ($this->abort_and_recompile)
+		{
 			// exit here on abort
 			return false;
 		}
 		// finish parsing process
 		$this->parser->doParse(0, 0);
 		// check for unclosed tags
-		if (count($this->_tag_stack) > 0) {
+		if (count($this->_tag_stack) > 0)
+		{
 			// get stacked info
 			list($openTag, $_data) = array_pop($this->_tag_stack);
 			$this->trigger_template_error("unclosed {" . $openTag . "} tag");

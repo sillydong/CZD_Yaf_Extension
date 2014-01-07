@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.logistics.address.modify request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_LogisticsAddressModifyRequest {
 	/**
@@ -13,7 +14,7 @@ class Taobao_Request_LogisticsAddressModifyRequest {
 
 	/**
 	 * 默认退货地址。<br>
-	<font color='red'>选择此项(true)，将当前地址设为默认退货地址，撤消原默认退货地址</font>
+	 * <font color='red'>选择此项(true)，将当前地址设为默认退货地址，撤消原默认退货地址</font>
 	 **/
 	private $cancelDef;
 
@@ -29,19 +30,19 @@ class Taobao_Request_LogisticsAddressModifyRequest {
 
 	/**
 	 * 联系人姓名
-	<font color='red'>长度不可超过20个字节</font>
+	 * <font color='red'>长度不可超过20个字节</font>
 	 **/
 	private $contactName;
 
 	/**
 	 * 区、县
-	<br><font color='red'>如果所在地区是海外的可以为空，否则为必参</font>
+	 * <br><font color='red'>如果所在地区是海外的可以为空，否则为必参</font>
 	 **/
 	private $country;
 
 	/**
 	 * 默认取货地址。<br>
-	<font color='red'>选择此项(true)，将当前地址设为默认取货地址，撤消原默认取货地址</font>
+	 * <font color='red'>选择此项(true)，将当前地址设为默认取货地址，撤消原默认取货地址</font>
 	 **/
 	private $getDef;
 
@@ -67,13 +68,13 @@ class Taobao_Request_LogisticsAddressModifyRequest {
 
 	/**
 	 * 公司名称,
-	<br><font color='red'>公司名称长能不能超过20字节</font>
+	 * <br><font color='red'>公司名称长能不能超过20字节</font>
 	 **/
 	private $sellerCompany;
 
 	/**
 	 * 地区邮政编码
-	<br><font color='red'>如果所在地区是海外的可以为空，否则为必参</font>
+	 * <br><font color='red'>如果所在地区是海外的可以为空，否则为必参</font>
 	 **/
 	private $zipCode;
 

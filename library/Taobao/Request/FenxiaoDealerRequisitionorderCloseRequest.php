@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.fenxiao.dealer.requisitionorder.close request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_FenxiaoDealerRequisitionorderCloseRequest {
 	/**
@@ -13,11 +14,11 @@ class Taobao_Request_FenxiaoDealerRequisitionorderCloseRequest {
 
 	/**
 	 * 关闭原因：
-	1：长时间无法联系到分销商，取消交易。
-	2：分销商错误提交申请，取消交易。
-	3：缺货，近段时间都无法发货。
-	4：分销商恶意提交申请单。
-	5：其他原因。
+	 * 1：长时间无法联系到分销商，取消交易。
+	 * 2：分销商错误提交申请，取消交易。
+	 * 3：缺货，近段时间都无法发货。
+	 * 4：分销商恶意提交申请单。
+	 * 5：其他原因。
 	 **/
 	private $reason;
 

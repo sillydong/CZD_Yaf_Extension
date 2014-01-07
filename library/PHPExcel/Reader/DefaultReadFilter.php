@@ -27,7 +27,8 @@
 
 
 /** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
+if (!defined('PHPEXCEL_ROOT'))
+{
 	/**
 	 * @ignore
 	 */
@@ -42,15 +43,15 @@ if (!defined('PHPEXCEL_ROOT')) {
  * @package    PHPExcel_Reader
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Reader_DefaultReadFilter implements PHPExcel_Reader_IReadFilter
-{
+class PHPExcel_Reader_DefaultReadFilter implements PHPExcel_Reader_IReadFilter {
 	/**
 	 * Should this cell be read?
 	 *
-	 * @param 	$column		String column index
-	 * @param 	$row			Row index
-	 * @param	$worksheetName	Optional worksheet name
-	 * @return	boolean
+	 * @param    $column           String column index
+	 * @param    $row              Row index
+	 * @param    $worksheetName    Optional worksheet name
+	 *
+	 * @return    boolean
 	 */
 	public function readCell($column, $row, $worksheetName = '') {
 		return true;

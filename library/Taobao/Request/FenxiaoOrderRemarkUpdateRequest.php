@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.fenxiao.order.remark.update request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_FenxiaoOrderRemarkUpdateRequest {
 	/**
@@ -18,11 +19,11 @@ class Taobao_Request_FenxiaoOrderRemarkUpdateRequest {
 
 	/**
 	 * 旗子的标记，1-5之间的数字。非1-5之间，都采用1作为默认。
-	1:红色
-	2:黄色
-	3:绿色
-	4:蓝色
-	5:粉红色
+	 * 1:红色
+	 * 2:黄色
+	 * 3:绿色
+	 * 4:蓝色
+	 * 5:粉红色
 	 **/
 	private $supplierMemoFlag;
 

@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.wlb.item.authorization.query request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_WlbItemAuthorizationQueryRequest {
 	/**
@@ -33,14 +34,14 @@ class Taobao_Request_WlbItemAuthorizationQueryRequest {
 
 	/**
 	 * 状态： 只能输入如下值,范围外的默认按VALID处理;不选则查询所有;
-	VALID -- 1 有效； INVALIDATION -- 2 失效
+	 * VALID -- 1 有效； INVALIDATION -- 2 失效
 	 **/
 	private $status;
 
 	/**
 	 * 类型：可由不同角色来查询，默认值OWNER,
-	OWNER -- 授权人,
-	ON_COMMISSION -- 被授权人
+	 * OWNER -- 授权人,
+	 * ON_COMMISSION -- 被授权人
 	 **/
 	private $type;
 

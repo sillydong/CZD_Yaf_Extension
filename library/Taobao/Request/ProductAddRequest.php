@@ -1,15 +1,16 @@
 <?php
+
 /**
  * TOP API: taobao.product.add request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_ProductAddRequest {
 	/**
 	 * 非关键属性结构:pid:vid;pid:vid.<br>
-	非关键属性<font color=red>不包含</font>关键属性、销售属性、用户自定义属性、商品属性;
-	<br>调用taobao.itemprops.get获取pid,调用taobao.itempropvalues.get获取vid.<br><font color=red>注:支持最大长度为512字节</font>
+	 * 非关键属性<font color=red>不包含</font>关键属性、销售属性、用户自定义属性、商品属性;
+	 * <br>调用taobao.itemprops.get获取pid,调用taobao.itempropvalues.get获取vid.<br><font color=red>注:支持最大长度为512字节</font>
 	 **/
 	private $binds;
 
@@ -20,7 +21,7 @@ class Taobao_Request_ProductAddRequest {
 
 	/**
 	 * 用户自定义属性,结构：pid1:value1;pid2:value2，如果有型号，系列等子属性用: 隔开 例如：“20000:优衣库:型号:001;632501:1234”，表示“品牌:优衣库:型号:001;货号:1234”
-	<br><font color=red>注：包含所有自定义属性的传入</font>
+	 * <br><font color=red>注：包含所有自定义属性的传入</font>
 	 **/
 	private $customerProps;
 
@@ -46,7 +47,7 @@ class Taobao_Request_ProductAddRequest {
 
 	/**
 	 * 市场ID，1为新增C2C市场的产品信息， 2为新增B2C市场的产品信息。
-	不填写此值则C用户新增B2C市场的产品信息，B用户新增B2C市场的产品信息。
+	 * 不填写此值则C用户新增B2C市场的产品信息，B用户新增B2C市场的产品信息。
 	 **/
 	private $marketId;
 
@@ -67,8 +68,8 @@ class Taobao_Request_ProductAddRequest {
 
 	/**
 	 * 包装清单。注意，在管控类目下，包装清单不能为空，同时保证清单的格式为：
-	名称:数字;名称:数字;
-	其中，名称不能违禁、不能超过60字符，数字不能超过999
+	 * 名称:数字;名称:数字;
+	 * 其中，名称不能违禁、不能超过60字符，数字不能超过999
 	 **/
 	private $packingList;
 

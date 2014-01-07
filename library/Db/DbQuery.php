@@ -1,25 +1,28 @@
 <?php
+
 class DbQuery {
 	protected $query = array(
-		'select' => array(),
-		'from' => '',
-		'join' => array(),
-		'where' => array(),
-		'group' => array(),
-		'having' => array(),
-		'order' => array(),
-		'limit' => array('offset' => 0, 'limit' => 0),
+			'select' => array(),
+			'from' => '',
+			'join' => array(),
+			'where' => array(),
+			'group' => array(),
+			'having' => array(),
+			'order' => array(),
+			'limit' => array('offset' => 0, 'limit' => 0),
 	);
 
 	public function select($fields) {
 		if (!empty($fields))
 			$this->query['select'][] = $fields;
+
 		return $this;
 	}
 
 	public function from($table, $alias = null) {
 		if (!empty($table))
 			$this->query['from'][] = '`' . $table . '`' . ($alias ? ' ' . $alias : '');
+
 		return $this;
 	}
 
@@ -75,14 +78,15 @@ class DbQuery {
 	}
 
 	public function limit($limit, $offset = 0) {
-		$offset = (int) $offset;
+		$offset = (int)$offset;
 		if ($offset < 0)
 			$offset = 0;
 
 		$this->query['limit'] = array(
-			'offset' => $offset,
-			'limit' => (int) $limit,
+				'offset' => $offset,
+				'limit' => (int)$limit,
 		);
+
 		return $this;
 	}
 
@@ -108,7 +112,8 @@ class DbQuery {
 		if ($this->query['order'])
 			$sql .= 'ORDER BY ' . implode(', ', $this->query['order']) . "\n";
 
-		if ($this->query['limit']['limit']) {
+		if ($this->query['limit']['limit'])
+		{
 			$limit = $this->query['limit'];
 			$sql .= 'LIMIT ' . (($limit['offset']) ? $limit['offset'] . ', ' . $limit['limit'] : $limit['limit']);
 		}

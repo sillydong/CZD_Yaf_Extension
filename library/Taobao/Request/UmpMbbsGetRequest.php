@@ -1,14 +1,15 @@
 <?php
+
 /**
  * TOP API: taobao.ump.mbbs.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_UmpMbbsGetRequest {
 	/**
 	 * 积木块类型。如果该字段为空表示查出所有类型的
-	现在有且仅有如下几种：resource,condition,action,target
+	 * 现在有且仅有如下几种：resource,condition,action,target
 	 **/
 	private $type;
 

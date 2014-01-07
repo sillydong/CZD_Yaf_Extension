@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.product.update request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_ProductUpdateRequest {
 	/**
@@ -33,7 +34,7 @@ class Taobao_Request_ProductUpdateRequest {
 
 	/**
 	 * 市场ID，1为更新C2C市场的产品信息， 2为更新B2C市场的产品信息。
-	不填写此值则C用户更新B2C市场的产品信息，B用户更新B2C市场的产品信息。
+	 * 不填写此值则C用户更新B2C市场的产品信息，B用户更新B2C市场的产品信息。
 	 **/
 	private $marketId;
 

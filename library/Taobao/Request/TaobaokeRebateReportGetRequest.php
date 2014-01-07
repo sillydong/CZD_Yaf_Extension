@@ -1,9 +1,10 @@
 <?php
+
 /**
  * TOP API: taobao.taobaoke.rebate.report.get request
  *
  * @author auto create
- * @since 1.0, 2013-09-13 16:51:03
+ * @since  1.0, 2013-09-13 16:51:03
  */
 class Taobao_Request_TaobaokeRebateReportGetRequest {
 	/**
@@ -23,7 +24,7 @@ class Taobao_Request_TaobaokeRebateReportGetRequest {
 
 	/**
 	 * 查询报表的时间跨度，单位秒。
-	以用户输入的start_time时间为起始时间，start_time+span为结束时间，查询该时间段内的订单。span最小值为60秒，最大值为600秒，默认值为60秒
+	 * 以用户输入的start_time时间为起始时间，start_time+span为结束时间，查询该时间段内的订单。span最小值为60秒，最大值为600秒，默认值为60秒
 	 **/
 	private $span;
 
