@@ -279,7 +279,7 @@ class ImageManager {
 		return (ImageManager::write($file_type, $dest_image, $dst_file));
 	}
 
-	public static function squre($src_file, $dest_file, $dest_type, $limit_min = 400, $limit_max = 800) {
+	public static function square($src_file, $dest_file, $dest_type, $limit_min = 400, $limit_max = 800) {
 		$tmp = tempnam(Tools::sys_get_temp_dir(), 'img_');
 		if (Tools::saveFile($src_file, $tmp))
 		{
