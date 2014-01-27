@@ -4,6 +4,8 @@ CZD_Yaf_Extension
 建立在[Yaf](https://github.com/laruence/php-yaf) 的基础上，集成了Smarty引擎，加入了封装出来的各种功能类，位于APPLICATION_DIR/library下
 
 【更新记录】
+- 2014.01.27  
+	加入远程调用功能，加密压缩传输内容  
 - 2014.01.04  
 	根据腾讯最新的微信接口文档完善了Weixin类，包含了基础接口、自定义菜单和高级接口的所有功能  
 	加入了Simsimi请求类，能完成和小黄鸡对话，请求出错可以更新代码中的JSESSIONID  
@@ -40,7 +42,10 @@ CZD_Yaf_Extension
 - Object：所有与数据库交互的Model都可以继承这个类，完成了add/update/delete/active操作，可以通过setData将数组赋值给类
 - Pagination：分页
 - PclZip：压缩打包
+- PHPExcel：源自 [PHPExcel](http://phpexcel.codeplex.com/)
+- Pinyin：将中文转为其拼音
 - PSCWS：分词，依赖于 [scws](http://www.xunsearch.com/scws/) ，需要另行安装
+- Rpc：远程调用，自创，加密内容后压缩传输
 - Taobao：Taobao实例类，在define.inc.php设置好APP_KEY及APP_SECRET，通过Taobao::getInstance()使用
 - Tools：一些常用静态方法
 - Validate：常用验证方法
