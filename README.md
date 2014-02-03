@@ -4,6 +4,8 @@ CZD_Yaf_Extension
 建立在[Yaf](https://github.com/laruence/php-yaf) 的基础上，集成了Smarty引擎，加入了封装出来的各种功能类，位于APPLICATION_DIR/library下
 
 【更新记录】
+- 2013.02.04  
+	修复Db类中因每次查询前进行ping造成的数据库性能丢失，改为判断查询结果及错误值来避免mysql server has gone away错误  
 - 2014.01.27  
 	加入远程调用功能，加密压缩传输内容  
 - 2014.01.04  

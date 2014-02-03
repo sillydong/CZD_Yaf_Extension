@@ -79,19 +79,7 @@ class DbPDO extends Db {
 	}
 
 	protected function _query($sql) {
-		if ($this->ping())
-			return $this->link->query($sql);
-		else
-		{
-			if ($this->connect())
-				return $this->link->query($sql);
-			else
-				return false;
-		}
-	}
-
-	public function ping() {
-		return true;
+		return $this->link->query($sql);
 	}
 
 	protected function _numRows($result) {

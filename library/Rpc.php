@@ -17,6 +17,7 @@ class Rpc {
 
 	/**
 	 * 向远程提交数据
+	 *
 	 * @param $host
 	 * @param $port
 	 * @param $path
@@ -89,6 +90,7 @@ class Rpc {
 
 	/**
 	 * 解析远程提交的数据
+	 *
 	 * @return bool
 	 */
 	public function read() {

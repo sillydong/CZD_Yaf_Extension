@@ -54,8 +54,6 @@ abstract class Db {
 
 	abstract public function set_db($db_name);
 
-	abstract public function ping();
-
 	/**
 	 * 获取Db实例，可选择主从
 	 *
@@ -115,6 +113,11 @@ abstract class Db {
 			$sql = $sql->build();
 
 		$this->result = $this->_query($sql);
+		if (!$this->result && $this->getNumberError() == 2006)
+		{
+			if ($this->connect())
+				$this->result = $this->_query($sql);
+		}
 		if ($this->log_error)
 		{
 			$this->logError($sql);

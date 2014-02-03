@@ -24,26 +24,7 @@ class MySQL extends Db {
 	}
 
 	protected function _query($sql) {
-		if ($this->ping())
-			return mysql_query($sql, $this->link);
-		else
-		{
-			if ($this->connect())
-				return mysql_query($sql, $this->link);
-			else
-				return false;
-		}
-	}
-
-	public function ping() {
-		if (!mysql_ping($this->link))
-		{
-			$this->disconnect();
-
-			return false;
-		}
-
-		return true;
+		return mysql_query($sql, $this->link);
 	}
 
 	public function nextRow($result = false) {

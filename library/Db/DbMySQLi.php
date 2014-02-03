@@ -117,36 +117,15 @@ class DbMySQLi extends Db {
 	}
 
 	static public function tryUTF8($server, $user, $pwd) {
-		$link = @new mysqli($server, $user, $pwd, $db);
+		$link = @new mysqli($server, $user, $pwd);
 		$ret = $link->query("SET NAMES 'UTF8'");
 		$link->close();
 
 		return $ret;
 	}
 
-	public function ping() {
-		if (!mysqli_ping($this->link))
-		{
-			$this->disconnect();
-
-			return false;
-		}
-
-		return true;
-	}
-
 	protected function _query($sql) {
-		if ($this->ping())
-			return $this->link->query($sql);
-		else
-		{
-			if ($this->connect())
-			{
-				return $this->link->query($sql);
-			}
-			else
-				return false;
-		}
+		return $this->link->query($sql);
 	}
 
 	protected function _numRows($result) {
