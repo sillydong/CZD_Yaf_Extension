@@ -1405,14 +1405,14 @@ class Tools {
 		{
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		}
-		$reponse = curl_exec($ch);
+		$response = curl_exec($ch);
 		if (curl_errno($ch))
 		{
 			throw new Exception(curl_error($ch), 0);
 		}
 		curl_close($ch);
 
-		return $reponse;
+		return $response;
 	}
 
 	/**
@@ -1463,13 +1463,16 @@ class Tools {
 	 * @return bool
 	 */
 	public static function isSpider() {
-		$ua = strtolower($_SERVER['HTTP_USER_AGENT']);
-		$spiders = array('spider', 'bot');
-		foreach ($spiders as $spider)
+		if(isset($_SERVER['HTTP_USER_AGENT']))
 		{
-			if (strpos($ua, $spider) !== false)
+			$ua = strtolower($_SERVER['HTTP_USER_AGENT']);
+			$spiders = array('spider', 'bot');
+			foreach ($spiders as $spider)
 			{
-				return true;
+				if (strpos($ua, $spider) !== false)
+				{
+					return true;
+				}
 			}
 		}
 
