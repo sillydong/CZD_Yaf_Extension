@@ -197,7 +197,7 @@ class Validate {
 	}
 
 	public static function isIMEI($data) {
-		return preg_match('/^[0-9]{15}$/', $data);
+		return preg_match('/^[0-9a-z]{15}$/i', $data);
 	}
 
 	public static function isISBN($isbn) {
