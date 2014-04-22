@@ -160,11 +160,12 @@ class WeiXin {
 	 */
 	public function __construct($token, $appid = null, $appsecret = null, $debug = false) {
 		$this->token = $token;
-		if (!empty($_GET) && $this->checkSignature())
+		self::$debug = $debug;
+		if ((!empty($_GET) && $this->checkSignature()) || self::$debug)
 			$this->handleRequest();
 		$this->appid = $appid;
 		$this->appsecret = $appsecret;
-		self::$debug = $debug;
+
 	}
 
 	/**
@@ -201,7 +202,7 @@ class WeiXin {
 		}
 		else
 		{
-			$this->postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+			$this->postStr = $GLOBALS["HTTP_RAW_POST_DATA"] ? $GLOBALS["HTTP_RAW_POST_DATA"] : trim($_GET['HTTP_RAW_POST_DATA']);
 			if (!empty($this->postStr))
 			{
 				$this->postObj = simplexml_load_string($this->postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -1258,4 +1259,5 @@ WeixinJSBridge.invoke('getNetworkType',{},
 </script>
 EOF;
 	}
+
 }
