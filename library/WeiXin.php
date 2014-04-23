@@ -161,7 +161,7 @@ class WeiXin {
 	public function __construct($token, $appid = null, $appsecret = null, $debug = false) {
 		$this->token = $token;
 		self::$debug = $debug;
-		if ((!empty($_GET) && $this->checkSignature()) || self::$debug)
+		if (!empty($_GET) && $this->checkSignature())
 			$this->handleRequest();
 		$this->appid = $appid;
 		$this->appsecret = $appsecret;
@@ -174,6 +174,8 @@ class WeiXin {
 	 * @return bool
 	 */
 	private function checkSignature() {
+		if (self::$debug)
+			return true;
 		if (!isset($_GET['signature']) || !isset($_GET['timestamp']) || !isset($_GET['nonce']))
 			return false;
 		$signature = $_GET["signature"];
@@ -181,7 +183,7 @@ class WeiXin {
 		$nonce = $_GET["nonce"];
 
 		$tmpArr = array($this->token, $timestamp, $nonce);
-		sort($tmpArr);
+		sort($tmpArr, SORT_STRING);
 		$tmpStr = implode($tmpArr);
 		$tmpStr = sha1($tmpStr);
 
@@ -202,10 +204,15 @@ class WeiXin {
 		}
 		else
 		{
-			$this->postStr = $GLOBALS["HTTP_RAW_POST_DATA"] ? $GLOBALS["HTTP_RAW_POST_DATA"] : trim($_GET['HTTP_RAW_POST_DATA']);
-			if (!empty($this->postStr))
+			if($GLOBALS['HTTP_RAW_POST_DATA'])
 			{
+				$this->postStr=$GLOBALS['HTTP_RAW_POST_DATA'];
 				$this->postObj = simplexml_load_string($this->postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+			}
+			elseif($_GET['HTTP_RAW_POST_DATA'])
+			{
+				$this->postStr=$_GET['HTTP_RAW_POST_DATA'];
+				$this->postObj=json_decode($this->postStr);
 			}
 			else
 			{
@@ -1259,5 +1266,4 @@ WeixinJSBridge.invoke('getNetworkType',{},
 </script>
 EOF;
 	}
-
 }
